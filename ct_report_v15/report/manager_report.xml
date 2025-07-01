@@ -1,0 +1,1167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_all_manager">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                <t t-foreach="o.manager_vals()" t-as="t">
+
+                    <t t-foreach="t.get('menu_report')" t-as="line">
+
+                        <style type="text/css">
+                            
+                            table,td {
+                                font-size: 18px; 
+                            }
+                            
+                        </style>
+                        <div >
+                            <!-- <img src="/ct_function_v15/static/img/image.png" alt="Image Description" /> -->
+                        </div>
+                        <div class="hearder">
+                        </div>
+                        <br/>
+                        <br/>
+
+                        <div class="page">
+                            <table width="100%" style="border:none;">
+                                <td width="30%" style="border:none;"></td>
+                                <td width="30%" style="border:none;"></td>
+                                <td width="15%" style="border:none;">
+                                    <t t-if="line.get('company_id')">
+                                        <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>                                
+                                    </t>
+                                </td>
+                            </table>
+                            <br/>
+                            <table style="width:100%;border:none;">
+                                <tr>
+                                    <td style="padding-left:40px;border:none;font-size: 20px; width:50%;padding-right:40px;">
+                                        <b>Name : </b>
+                                        <span t-esc="line.get('party_name')"/>
+                                    </td>
+                                    <td style="border:none;font-size: 20px;width:50%;">
+                                        <b>Venue : </b>
+                                        <span t-esc="line.get('venue_address')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left:40px;border:none;font-size: 20px;width:50%;padding-right:40px;">
+                                        <b>Mobile : </b>
+                                        <span t-esc="line.get('mobile_num')"/>
+                                    </td>
+                                    <td style="border:none;font-size: 20px;width:50%;">
+                                        <b>Event Date : <t t-esc="line.get('date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}' /></b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left:40px;border:none;font-size: 20px;width:50%;padding-right:40px;">
+                                        <b>Food Type : </b>
+                                        <span t-esc="line.get('meal_type')"/>
+                                    </td>
+                                    <td style="border:none;font-size: 20px;width:50%;">
+                                        <b>Event Time : </b>
+                                        <span t-esc="line.get('time')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left:40px;width:50%;border:none;">
+                                        <b>Function Name : </b>
+                                        <span t-esc="line.get('function_name')"/>
+                                    </td>
+                                    <td style="border:none;font-size: 20px;width:50%;">
+                                        <b>No. of Person : </b>
+                                        <span t-esc="line.get('no_of_pax')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left:40px;border:none;font-size: 20px;color:red;width:50%;padding-right:40px;">
+                                        <b>Food Note : </b>
+                                        <span t-esc="line.get('remarks')"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%" style="border:none;">
+                                <td style="border:none;">
+                                    <b>
+                                        <span style="padding-left:40px;font-size: 20px;">Extra Message : </span>
+                                    </b>
+                                    <br/>
+                                    <br/>
+                                    <b>
+                                        <span style="padding-left:40px;font-size: 35px;">ITEMS</span>
+                                    </b>
+                                </td>
+                            </table>
+                            <t t-foreach="line.get('product_list')" t-as="product">
+                                <b style="padding-left: 90px;font-size: 21px;">
+                                    <t t-esc="product.get('category')" />
+                                </b>
+                                <t t-foreach="product.get('category_details')" t-as="l">
+                                    <li style="padding-left: 150px;font-size: 18px;">
+                                        <t t-esc="l.get('product')" />
+                                        <t t-if="l.get('instruction')">
+                                            <br/>
+                                                <t t-esc="l.get('instruction')" />
+                                                <t t-if="l.get('description')">
+                                                    <br/>
+                                                    <t t-esc="l.get('description')" />
+                                                </t>   
+                                        </t>
+                                
+                                    </li>
+                                </t>
+                            </t>
+                            <br/>
+                            <br/>
+                            <tr>
+                                <td>
+                                    <t t-if="line.get('notes')">
+                                        <span style="padding-left:40px;font-size: 20px;"><b>Note : </b></span>
+                                        <span t-esc="line.get('notes')"/>
+                                    </t>
+                                </td>
+                            </tr> 
+                        </div>
+
+                    <p style="page-break-before:always;" />
+                </t>
+                    
+            <!-- Utensils -->
+
+            <t t-foreach="t.get('utensils_report')" t-as="line">
+                    <style>
+                        td,th {
+                            border: 1px solid black;
+                        }
+    
+                        table {
+                            border: 1px solid black;
+                            border-collapse: collapse;
+                        }
+                    </style>
+                    <table width="100%" style="border:none;">
+                        <td width="10%" style="border:none;padding-right:200px;">
+                        </td>
+                        <td width="80%" style="border:none;">
+                            <center><h4><b>Manager's</b></h4></center>
+                            <center><h4><b>Utensils Report</b></h4></center>
+                        </td>
+                        <td width="10%" style="border:none;">
+                            <t t-if="line.get('company_id')">
+                                <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>                            
+                            </t>
+                        </td>
+                    </table>
+                    <br></br>
+                    <table width="100%" style="border:none;">
+                    
+                    <tr style="border:none;">
+                        <td style="border-top:none;border-left:none;border-right:none;width:50%;">
+                            <b>Date : <t t-esc="line.get('date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/></b>
+                        </td>
+                        <td style="border-top:none;border-left:none;border-right:none; text-align:right;width:50%;">
+                            <b>Venue Address : <t t-esc="line.get('venue_address')"/></b>
+                        </td>
+                    </tr>
+                    <!-- <tr style="border:none;">
+                        <td style="border:none;">
+                            <b>Party Name : </b><t t-esc="line.get('function_id')"/>
+                        </td>
+                        <td style="border:none; text-align:left;padding-left:340px">
+                            <b>Mobile Number : </b><t t-esc="line.get('phones')"/>
+                        </td>
+                    </tr> -->
+                    <tr style="border:none;">
+                        <td style="border:none;width:50%;">
+                            <!-- <b>Function Name : </b><t t-esc="line.get('fuction_name')"/> -->
+                            <b>Meal type : </b><t t-esc="line.get('meal_type')"/>
+                        </td>
+                        <td style="border:none; text-align:left;width:50%;">
+                            <!-- <b>Meal type : </b><t t-esc="line.get('meal_type')"/> -->
+                        </td>
+                    </tr>   
+                    <tr style="border:none;">
+                        <td style="border:none;width:50%;">
+                            <b>Time : </b><t t-esc="line.get('time')"/>
+                        </td>
+                        <td style="border:none;text-align:left;width:50%;">
+                            <b>No Of Pax : </b><t t-esc="line.get('no_of_pax')"/>
+                        </td>
+                    </tr>
+                    <!-- <tr style="border:none;">
+                        <td style="border:none;">
+                            <b>Emergency Contact : </b><t t-esc="line.get('em_phone')"/>
+                        </td>
+                        <td style="border:none;text-align:left;padding-left:340px">
+                            <b>Remarks : </b><t t-esc="line.get('remarks')"/>
+                        </td>
+                    </tr> -->
+                    <tr style="border:none;">
+                        <td style="border:none;width:50%;">
+                            <b>Manager Name	 : </b><t t-esc="line.get('manager_name')"/>
+                        </td>
+                        <td style="border:none;text-align:left;width:50%;">
+                            <b>Contact Details : </b><t t-esc="line.get('phone')"/>
+                        </td>
+                    </tr>
+                    </table>
+                    <br></br>
+                    <t t-if="line.get('utensils_detail')">
+                        <!-- <center><h5><b>Utensils</b></h5></center> -->
+                        <table width="100%">
+                            <tr style="border:none;">
+                                <th style="text-align:center;">Raw Material</th>
+                                <th style="text-align:center;">Uom</th>
+                                <th style="text-align:center;">Utensils Type</th>
+                                <th style="text-align:center;">Quantity</th>
+                                <!-- <th style="text-align:center;">Utensil Cost</th> -->
+                            </tr>
+                            <t t-foreach="line.get('utensils_detail')" t-as="menu">
+                                <tr>
+                                    <td style="font-weight: bold;padding-left:10px;"><t t-esc="menu.get('utensils')"/></td>
+                                    <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="menu.get('uom')"/></td>
+                                    <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="menu.get('utensils_type')"/></td>
+                                    <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-if="menu.get('qty')">
+                                        <t t-esc="'%.2f'%(menu.get('qty'))"/>
+                                    </t></td>
+                                    <!-- <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="menu.get('uten_cost')"/></td> -->
+                                </tr> 
+                            </t>
+                        </table>
+                    </t>
+                    <p style="page-break-before:always;"/>
+                </t> 
+                
+                <!-- Manager's Confirm Menu -->
+
+                <t t-foreach="t.get('report_menu')" t-as="line">
+                    <table width="100%" style="border:none;">
+                        <td width="10%" style="border:none;padding-right:200px;">
+                        </td>
+                        <td width="80%" style="border:none;">
+                            <center><h4><b>Manager's</b></h4></center>
+                            <center><h4><b>Confirm Menu Reports</b></h4></center>
+                        </td>
+                        <td width="10%" style="border:none;">
+                            <t t-if="line.get('company_id')">
+                                <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>                            
+                            </t>
+                        </td>
+                    </table>
+                    <br/>
+
+                    <table width="100%" style="border:none;">
+                    
+                        <tr style="border:none;">
+                            <td style="border-top:none;border-left:none;border-right:none;width:50%;">
+                                <b>Date : <t t-esc="line.get('date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/></b>
+                            </td>
+                            <td style="border-top:none;border-left:none;border-right:none; text-align:right;width:50%;">
+                                <b>Venue Address : <t t-esc="line.get('venue_address')"/></b>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Party Name : </b><t t-esc="line.get('party_name')"/>
+                            </td>
+                            <td style="border:none; text-align:right;width:50%;">
+                                <b>Mobile Number : </b><t t-esc="line.get('party_number')"/>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Function Name : </b><t t-esc="line.get('fuction_name')"/>
+                            </td>
+                            <td style="border:none; text-align:right;width:50%;">
+                                <b>Meal type : </b><t t-esc="line.get('meal_type')"/>
+                            </td>
+                        </tr>   
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Time : </b><t t-esc="line.get('time')"/>
+                                <!-- <t t-esc="line.get('am_pm')"/> -->
+                            </td>
+                            <td style="border:none;text-align:right;width:50%;">
+                                <b>No Of Pax : </b><t t-esc="line.get('no_of_pax')"/>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Emergency Contact : </b><t t-esc="line.get('emergency_contact')"/>
+                            </td>
+                            <td style="border:none;text-align:right;width:50%;">
+                                <b>Remarks : </b><t t-esc="line.get('remarks')"/>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Manager Name	 : </b><t t-esc="line.get('manager_name')"/>
+                            </td>
+                            <td style="border:none;text-align:right;width:50%;">
+                                <b>Contact Details : </b><t t-esc="line.get('phone')"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr style="border: 1px solid black;"/>
+                    <br/>
+                    <t t-if="line.get('menu_detail')">
+                        <center><h5><b>Menu</b></h5></center>
+                        <table width="100%">
+                            <tr>
+                                <th style="width:30px;text-align:center;">Category</th>
+                                <th style="width:30px;text-align:center;">Itam Name</th>
+                                <th style="width:15px;text-align:center;">No of Pax</th>
+                                <th style="width:30px;text-align:center;">Instruction</th>
+                                <th style="width:30px;text-align:center;">Vendor</th>
+                                <th style="width:30px;text-align:center;">In/Out</th>
+                                <th style="width:15px;text-align:center;">Contact</th>
+                            </tr>
+                            <t t-foreach="line.get('menu_detail')" t-as="menu">
+                            
+                                    <tr>
+                                        <td style="font-weight: bold;padding-left:10px;"><t t-esc="menu.get('category')"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="menu.get('item_id')"/></td>
+                                        <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="menu.get('no_of_pax')"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="menu.get('instruction')"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="menu.get('vender')"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="menu.get('in_out')"/></td>
+                                        <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="menu.get('contact')"/></td>
+                                    </tr> 
+                                </t>
+                        </table>
+                    </t>
+                    <br/>
+                    <br/>
+                    <t t-if="line.get('services_detail')">
+                        <center><h5><b>Service</b></h5></center>
+                        <table width="100%">
+                            <tr>
+                                <th style="width:30px;text-align:center;">Service</th>
+                                <th style="width:20px;text-align:center;">Shift</th>
+                                <th style="width:20px;text-align:center;">Date Time</th>
+                                <th style="width:15px;text-align:center;">Quantity</th>
+                                <th style="width:20px;text-align:center;">Uom</th>
+                                <th style="width:30px;text-align:center;">Remarks</th>
+                                 <th style="width:30px;text-align:center;">Vendor Name</th>
+                                 <th style="width:15px;text-align:center;">Vendor No.</th>
+                            </tr>
+                            <t t-foreach="line.get('services_detail')" t-as="ser">
+                                    <tr>
+                                        <td style="font-weight: bold;padding-left:10px;"><t t-esc="ser.get('service')"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('shift')"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('shift_date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/> <t t-esc="ser.get('shift_time')"/></td>
+                                        <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="'%.2f'%(ser.get('qty'))"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('uom')"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('remarks')"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('vender_name')"/></td>
+                                        <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="ser.get('vender_number')"/></td>
+                                    </tr> 
+                                </t>
+                        </table>
+                    </t>
+                    <br/>
+                    <br/>
+                    <t t-if="line.get('addons_detail')">
+                        <center><h5><b>Add-ons</b></h5></center>
+                        <table width="100%">
+                            <tr>
+                                <th style="width:40px;text-align:center;">Service</th>
+                                <th style="width:25px;text-align:center;">Date Time</th>
+                                <th style="width:20px;text-align:center;">Quantity</th>
+                                <th style="width:30px;text-align:center;">Uom</th>
+                                <!-- <th style="width:20px;text-align:center;">Price</th> -->
+                                <th style="width:30px;text-align:center;">Vendor Name</th>
+                                <th style="width:20px;text-align:center;">Vendor No.</th>
+                            </tr>
+                            <t t-foreach="line.get('addons_detail')" t-as="ser">
+                                    <tr>
+                                        <td style="font-weight: bold;padding-left:10px;"><t t-esc="ser.get('service')"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/></td>
+                                        <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="'%.2f'%(ser.get('qty'))"/></td>
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('uom')"/></td>
+                                        <!-- <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="ser.get('price')"/></td> -->
+                                        <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('vender_name')"/></td>
+                                        <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="ser.get('vender_number')"/></td>
+                                    </tr> 
+                                </t>
+                        </table>
+                    </t>
+                    <p style="page-break-before:always;"/>
+                </t>
+
+                <!-- Vendor Confirmation -->
+
+                <t t-foreach="t.get('vendor_confirmation')" t-as="line">
+                      <style>
+                        td,th {
+                            border: 1px solid black;
+                        }
+    
+                        table {
+                            border: 1px solid black;
+                            border-collapse: collapse;
+                        }
+                    </style>
+
+                    <table width="100%" style="border:none;">
+                        <td width="10%" style="border:none;padding-right:200px;">
+                        </td>
+                        <td width="80%" style="border:none;">
+                            <center><h4><b>Manager's</b></h4></center>
+                            <center><h4><b>Vendor Confirmation Form Report</b></h4></center>
+                        </td>
+                        <td width="10%" style="border:none;">
+                            <t t-if="line.get('company_id')">
+                                <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>                            
+                            </t>
+                        </td>
+                    </table>
+
+                    <!-- <table width="100%" style="border:none;">
+                    
+                    <tr style="border:none;">
+                            <td style="border:none;">
+                                <b>Function Name : </b><t t-esc="line.get('fuction_name')"/>
+                            </td>
+                            <td style="border:none; text-align:right;">
+                                <b>Date : </b><t t-esc="line.get('date')"/>
+                            </td>
+                        </tr>
+                    </table> -->
+                    <table width="100%" style="border:none;">
+                    
+                        <tr style="border:none;">
+                            <td style="border-top:none;border-left:none;border-right:none;width:50%;">
+                                <b>Date : <t t-esc="line.get('date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/></b>
+                            </td>
+                            <td style="border-top:none;border-left:none;border-right:none; text-align:right;width:50%;">
+                                <b>Venue Address : <t t-esc="line.get('venue_address')"/></b>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Party Name : </b><t t-esc="line.get('party_name')"/>
+                            </td>
+                            <td style="border:none; text-align:right;width:50%;">
+                                <b>Mobile Number : </b><t t-esc="line.get('party_number')"/>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Function Name : </b><t t-esc="line.get('fuction_name')"/>
+                            </td>
+                            <td style="border:none; text-align:right;width:50%;">
+                                <b>Meal type : </b><t t-esc="line.get('meal_type')"/>
+                            </td>
+                        </tr>   
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Time : </b><t t-esc="line.get('time')"/>
+                                <!-- <t t-esc="line.get('am_pm')"/> -->
+                            </td>
+                            <td style="border:none;text-align:right;width:50%;">
+                                <b>No Of Pax : </b><t t-esc="line.get('no_of_pax')"/>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Emergency Contact : </b><t t-esc="line.get('emergency_contact')"/>
+                            </td>
+                            <td style="border:none;text-align:right;color:red;width:50%;">
+                                <b>Remarks : </b><t t-esc="line.get('remarks')"/>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Manager Name	 : </b><t t-esc="line.get('manager_name')"/>
+                            </td>
+                            <td style="border:none;text-align:right;width:50%;">
+                                <b>Contact Details : </b><t t-esc="line.get('phone')"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <center>
+                        <h4>
+                            <b>Menu</b>
+                        </h4>
+                    </center>
+                    
+                    <t t-if="line.get('in_house',False)">
+                    <br/>
+                    <center>
+                        <span style="border: 2px solid black; padding: 10px;">
+                            <b>In-House</b>
+                        </span>
+                    </center>
+                        <t t-foreach="line.get('in_house')" t-as="product">
+                        <br/>
+                            <table width="100%">
+                                <tr style="border:none;">
+                                    <th style="width:25%;text-align:center;">Category</th>
+                                    <th style="width:25%;text-align:center;">Product</th>
+                                    <th style="width:10%;text-align:center;">No of Pax</th>
+                                    <th style="width:10%;text-align:center;">Helper</th>
+                                    <th style="width:10%;text-align:center;">Chief</th>
+                                    <th style="width:20%;text-align:center;">instruction</th>
+                                    <th style="width:20%;text-align:center;">Signature</th>
+                                </tr>
+                                <t t-foreach="product" t-as="pro">
+                                    <center>
+                                        <h5>
+                                            <b>
+                                                <t t-esc="pro" />
+                                            </b>
+                                        </h5>
+                                    </center>
+                                    <t t-foreach="product.get(pro)" t-as="x">
+                                        <tr>
+                                            <td style="font-weight: bold;padding-left:10px;">
+                                                <t t-esc="x.get('category')" />
+                                            </td>
+                                            <td style="font-weight: bold;padding-left:10px;">
+                                                <t t-esc="x.get('work')" />
+                                            </td>
+                                            <td
+                                                style="font-weight: bold;text-align:right;padding-right:10px;">
+                                                <t t-esc="x.get('no_of_pax')" />
+                                            </td>
+                                            <td
+                                                style="font-weight: bold;text-align:right;padding-right:10px;">
+                                                <t t-esc="x.get('helper')" />
+                                            </td>
+                                            <td
+                                                style="font-weight: bold;text-align:right;padding-right:10px;">
+                                                <t t-esc="x.get('chief')" />
+                                            </td>
+                                            <td style="font-weight: bold;padding-left:10px;">
+                                                <t t-esc="x.get('instruction')" />
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </table>
+                        </t>
+                    </t>
+                    
+                    <t t-if="line.get('out_source',False)">
+                    <br/>
+                    <center>
+                       
+                            <span style="border: 2px solid black; padding: 10px;">
+                                <b>Out-Source</b>
+                            </span>
+                        
+                    </center>
+                        <t t-foreach="line.get('out_source')" t-as="product">
+                        <br/>
+                            <table width="100%">
+                                <tr style="border:none;">
+                                    <th style="width:25%;text-align:center;">Category</th>
+                                    <th style="width:25%;text-align:center;">Product</th>
+                                    <th style="width:10%;text-align:center;">No of Pax</th>
+                                    <th style="width:10%;text-align:center;">Helper</th>
+                                    <th style="width:10%;text-align:center;">Chief</th>
+                                    <th style="width:20%;text-align:center;">instruction</th>
+                                    <th style="width:20%;text-align:center;">Signature</th>
+                                </tr>
+                                <t t-foreach="product" t-as="pro">
+                                    <center>
+                                        <h5>
+                                            <b>
+                                                <t t-esc="pro" />
+                                            </b>
+                                        </h5>
+                                    </center>
+                                    <t t-foreach="product.get(pro)" t-as="x">
+                                        <tr>
+                                            <td style="font-weight: bold;padding-left:10px;">
+                                                <t t-esc="x.get('category')" />
+                                            </td>
+                                            <td style="font-weight: bold;padding-left:10px;">
+                                                <t t-esc="x.get('work')" />
+                                            </td>
+                                            <td
+                                                style="font-weight: bold;text-align:right;padding-right:10px;">
+                                                <t t-esc="x.get('no_of_pax')" />
+                                            </td>
+                                            <td
+                                                style="font-weight: bold;text-align:right;padding-right:10px;">
+                                                <t t-esc="x.get('helper')" />
+                                            </td>
+                                            <td
+                                                style="font-weight: bold;text-align:right;padding-right:10px;">
+                                                <t t-esc="x.get('chief')" />
+                                            </td>
+                                            <td style="font-weight: bold;padding-left:10px;">
+                                                <t t-esc="x.get('instruction')" />
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </table>
+                        </t>
+                    </t>
+ 
+                   
+                    <t t-if="line.get('hospitality_list',False)">
+                    <br/>
+                     <center>
+                        <span style="border: 2px solid black; padding: 10px;">
+                            <b>Services</b>
+                        </span>
+                    </center>
+                    
+                        <t t-foreach="line.get('hospitality_list')" t-as="product">
+                        <br/>
+                            <table width="100%">
+                                <tr style="border:none;">
+                                     <th style="width:20%;text-align:center;">Service</th>
+                                    <th style="width:10%;text-align:center;">Shift</th>
+                                    <th style="width:10%;text-align:center;">Date</th>
+                                    <th style="width:10%;text-align:center;">Time</th>
+                                    <th style="width:10%;text-align:center;">Quantity</th>
+                                    <th style="width:10%;text-align:center;">Uom</th>
+                                    <th style="width:15%;text-align:center;">Remarks</th>
+                                    <th style="width:15%;text-align:center;">Signature</th>
+                                </tr>
+                                <t t-foreach="product" t-as="pro">
+                                    <center>
+                                        <h5>
+                                            <b>
+                                                <t t-esc="pro" />
+                                            </b>
+                                        </h5>
+                                    </center>
+                                    <t t-foreach="product.get(pro)" t-as="x">
+                                        <tr>
+                                            <td style="font-weight: bold;padding-left:10px;"><t t-esc="x.get('service')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="x.get('shift')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="x.get('shift_date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="x.get('shift_time')"/></td>
+                                            <td style="font-weight: bold;text-align:right;padding-right:10px;"> <t t-esc="x.get('qty')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="x.get('uom')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="x.get('remarks')"/></td>
+                                            <td></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </table>
+                        </t>
+                    </t>
+
+
+
+                   
+                    <t t-if="line.get('addons_list',False)">
+                    <br/>
+                    <center>
+                        <span style="border: 2px solid black; padding: 10px;">
+                            <b>Add-ons</b>
+                        </span>
+                    </center>
+                    
+                        <t t-foreach="line.get('addons_list')" t-as="product">
+                        <br/>
+                            <table width="100%">
+                                <tr style="border:none;">
+                                    <th style="width:20%;text-align:center;">Service</th>
+                                    <th style="width:10%;text-align:center;">Date</th>
+                                    <th style="width:10%;text-align:center;">Time</th>
+                                    <th style="width:15%;text-align:center;">Quantity</th>
+                                    <th style="width:15%;text-align:center;">Uom</th>
+                                    <th style="width:10%;text-align:center;">Instruction</th>
+                                    <th style="width:20%;text-align:center;">Signature</th>
+                                </tr>
+                                <t t-foreach="product" t-as="pro">
+                                    <center>
+                                        <h5>
+                                            <b>
+                                                <t t-esc="pro" />
+                                            </b>
+                                        </h5>
+                                    </center>
+                                    <t t-foreach="product.get(pro)" t-as="x">
+                                        <tr>
+                                            <td style="font-weight: bold;padding-left:10px;"><t t-esc="x.get('service')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="x.get('date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="x.get('time')"/></td>
+                                            <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="x.get('qty')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="x.get('uom')"/></td>
+                                            <td style="text-align:left;padding-left:10px;padding-right:10px;"><t t-esc="x.get('instruction')"/></td>
+                                            <!-- <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="x.get('price')"/></td> -->
+                                           
+                                            <td></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </table>
+                            
+                        </t>
+                    </t>
+
+                    <!-- <t t-if="line.get('menu_list',False)">
+                  
+                        <table width="100%">
+                            <tr style="border:none;">
+                                <th style="width:14%;text-align:center;">Vender</th>
+                                <th style="width:10%;text-align:center;">Type</th>
+                                <th style="width:13%;text-align:center;">Contact</th>
+                                <th style="width:20%;text-align:center;">work</th>
+                                <th style="width:8%;text-align:center;">No Of Pax</th>
+                                <th style="width:15%;text-align:center;">Instruction</th>
+                                <th style="width:14%;text-align:center;">Signature</th>
+                            </tr>
+                            <t t-foreach="line.get('menu_list',False)" t-as="x">
+                                <tr>
+                                    <td style="font-weight: bold;padding-left:10px;">
+                                        <t t-esc="x.get('vender')" />
+                                    </td>
+                                    <td style="font-weight: bold;padding-left:10px;">
+                                        <t t-esc="x.get('type')" />
+                                    </td>
+
+                                    <td
+                                        style="font-weight: bold;text-align:right;padding-right:10px;">
+                                        <t t-esc="x.get('contact')" />
+                                    </td>
+                                    <td
+                                        style="font-weight: bold;text-align:left;padding-left:10px;">
+                                        <t t-esc="x.get('work')" />
+                                    </td>
+                                    <td
+                                        style="font-weight: bold;text-align:right;padding-right:10px;">
+                                        <t t-esc="x.get('no_of_pax')" />
+                                    </td>
+                                    <td
+                                        style="font-weight: bold;text-align:left;padding-left:10px;">
+                                        <t t-esc="x.get('instruction')" />
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+
+                    </t>
+                     <br/>
+                        <t t-if="line.get('hospitality_list')">
+                            <center><h5><b>Service</b></h5></center>
+                            <table width="100%">
+                                <tr>
+                                    <th style="width:15%;text-align:center;">Service</th>
+                                    <th style="width:10%;text-align:center;">Shift</th>
+                                    <th style="width:10%;text-align:center;">Date Time</th>
+                                    <th style="width:7%;text-align:center;">Quantity</th>
+                                    <th style="width:7%;text-align:center;">Uom</th>
+                                    <th style="width:10%;text-align:center;">Remarks</th>
+                                    <th style="width:15%;text-align:center;">Vender Name</th>
+                                    <th style="width:10;text-align:center;">Vender No.</th>
+                                    <th style="width:16%;text-align:center;">Signature</th>
+                                </tr>
+                                <t t-foreach="line.get('hospitality_list')" t-as="ser">
+                                        <tr>
+                                            <td style="font-weight: bold;padding-left:10px;"><t t-esc="ser.get('service')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('shift')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('shift_date')"/>
+                    <t t-esc="ser.get('shift_time')"/></td>
+                                            <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="ser.get('qty')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('uom')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t
+                    t-esc="ser.get('remarks')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t
+                    t-esc="ser.get('vender_name')"/></td>
+                                            <td style="font-weight: bold;text-align:right;padding-right:10px;"><t
+                    t-esc="ser.get('vender_number')"/></td>
+                                            <td></td>
+                                        </tr> 
+                                    </t>
+                            </table>
+                        </t>
+                        <br/>
+                        <t t-if="line.get('addons_list')">
+                            <center><h5><b>Addons</b></h5></center>
+                            <table width="100%">
+                                <tr>
+                                    <th style="width:15%;text-align:center;">Service</th>
+                                    <th style="width:10%;text-align:center;">Date Time</th>
+                                    <th style="width:7%;text-align:center;">Quantity</th>
+                                    <th style="width:10%;text-align:center;">Uom</th>
+                                    <th style="width:10%;text-align:center;">Price</th>
+                                    <th style="width:20%;text-align:center;">Vender Name</th>
+                                    <th style="width:10%;text-align:center;">Vender No.</th>
+                                    <th style="width:18%;text-align:center;">Signature</th>
+                                </tr>
+                                <t t-foreach="line.get('addons_list')" t-as="ser">
+                                        <tr>
+                                            <td style="font-weight: bold;padding-left:10px;"><t t-esc="ser.get('service')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('date')"/> <t
+                    t-esc="ser.get('time')"/></td>
+                                            <td style="font-weight: bold;text-align:right;padding-right:10px;"><t t-esc="ser.get('qty')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t t-esc="ser.get('uom')"/></td>
+                                            <td style="font-weight: bold;text-align:right;padding-right:10px;"><t
+                    t-esc="ser.get('price')"/></td>
+                                            <td style="font-weight: bold;text-align:left;padding-left:10px;"><t
+                    t-esc="ser.get('vender_name')"/></td>
+                                            <td style="font-weight: bold;text-align:right;padding-right:10px;"><t
+                    t-esc="ser.get('vender_number')"/></td>
+                                            <td></td>
+                                        </tr> 
+                                    </t>
+                            </table>
+                        </t> -->
+                    
+
+                    <p style="page-break-before:always;" />
+                </t>
+
+                <!-- Feedback Report -->
+
+                <t t-foreach="t.get('feedback_report')" t-as="line">
+                      <style>
+                        td,th {
+                            border: 1px solid black;
+                        }
+    
+                        table {
+                            border: 1px solid black;
+                            border-collapse: collapse;
+                        }
+                    </style>
+                    <table width="100%" style="border:none;">
+                        <td width="10%" style="border:none;padding-right:200px;">
+                        </td>
+                        <td width="80%" style="border:none;">
+                            <center><h4><b>Feed Back Form Report</b></h4></center>
+                        </td>
+                        <td width="10%" style="border:none;">
+                            <t t-if="line.get('company_id')">
+                                <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>                            </t>
+                        </td>
+                    </table>
+                    <br/>
+
+                    <table width="100%" style="border:none;">
+                
+                        <tr style="border:none;">
+                            <td style="border-top:none;border-left:none;border-right:none;width:50%;">
+                                <b>Date : <t t-esc="line.get('date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/></b>
+                            </td>
+                            <td style="border-top:none;border-left:none;border-right:none; text-align:right;width:50%;">
+                                <b>Venue Address : <t t-esc="line.get('venue_address')"/></b>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Party Name : </b><t t-esc="line.get('party_name')"/>
+                            </td>
+                            <td style="border:none; text-align:right;width:50%;">
+                                <b>Mobile Number : </b><t t-esc="line.get('party_number')"/>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Function Name : </b><t t-esc="line.get('fuction_name')"/>
+                            </td>
+                            <td style="border:none; text-align:right;width:50%;">
+                                <b>Meal type : </b><t t-esc="line.get('meal_type')"/>
+                            </td>
+                        </tr>   
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Time : </b><t t-esc="line.get('time')"/>
+                                <!-- <t t-esc="line.get('am_pm')"/> -->
+                            </td>
+                            <td style="border:none;text-align:right;width:50%;">
+                                <b>No Of Pax : </b><t t-esc="line.get('no_of_pax')"/>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Emergency Contact : </b><t t-esc="line.get('emergency_contact')"/>
+                            </td>
+                            <td style="border:none;text-align:right;color:red;width:50%;">
+                                <b>Remarks : </b><t t-esc="line.get('remarks')"/>
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Manager Name	 : </b><t t-esc="line.get('manager_name')"/>
+                            </td>
+                            <td style="border:none;text-align:right;width:50%;">
+                                <b>Contact Details : </b><t t-esc="line.get('phone')"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- <center><h5><b>Regular</b></h5></center>
+                    <table style="width:100%;text-align:center">
+                        <tr>
+                            <th style="width:25%;">PARTICULAR</th>
+                            <th style="width:15%;">PARTICULAR</th>
+                            <th style="width:15%;">QUANTITY</th>
+                            <th style="width:20%;">GUEST SIGNATURE</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <tr>
+                                    <th rowspan="4" class="centered-cell"><center>BREAKFAST</center></th>
+                                    <td>Order</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                                <tr>
+                                    <td>Extra</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                                <tr>
+                                    <td>Extra</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <tr>
+                                    <th rowspan="4">LUNCH</th>
+                                    <td>Order</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                                <tr>
+                                    <td>Extra</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                                <tr>
+                                    <td>Extra</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <tr>
+                                    <th rowspan="4">DINNER</th>
+                                    <td>Order</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                                <tr>
+                                    <td>Extra</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                                <tr>
+                                    <td>Extra</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                                <td>
+                                    <td>Total</td>
+                                    <td>  </td>
+                                    <td>  </td>
+                                </tr>
+                            </td>
+                        </tr>
+                    </table> -->
+                    <br/>
+                    <br/>
+                    <table style="width:100%;text-align:center">
+                        <tr>
+                            <th style="width:25%;">REMARK</th>
+                            <th style="width:15%;">EXCELLENT</th>
+                            <th style="width:15%;">GOOD</th>
+                            <th style="width:15%;">FAIR</th>
+                            <th style="width:15%;">POOR</th>
+                        </tr>
+                        <tr>
+                            <td>
+                               <span>Food quality</span>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon excellent emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon good emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon Average emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon sad emoji.png" alt="Image Description" style="width:27%;height:9%;padding-bottom:5px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Hospitality</span>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon excellent emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon good emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon Average emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon sad emoji.png" alt="Image Description" style="width:27%;height:9%;padding-bottom:5px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Cleanliness And hygine</span>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon excellent emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon good emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon Average emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon sad emoji.png" alt="Image Description" style="width:27%;height:9%;padding-bottom:5px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                               <span>Staff friendliness</span>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon excellent emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon good emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon Average emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon sad emoji.png" alt="Image Description" style="width:27%;height:9%;padding-bottom:5px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                               <span>Overall satisfaction</span>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon excellent emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon good emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon Average emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon sad emoji.png" alt="Image Description" style="width:27%;height:9%;padding-bottom:5px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                               <span>Overall Decoration(If Any)</span>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon excellent emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon good emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon Average emoji.png" alt="Image Description" style="width:30%;height:10%;padding-bottom:5px;"/>
+                            </td>
+                            <td>
+                                <img src="/ct_report_v15/static/img/icon sad emoji.png" alt="Image Description" style="width:27%;height:9%;padding-bottom:5px;"/>
+                            </td>
+                        </tr>
+                    </table>        
+                    <u><span style="font-size: 18px;">GUEST SUGGESTION</span></u>
+                    <br/>
+                    <span>____________________________________________________________________________________________________________________________________________</span>
+                    <br/>
+                    <span>____________________________________________________________________________________________________________________________________________</span>
+                    <br/>
+                    <span>____________________________________________________________________________________________________________________________________________</span>
+                    <br/>
+                    <br/>
+                    <u><span style="font-size: 18px;">EXTRA ITEMS / SERVICES</span></u>
+                    <br/>
+                    <span>____________________________________________________________________________________________________________________________________________</span>
+                    <br/>
+                    <span>____________________________________________________________________________________________________________________________________________</span>
+                    <br/>
+                    <span>____________________________________________________________________________________________________________________________________________</span>
+                    <br/>
+                    <span>____________________________________________________________________________________________________________________________________________</span>
+                    <!-- <table style="width:100%;border:none;">
+                        <tr>
+                            <td style="border:none;">
+                                <span>CHECK OUT TIME: ________________________________________</span>
+                            </td>
+                            <td style="border:none;">
+                                <span>MANAGER SIGN: ____________________________________________________</span>
+                            </td>
+                        </tr>
+                        <tr>table
+                            <td style="border:none;"></td>
+                            <td style="border:none;padding-top:5px;">
+                                <span>MANAGER NAME: ___________________________________________________</span> 
+                            </td>
+                        </tr>
+                    </table> -->
+                    <span>____________________________________________________________________________________________________________________________________________</span>
+                    <t t-if="line.get('addons_data')">
+                        <u><span style="font-size: 18px;">Add-ons</span></u>
+                        <table style="width:100%;border:none;height:5%">
+                           
+                                <tr style="border:none;">
+                                    <td style="border:none;"><t t-esc="line.get('addons_data')"/></td>
+                                </tr> 
+                            
+                        </table>
+                        <br/>
+                    </t>
+                    <span style="font-size: 18px;">WE CONFIRED RECEIVED FOOD/DECORATION/ALLIED SERVICES AS PER OUR ORDER</span>
+                    <br/>
+                    <br/>
+                    <table style="width:100%;border:none;">
+                        <tr>
+                            <td style="border:none;text-align:right;">
+                                <span style="font-size: 18px;">GUEST SIGN: _______________________________________________________</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:none;text-align:right;padding-top:10px;">
+                                <span style="font-size: 18px;">GUEST NAME: _____________________________________________________</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <br></br>
+             <p style="page-break-before:always;" />
+            </t>
+            </t>
+            </t>
+            </t>  
+        </template>
+    </data>
+</odoo>

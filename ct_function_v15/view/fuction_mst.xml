@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_function_mst_view_form" model="ir.ui.view">
+        <field name="name">hop.function.mst.view.form</field>
+        <field name="model">hop.function.mst</field>
+        <field name="arch" type="xml">
+            <form string="Function Master">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="convert_name" />
+                            <field name="gujarati" force_save="1"/>
+                            <field name="hindi" force_save="1"/>
+                            <field name="product_id" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hop_function_mst_view_tree" model="ir.ui.view">
+        <field name="name">hop.function.mst.view.tree</field>
+        <field name="model">hop.function.mst</field>
+        <field name="arch" type="xml">
+            <tree string="Function Master">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="hop_function_mst_action" model="ir.actions.act_window">
+        <field name="name">Function Master</field>
+        <field name="res_model">hop.function.mst</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    
+   
+</odoo>

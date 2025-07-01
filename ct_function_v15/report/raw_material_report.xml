@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="raw_material_report">
+            <t t-call="web.html_container">    
+                    <t t-foreach="docs" t-as="o">
+                        <!-- <div class="header">
+                            <header>
+                                <img src="/ct_function_v15/static/img/shreeji_header.png" style="width:100%;"/>
+                            </header>
+                        </div> -->
+                        <!-- <div class="footer">
+                            <footer>
+                                <img src="/ct_function_v15/static/img/shreeji_border.png" style="width:100%;"/>
+                            </footer>
+                        </div> -->
+                        <div class="page">
+                            <!-- <div class="oe_structure"/> -->
+
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <center>
+                                        <h2>
+                                            <span t-esc="o.partner_id.name"/>  (<span t-esc="o.partner_id.phone"/>)
+                                        </h2>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <b> <span>Venue Address</span> : </b><span t-esc="o.venue_address"/>
+                                    </td>
+                                    <td style="text-align:left;padding-left:350px;">
+                                        <b><span>Manager Name</span> : </b><span t-esc="o.manager_name_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b><span>Date</span> : </b><span t-esc="o.delivery_date"/>
+                                    </td>
+                                    <td style="text-align:left;padding-left:350px;">
+                                        <b> <span>Manager Mobile</span> : </b><span t-esc="o.manager_name_id.phone"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b><span>Delivery Time</span> : </b><span t-field="o.delivery_time" t-options="{'widget': 'float_time'}" /><span t-field="o.delivery_am_pm"  />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b> <span>Meal Type</span> : </b><span t-esc="o.meal_type"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b> <span>Remark</span> : </b><span t-esc="o.remarks"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <h1>
+                                            <b><span t-esc="o.name"/></b>
+                                        </h1>
+                                    </td>
+                                </tr>
+                            </table>
+                            <hr size="2" color="black"/>
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th style="background-color:grey">Product</th>
+                                    <th style="background-color:grey">Remark</th>
+                                    <th style="background-color:grey">Quantity</th>
+                                    <th style="background-color:grey">UOM</th>
+                                    <th style="background-color:grey">Unit Price</th>
+                                    <th style="background-color:grey">Sub Total</th>
+                                  
+                                </tr>
+                                <t t-foreach="o.order_line" t-as="item">
+                                    <tr>
+                                        <td  style="text-align:left;padding-left:10px;">
+                                            <span t-esc="item.product_id.name"></span>
+                                        </td>
+                                        <td  style="text-align:left;padding-left:10px;">
+                                            <span t-esc="item.name"></span>
+                                        </td>
+                                       
+                                        <td  style="text-align:left;padding-left:10px;">
+                                            <span t-esc="item.product_qty"></span>
+                                        </td>
+                                        <td  style="text-align:left;padding-left:10px;">
+                                            <span t-esc="item.product_uom.name"></span>
+                                        </td>
+                                        <td  style="text-align:left;padding-left:10px;">
+                                            <span t-esc="item.price_unit"></span>
+                                        </td>
+                                        <td  style="text-align:left;padding-left:10px;">
+                                            <span t-esc="item.price_subtotal"></span>
+                                        </td>
+                                       
+                                    </tr>
+                                </t>
+                               
+                            </table>
+                        
+                        </div>
+                    </t>
+            </t>
+        </template>
+    </data>
+</odoo>

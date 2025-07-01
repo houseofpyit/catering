@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-name="CustomDashBoard">
+        <!-- <div class="oh_dashboards">
+            <div class="o_hr_dashboard">
+                
+            </div>
+        </div> -->
+        <img src="/ct_report_v15/static/img/banner.png" style="width:100%;height:100%;" />
+        <span>Wellcome In Report</span> 
+    </t>
+
+    <t t-name="EmployeeWarning">
+        <!-- <div> -->
+            <!-- <center><h1> All Report's Here</h1></center> -->
+        <!-- </div> -->
+    </t>
+
+</templates>

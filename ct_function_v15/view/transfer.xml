@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="hop_transfer_form" model="ir.ui.view">
+        <field name="name">Transfer</field>
+        <field name="model">hop.transfer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <span><b>Stock</b></span><button name="action_transfer" string="Transfer" type="object" class="oe_highlight"/>
+                            <span><b>Out</b></span><button name="action_ok" string="Ok" type="object" class="oe_highlight"/>
+                            <center><button name="action_all" string="All" type="object" class="oe_highlight"/></center>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hop_transfer_tree" model="ir.ui.view">
+        <field name="name">Transfer</field>
+        <field name="model">hop.transfer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="stock"/>
+                <field name="out"/>
+            </tree>
+        </field>
+    </record> 
+
+    <record id="action_hop_transfer" model="ir.actions.act_window">
+        <field name="name">Transfer</field>
+        <field name="res_model">hop.transfer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

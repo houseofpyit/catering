@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hop_opening_stock_treeview" model="ir.ui.view">
+        <field name="name">hop.opening.stock.view.tree</field>
+        <field name="model">hop.opening.stock</field>
+        <field name="arch" type="xml">
+            <tree create="1" editable="bottom">
+                <field name="date" width="30%"/>
+                <field name="product_id" width="30%" required="1" options="{'no_quick_create':true}"/>
+                <field name="qty" width="30%"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hop_opening_stock_action" model="ir.actions.act_window">
+        <field name="name">Opening Stock</field>
+        <field name="res_model">hop.opening.stock</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

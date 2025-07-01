@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <menuitem 
+        id="function_row_main_menu"
+        name="Raw Material PO"
+        action="action_row_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem 
+        id="function_out_main_menu"
+        name="Out-Source PO"
+        action="ct_function_v15.action_out_source_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem 
+        id="function_in_main_menu"
+        name="In-House PO"
+        action="action_in_house_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem 
+        id="function_service_main_menu"
+        name="Service PO"
+        action="action_service_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem 
+        id="function_addons_main_menu"
+        name="Add-ons PO"
+        action="action_addons_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem 
+        id="function_normal_main_menu"
+        name="Normal"
+        action="action_normal_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem 
+        id="function_main_menu"
+        name="Confirmed Orders"
+        web_icon="ct_function_v15,static/img/icon 11 Function.png"
+        sequence="3"
+        />
+
+    <menuitem 
+        id="sale.sale_menu_root"
+        name="Sales"
+        web_icon="ct_function_v15,static/img/icon 8 Sales.png"
+        sequence="5"
+        />
+
+    <menuitem 
+        id="purchase.menu_purchase_root"
+        name="Purchase"
+        web_icon="ct_function_v15,static/img/icon 9 Purchase.png"
+        sequence="4"
+        />  
+
+    <menuitem 
+        id="account.menu_finance"
+        name="Invoicing"
+        web_icon="ct_function_v15,static/img/icon 10 Invoice.png"
+        sequence="5"
+        />  
+
+    <menuitem 
+        id="account.menu_finance_configuration"
+        name="Master"
+        parent="account.menu_finance"
+        sequence="2"
+        />
+
+    <menuitem 
+        id="function_menu"
+        name="Order Details"
+        action="hop_function_action"
+        parent="function_main_menu"
+        sequence="1"
+        />
+
+    <menuitem 
+        id="configuration_menu"
+        name="Master"
+        parent="function_main_menu"
+        sequence="2"
+        />
+
+    <menuitem 
+        id="function_mst_menu"
+        name="Function Master"
+        action="hop_function_mst_action"
+        parent="configuration_menu"
+        sequence="1"
+        />
+
+
+    <!-- <menuitem 
+        id="account.menu_finance_configuration"
+        name="Utility"
+        parent="ct_function_v15.function_utility_main_menu"
+        /> -->
+    
+    <menuitem 
+        id="main_menu_utensils"
+        name="Utensils Manager"
+        sequence="6"
+        action="utensils_mst_action"
+        web_icon="ct_function_v15,static/img/icon 15 manager utensil.png"
+        />
+    
+    <menuitem 
+        id="main_menu_lead"
+        name="Inquiry"
+        sequence="2"
+        action="hop_lead_action"
+        web_icon="ct_function_v15,static/img/icon 14 Lead.png"/>
+
+    <menuitem 
+        id="calendar.mail_menu_calendar"
+        name="Calendar"
+        sequence="1"
+        web_icon="ct_function_v15,static/img/icon 16 calender.png"
+        />
+
+    <menuitem 
+        id="hop_calendar_main_menu"
+        name="Calendar"
+        action="hop_calendar_action"
+        sequence="1" />
+    <menuitem
+        id="calendar.calendar_menu_config"
+        parent="calendar.mail_menu_calendar"
+        name="Master"
+        sequence="1"
+    />
+
+    <menuitem 
+        id="sale.menu_sale_config"
+        name="Master"
+        sequence="6"
+        parent="sale.sale_menu_root"
+        />
+
+    <menuitem 
+        id="purchase.menu_purchase_config"
+        name="Master"
+        parent="purchase.menu_purchase_root"
+        />
+
+    <record model="ir.ui.menu" id="sale.menu_sale_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+
+    <record model="ir.ui.menu" id="sale.res_partner_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+    
+    <record model="ir.ui.menu" id="sale.report_sales_team">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+            <record model="ir.ui.menu" id="purchase.menu_procurement_management_supplier_name">
+                <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+            </record>
+
+    <record model="ir.ui.menu" id="sale.menu_sale_report">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="sale.product_menu_catalog">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="sale.menu_sale_invoicing">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.purchase_report_main">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_products">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_incoterm_open">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_account_bank_journal_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.action_account_reconcile_model_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_finance_entries_accounting_journals">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_currency_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+    
+    <record model="ir.ui.menu" id="account.menu_action_account_fiscal_position_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_account_journal_group_list">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="payment.payment_acquirer_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_product_product_categories">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_warehouse_report">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_move_in_refund_type">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.product_product_menu_purchasable">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_move_out_refund_type">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.product_product_menu_sellable">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_finance_reports">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+
+</odoo>

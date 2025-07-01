@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_inventory_adj_line_view_tree" model="ir.ui.view">
+        <field name="name">hop.inventory.adj.line.view.tree</field>
+        <field name="model">hop.inventory.adj.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id" width="20" options="{'no_quick_create':true}"/>
+                <field name="qty" width="20" sum="Quantity" force_save="1"/>
+                <field name="new_qty" width="20" sum="Quantity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hop_inventory_adj_line_action" model="ir.actions.act_window">
+        <field name="name">Inventory Adjustment Line</field>
+        <field name="res_model">hop.inventory.adj.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

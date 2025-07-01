@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hop_ingredients_summary_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">hop.ingredients.report.wizard.view.form</field>
+        <field name="model">hop.ingredients.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Total Raw-Material Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="type" invisible="1"/>
+                            <field name="from_date" />
+                        </group>
+                        <group>
+                        <field name="to_date" />
+                            <field name="fuction_ids" options="{'no_quick_create':true}" widget="many2many_tags" required="1"/>
+                            <field name="language" required="1"/>
+                            <!-- <field name="to_date" /> -->
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print" string="Generate" type="object"  attrs="{'invisible': [('type','=','normal')] }" class="oe_highlight"/>
+                    <button name="action_print_normal" string="Generate" attrs="{'invisible': [('type','=','details')] }"  type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link oe_highlight" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ingredients_summary_report_wizard" model="ir.actions.act_window">
+        <field name="name">Total Raw-Material Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.ingredients.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_type': 'normal'}</field>
+    </record>
+
+    <record id="action_ingredients_summary_report_wizard_details" model="ir.actions.act_window">
+        <field name="name">Aggregate Total Raw material</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.ingredients.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_type': 'details'}</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','cat_expense')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="product.cat_expense" model="product.category">
+        <field name="parent_id" ref="product.product_category_all"/>
+        <field name="name">Expenses</field>
+        <field name="active">False</field>
+    </record>
+    
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','cat_expense')] "/> 
+        </function>
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_1')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="product.product_category_1" model="product.category">
+        <field name="parent_id" ref="product.product_category_all"/>
+        <field name="active">False</field>
+        <field name="name">Saleable</field>
+    </record>
+    
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_1')] "/> 
+        </function>
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_all')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="product.product_category_all" model="product.category">
+        <field name="name">All</field>
+        <field name="active">False</field>
+    </record>
+    
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_all')] "/> 
+        </function>
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_consumable')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="product.product_category_consumable" model="product.category">
+            <field name="parent_id" ref="product.product_category_all"/>
+            <field name="name">Consumable</field>
+            <field name="active">False</field>
+    </record>
+    
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_consumable')] "/> 
+        </function>
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_2')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="product.product_category_2" model="product.category">
+        <field name="parent_id" ref="product.product_category_all"/>
+        <field name="name">Internal</field>
+        <field name="active">False</field>
+    </record>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_2')] "/> 
+        </function>
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_3')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="product.product_category_3" model="product.category">
+        <field name="parent_id" ref="product.product_category_1"/>
+        <field name="name">Services</field>
+        <field name="active">False</field>
+    </record>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_3')] "/> 
+        </function>
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_4')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="product.product_category_4" model="product.category">
+        <field name="parent_id" ref="product.product_category_1"/>
+        <field name="name">Software</field>
+        <field name="active">False</field>
+    </record>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_4')] "/> 
+        </function>
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_5')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="product.product_category_5" model="product.category">
+        <field name="parent_id" ref="product.product_category_1"/>
+        <field name="name">Office Furniture</field>
+        <field name="active">False</field>
+    </record>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_5')] "/> 
+        </function>
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_6')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="product.product_category_6" model="product.category">
+        <field name="parent_id" ref="product.product_category_3"/>
+        <field name="name">Saleable</field>
+        <field name="active">False</field>
+    </record>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'product'), ('name','=','product_category_6')] "/> 
+        </function>
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+</odoo>

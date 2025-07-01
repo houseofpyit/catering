@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_purchase_bill_inhetit" model="ir.ui.view">
+        <field name="name">account move purchase bill</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <!-- <xpath expr='//tree' position='attributes'>
+                <attribute name="delete">0</attribute>
+                <attribute name="create">0</attribute>
+            </xpath> -->
+            
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath>
+            <xpath expr="//label[@for='invoice_payment_term_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_payment_term_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group/group[2]/div[3]/field[@name='currency_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group/group[2]/field[@name='currency_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='l10n_in_gst_treatment']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_date_due']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_reference']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <label name="invoice_vendor_bill_id_label" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </label>
+            <field name="invoice_vendor_bill_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <field name="date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="purchase_vendor_bill_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="purchase_vendor_bill_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+       
+            <xpath expr="//label[@for='purchase_vendor_bill_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//span[@class='o_form_label mx-3 oe_edit_only']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            
+            <xpath expr="//page/field[@name='invoice_line_ids']/form/sheet/group/field[@name='product_id']" position="before">
+                <field name="fun_date" />
+            </xpath>
+            <xpath expr="//page/field[@name='invoice_line_ids']/form/sheet/group/field[@name='product_id']" position="after">
+                <field name="name"/>
+            </xpath>
+            <xpath expr="//page/field[@name='invoice_line_ids']/form/sheet/group/field[@name='tax_ids']" position="after">
+                <field name="price_subtotal"/>
+            </xpath>
+            <xpath expr="//page/field[@name='invoice_line_ids']/form/sheet/group/field[@name='fun_date']" position="before">
+                <field name='sale_id' attrs="{'column_invisible': [('parent.move_type','!=','out_invoice')]}" options="{'no_quick_create':true}"/>  
+            </xpath>
+
+            <field name="ref" position="after">
+                <field name="po_type" invisible="1" />
+            </field>
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='product_id']" position="before">
+                <field name='purchase_id' attrs="{'column_invisible': [('parent.po_type','!=','in_house')]}" domain="[('po_type','=','in_house'),('state','=','purchase')]" options="{'no_quick_create':true}"/>
+                <field name='sale_id' attrs="{'column_invisible': [('parent.move_type','!=','out_invoice')]}" options="{'no_quick_create':true}"/>  
+                <field name="fun_date" />             
+            </xpath>
+            <xpath expr="//field[@name='line_ids']//field[@name='product_id']" position="before">
+                <field name='purchase_id' attrs="{'column_invisible': [('parent.po_type','!=','in_house')]}" domain="[('po_type','=','in_house'),('state','=','purchase')]" options="{'no_quick_create':true}"/>
+                <field name='sale_id' attrs="{'column_invisible': [('parent.move_type','!=','out_invoice')]}" options="{'no_quick_create':true}"/>  
+                <field name="fun_date" />             
+            </xpath>
+            <xpath expr="//field[@name='product_id']" position="attributes">
+                <attribute name="attrs">{'column_invisible': [('parent.po_type', '=', 'in_house')]}</attribute>
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_uom_id']" position="attributes">
+                <attribute name="attrs">{'column_invisible': [('parent.po_type', '=', 'in_house')]}</attribute>
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='quantity']" position="attributes">
+                <attribute name="attrs">{'column_invisible': [('parent.po_type', '=', 'in_house')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='name']"
+                position="attributes">
+                <attribute name="attrs">{'column_invisible': [('parent.po_type', '=', 'in_house')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='l10n_in_gst_treatment']" position="attributes">
+                <attribute name="attrs">{'invisible': [('l10n_in_gst_treatment','=',True)]}</attribute>
+            </xpath>
+            <!-- <xpath expr="//field[@name='note']" position="attributes">
+                <attribute name="attrs">{'invisible': [('note','=',True)]}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='optional_product']" position="attributes">
+                <attribute name="attrs">{'invisible': [('optional_product','=',True)]}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='other_info']" position="attributes">
+                <attribute name="attrs">{'invisible': [('other_info','=',True)]}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='customer_signature']" position="attributes">
+                <attribute name="attrs">{'invisible': [('customer_signature','=',True)]}</attribute>
+            </xpath>
+            <xpath expr="//sheet/button[@name='preview_sale_order']" position="attributes">
+                <attribute name="attrs">{'invisible': [('preview_sale_order','=',True)]}</attribute>
+            </xpath>     -->
+            <xpath expr="//field[@name='partner_bank_id']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='preview_invoice']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>  
+              
+            <xpath expr="//button[@name='action_reverse']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        
+            <xpath expr="//field[@name='purchase_vendor_bill_id']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_payment_register_form_custom" model="ir.ui.view">
+        <field name="name">account.payment.register.form.custom</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group/group/field[@name='partner_bank_id']" position="attributes">
+                <attribute name="attrs">{'invisible': [('partner_type','=','customer')]}</attribute> 
+            </xpath>
+        </field>
+    </record>
+</odoo>

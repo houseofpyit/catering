@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+    <!-- Sequences for purchase.order -->
+    <record id="purchase.seq_purchase_order" model="ir.sequence">
+        <field name="name">Purchase Order</field>
+        <field name="code">purchase.order</field>
+        <field name="prefix">PO/%(day)s%(month)s%(y)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>  
+    
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'purchase')]"/>
+        </function>
+        <value eval="{'noupdate': False}"/> 
+    </function>    
+
+    <record id="sequence_wax_mst" model="ir.sequence">
+        <field name="name">HOP function</field>
+        <field name="code">hop.function</field>
+        <field name="active">TRUE</field>
+        <field name="prefix">CO/%(day)s%(month)s%(y)s/</field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="calendar_sq" model="ir.sequence">
+        <field name="name">calendar</field>
+        <field name="code">hop.calendar</field>
+        <field name="active">TRUE</field>
+        <field name="prefix">EI/%(day)s%(month)s%(y)s/</field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="Menu_planner" model="ir.sequence">
+        <field name="name">Menu Planner</field>
+        <field name="code">hop.lead</field>
+        <field name="active">TRUE</field>
+        <field name="prefix">MP/%(day)s%(month)s%(y)s/</field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>

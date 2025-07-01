@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem 
+        id="function_master_main_menu"
+        name="Master"
+        web_icon="ct_contact_v15,static/img/icon 19 masters.png"
+        sequence="8"
+    />
+
+    <menuitem 
+        id="function_utility_main_menu"
+        name="Utility"
+        action="ct_function_v15.hop_function_action"
+        web_icon="ct_contact_v15,static/img/icon 20 utility.png"
+        sequence="9"
+    />
+
+    <menuitem
+        id="account.menu_finance_receivables"
+        name="Customers"
+        parent="sale.sale_menu_root"
+        sequence="1"/>
+
+
+    <menuitem name="Communication"
+        id="mail.menu_root_discuss"
+        action="mail.action_discuss"
+        parent="ct_contact_v15.function_utility_main_menu"
+        groups="base.group_user"
+        sequence="50"
+    />
+    <!-- web_icon="ct_contact_v15,static/img/icon_Discuss.png" -->
+
+    <menuitem name="Settings"
+        id="base.menu_administration"
+       sequence="550"
+        parent="ct_contact_v15.function_utility_main_menu"
+        groups="base.group_erp_manager"/>
+        <!-- web_icon="ct_contact_v15,static/img/icon_Setting.png" -->
+
+    <menuitem id="base.menu_management" 
+        name="Apps" sequence="500" 
+        web_icon="base,static/description/modules.png" 
+        groups="base.group_no_one"/>
+
+    <menuitem
+        id="vender_menu"
+        name="Vendor"
+        action='action_vender'
+        sequence="3"
+        parent="ct_contact_v15.function_master_main_menu"
+        />
+        <!-- web_icon="ct_contact_v15,static/img/icon_vendor.png" -->
+
+    <menuitem 
+        id="contacts.menu_contacts"
+        name="Party Master"
+        sequence="4"
+        parent="ct_contact_v15.function_master_main_menu"
+        />
+        <!-- web_icon="ct_contact_v15,static/img/icon_Customer.png" -->
+
+    <menuitem 
+        id="contacts.res_partner_menu_contacts"
+        name="Customer"
+        parent="contacts.menu_contacts"
+        sequence="1"
+        />
+    
+    <menuitem 
+        id="contacts.res_partner_menu_config"
+        name="Master"
+        parent="vender_menu"
+        sequence="2"
+        />
+
+    <menuitem 
+        id="hop_category_menu"
+        name="Category"
+        parent="contacts.res_partner_menu_config"
+        action="hop_category_action"
+        sequence="1"
+        />
+
+    <menuitem 
+        id="vender_menu_config"
+        name="Master"
+        parent="vender_menu"
+        sequence="2"
+        />
+
+
+    <record model="ir.ui.menu" id="contacts.menu_partner_title_contact">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="contacts.res_partner_industry_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="contacts.menu_country_group">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="contacts.menu_action_res_bank_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="contacts.menu_action_res_partner_bank_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="contacts.menu_country_partner">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="contacts.menu_country_state_partner">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+</odoo>

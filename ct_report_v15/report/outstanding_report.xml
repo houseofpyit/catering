@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="outstanding_rpt">
+            <t t-call="web.basic_layout">
+                <style>
+                    td {
+                        border : 1px solid black;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="t">
+                <t t-foreach="t.generate_outstanding_pdf_vals()" t-as="data">
+                    <div class="page">
+                        <table width="100%" style="border:none;">
+                            <td width="20%" style="border:none;">
+                            </td>
+                            <td width="60%" style="border:none;">
+                                <table style="width:100%;">
+                                    <center>
+                                        <h2>Outstanding Report</h2>
+                                </center>
+                                    <center>
+                                            <h3 style="padding-bottom:10px;padding-top:10px;">Date Between <span t-esc="data.get('from_date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'></span> To <span t-esc="data.get('to_date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'></span></h3>
+                                    </center>
+                                </table>
+                            </td>
+                            <td width="30%" style="border:none;">
+                                <t t-if="data.get('company_id')">
+                                    <img t-att-src="'data:image/png;base64,' + str(data.get('company_id'), 'utf-8')" width="150" height="100"/>
+                                </t>
+                            </td>
+                        </table>
+
+                        <style>
+                            .total-row {
+                                background-color: grey;
+                                color: white;
+                                font-weight: bold;
+                            }
+                        </style>
+                        <!-- <t t-foreach="data.get('outstanding_data')" t-as="line"> -->
+
+                            <table border="1" style="width: 100%; border: 1px solid black;">
+                                <!-- <br/>        
+                            <center><b><span style="font-size: 30px; " t-esc="line.get('party')" /></b></center> -->
+                            <t t-set="total_amt" t-value="0" />
+                            <t t-set="received_amt" t-value="0" />
+                            <t t-set="balance" t-value="0" />
+                                <tr>             
+                                    <!-- <th style="border: 1px solid gray; background-color: grey; color: white; text-align: center;">Party Name</th>  -->
+                                    <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Party Name</th>
+                                    <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Phone</th>
+                                    <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Total Amt</th>
+                                    <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Received Amt</th>
+                                    <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Balance</th>
+                                </tr>
+                                <tr t-foreach="data.get('record_list')" t-as="l">
+                                    <t t-set="total_amt" t-value="total_amt + l.get('total_amt')" />
+                                    <t t-set="received_amt" t-value="received_amt + l.get('received_amt')" />
+                                    <t t-set="balance" t-value="balance + l.get('balance')" />
+                                    <td style="padding-left: 5px;">
+                                        <span t-esc="l.get('party_name')" />
+                                    </td>
+                                    <td style="padding-left: 5px;">
+                                        <span t-esc="l.get('phone')" />
+                                    </td>
+                                    <td style="text-align: right; padding-right: 5px;">
+                                        <span t-esc="'%.2f'%(l.get('total_amt'))" />
+                                    </td>
+                                    <td style="text-align: right; padding-right: 5px;">
+                                        <span t-esc="'%.2f'%(l.get('received_amt'))" />
+                                    </td>
+                                    <td style="text-align: right; padding-right: 5px;">
+                                        <span t-esc="'%.2f'%(l.get('balance'))"/>
+                                    </td>
+                                </tr>
+
+
+                                <tr >
+                                    <td style="padding-left: 5px;border-right:none;">
+                                       <center><b> <span> Total</span></b></center>
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: center;border-left:none;">
+                                    
+                                    </td>
+                                    <td style="text-align: right; padding-right: 5px;">
+                                        <b> <span t-esc="'%.2f'%(total_amt)" /></b>
+                                    </td>
+                                    <td style="text-align: right; padding-right: 5px;">
+                                        <b> <span t-esc="'%.2f'%(received_amt)" /></b>
+                                    </td>
+                                    <td style="text-align: right; padding-right: 5px;">
+                                        <b> <span t-esc="'%.2f'%(balance)"/></b>
+                                    </td>
+                                </tr> 
+                            </table>
+                        <!-- </t> -->
+                       
+                        
+                    </div>
+                </t>
+                </t></t>
+        </template>
+    </data>
+</odoo>

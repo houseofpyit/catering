@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paper_format_form" model="report.paperformat">
+        <field name="name">Raw Material</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">1</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- <report 
+        string="Raw Material"
+        id="action_paper_format"   
+        model="hop.function" 
+        report_type="qweb-pdf" 
+        name="ct_function_v15.raw_material" 
+        file="ct_function_v15.raw_material" />
+
+    <record id="ct_function_v15.action_paper_format" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_function_v15.paper_format_form" />
+    </record> -->
+
+    <record id="action_paper_format" model="ir.actions.report">
+        <field name="name">Raw Material</field>
+        <field name="model">hop.function</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_function_v15.raw_material</field>
+        <field name="report_file">ct_function_v15.raw_material</field>
+        <field name="print_report_name">
+            '%s - %s - %s - %s' % (object.venue_address[:10],object.date,object.party_name_id.name,dict(object._fields['meal_type'].selection).get(dict(object._fields['meal_type'].selection).get(object.meal_type)))</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+        </record>
+
+    <!-- <report 
+        string="Out Source PO"
+        id="action_outsource_format"   
+        model="purchase.order" 
+        report_type="qweb-pdf" 
+        name="ct_function_v15.out_source_view" 
+        file="ct_function_v15.out_source_view" />
+
+    <record id="ct_function_v15.action_outsource_format" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_function_v15.paper_format_form" />
+    </record> -->
+
+    <record id="action_outsource_format" model="ir.actions.report">
+        <field name="name">Out Source PO</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_function_v15.out_source_view</field>
+        <field name="report_file">ct_function_v15.out_source_view</field>
+        <field name="print_report_name">
+            '%s - %s - %s - %s' % (object.venue_address[:10],object.date,object.partner_id.name,dict(object._fields['meal_type'].selection).get(object.meal_type))</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+        </record>
+       <!-- <report  string="In House PO"
+        id="action_inhouse_format"   
+        model="purchase.order" 
+        report_type="qweb-pdf" 
+        name="ct_function_v15.in_house_view" 
+        file="ct_function_v15.in_house_view" />
+
+    <record id="ct_function_v15.action_inhouse_format" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_function_v15.paper_format_form" />
+    </record> -->
+
+    <record id="action_inhouse_format" model="ir.actions.report">
+        <field name="name">In House PO</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_function_v15.in_house_view</field>
+        <field name="report_file">ct_function_v15.in_house_view</field>
+        <field name="print_report_name">
+           '%s - %s - %s - %s' % (object.venue_address[:10],object.date,object.partner_id.name,dict(object._fields['meal_type'].selection).get(object.meal_type))</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+    </record>
+
+     <!-- <report 
+        string="Service PO"
+        id="action_service_format"   
+        model="purchase.order" 
+        report_type="qweb-pdf" 
+        name="ct_function_v15.service_view" 
+        file="ct_function_v15.service_view" />
+
+    <record id="ct_function_v15.action_service_format" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_function_v15.paper_format_form" />
+    </record> -->
+
+    <record id="action_service_format" model="ir.actions.report">
+        <field name="name">Service PO</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_function_v15.service_view</field>
+        <field name="report_file">ct_function_v15.service_view</field>
+        <field name="print_report_name">
+           '%s - %s - %s - %s' % (object.venue_address[:10],object.date,object.partner_id.name,dict(object._fields['meal_type'].selection).get(object.meal_type))</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_all_po_prints" model="ir.actions.report">
+        <field name="name">All PO Print</field>
+        <field name="model">po.print.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_function_v15.all_po_prints</field>
+        <field name="report_file">ct_function_v15.all_po_prints</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="paperformat_id" ref="ct_function_v15.paper_format_form" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- <report 
+        string="Addons PO"
+        id="action_addons_format"   
+        model="purchase.order" 
+        report_type="qweb-pdf" 
+        name="ct_function_v15.addons_view" 
+        file="ct_function_v15.addons_view" />
+
+    <record id="ct_function_v15.action_addons_format" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_function_v15.paper_format_form" />
+    </record> -->
+
+    <record id="action_addons_format" model="ir.actions.report">
+        <field name="name">Add-ons PO</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_function_v15.addons_view</field>
+        <field name="report_file">ct_function_v15.addons_view</field>
+        <field name="print_report_name">
+           '%s - %s - %s - %s' % (object.venue_address[:10],object.date,object.partner_id.name,dict(object._fields['meal_type'].selection).get(object.meal_type))</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="purchase.action_report_purchase_order" model="ir.actions.report">
+        <field name="name">Purchase Order</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">purchase.report_purchaseorder</field>
+        <field name="report_file">purchase.report_purchaseorder</field>
+        <field name="print_report_name">
+            (object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or
+            'Purchase Order - %s' % (object.name))</field>
+        <field name="binding_model_id" ref="model_purchase_order"/>
+        <field name="binding_type">report</field>
+        <field name = "binding_model_id" eval = "False"></field>
+    </record>
+
+
+    <!-- <report 
+    string="Raw Material PO"
+    id="action_raw_material_format"   
+    model="purchase.order" 
+    report_type="qweb-pdf" 
+    name="ct_function_v15.raw_material_report" 
+    file="ct_function_v15.raw_material_report" />
+
+    <record id="ct_function_v15.action_raw_material_format" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_function_v15.paper_format_form" />
+    </record> -->
+
+    <record id="action_raw_material_format" model="ir.actions.report">
+        <field name="name">Raw Material PO</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_function_v15.raw_material_report</field>
+        <field name="report_file">ct_function_v15.raw_material_report</field>
+        <field name="print_report_name">
+            '%s - %s - %s - %s' % (object.venue_address[:10],object.date,object.partner_id.name,dict(object._fields['meal_type'].selection).get(object.meal_type))</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_po_print_format" model="ir.actions.report">
+        <field name="name">PO Print</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_function_v15.po_prints</field>
+        <field name="report_file">ct_function_v15.po_print</field>
+        <field name="print_report_name">(object.get_print_report_name())</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="paperformat_id" ref="ct_function_v15.paper_format_form" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="purchase.report_purchase_quotation" model="ir.actions.report">
+        <field name="name">Request for Quotation</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">purchase.report_purchasequotation</field>
+        <field name="report_file">purchase.report_purchasequotation</field>
+        <field name="print_report_name">'Request for Quotation - %s' % (object.name)</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="paper_format_form_invoice" model="report.paperformat">
+        <field name="name">Invoices</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_invoice_print_format" model="ir.actions.report">
+        <field name="name">Invoices Print</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_function_v15.invoice_prints</field>
+        <field name="report_file">ct_function_v15.invoice_print</field>
+        <field name="print_report_name">'Invoices - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="paperformat_id" ref="ct_function_v15.paper_format_form_invoice" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="account.account_invoices_without_payment" model="ir.actions.report">
+        <field name="name">Invoices without Payment</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account.report_invoice</field>
+        <field name="report_file">account.report_invoice</field>
+        <field name="print_report_name">(object._get_report_base_filename())</field>
+        <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="account.account_invoices" model="ir.actions.report">
+        <field name="name">Invoices</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account.report_invoice_with_payments</field>
+        <field name="report_file">account.report_invoice_with_payments</field>
+        <field name="print_report_name">(object._get_report_base_filename())</field>
+        <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),
+(4, ref('account.group_account_readonly'))]"/>
+    </record>
+
+    <record id="paper_format_form_meeting" model="report.paperformat">
+        <field name="name">Meeting</field>
+        <field name="format">custom</field>
+        <field name="page_height">120</field>
+        <field name="page_width">150</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_meeting_print_format" model="ir.actions.report">
+        <field name="name">Meeting Print</field>
+        <field name="model">hop.meeting</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_function_v15.meeting_prints</field>
+        <field name="report_file">ct_function_v15.meeting_prints</field>
+        <field name="print_report_name">'Meetings - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="ct_function_v15.model_hop_meeting"/>
+        <field name="paperformat_id" ref="ct_function_v15.paper_format_form_meeting" />
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="raw_material">
+            <t t-call="web.html_container">
+              
+                <t t-foreach="docs" t-as="o">
+                  <style>
+                        td {    
+                            border: 1px solid #202020;
+                        }
+
+                        table {
+                            border-collapse: collapse;
+                        }
+                    </style>
+                    <div class="page">
+                        <table style="width:100%">
+                            <tr>
+                                <center>
+                                    <span t-esc="o.company_id.name" style="text-align:center;font-size:30px;"/>
+                                </center>
+                            </tr>
+                            <tr>
+                                <center>
+                                    <span t-esc="o.company_id.street"/>,<span t-esc="o.company_id.city"/>-<span t-esc="o.company_id.zip"/>,<span t-esc="o.company_id.state_id.name"/>,<span t-esc="o.company_id.country_id.name"/>
+                                </center>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table style="width:100%">
+                            <tr>
+                                <td style="text-align:center;widht:50%">
+                                    <span>Customer Name</span> : <span t-esc="o.party_name_id.name"/>
+                                </td>
+                                <td style="text-align:center;width:50%">
+                                    <span>Contact No</span> : <span t-esc="o.party_name_id.phone"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table style="width:100%;border:1px solid #202020;" >
+                            <tr>
+                                <th style="background-color:grey">Sr No.</th>
+                                <th style="background-color:grey">Raw Material</th>
+                                <th style="background-color:grey">Quantity</th>
+                                <th style="background-color:grey">Uom</th>
+                            </tr>
+                            <t t-set="counter" t-value="0" />
+                            <t t-set="total_qty" t-value="0" />
+                            <t t-foreach="o.material_line_ids" t-as="item">
+                                <t t-set="counter" t-value="counter + 1" />
+                                <t t-set="total_qty" t-value="total_qty + item.weight" />
+                        
+                                <tr>
+                                    <td>
+                                        <span t-esc="counter"></span>
+                                    </td>
+                                    <td>
+                                        <span t-esc="item.name"></span>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%(item.weight)"></span>
+                                    </td>
+                                    <td>
+                                        <span t-esc="item.uom.name"></span>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-foreach="range(15-counter)" t-as="p">
+                                <tr>
+                                    <td style="border-top:none;border-bottom:none"><br/></td>
+                                    <td style="border-top:none;border-bottom:none"><br/></td>
+                                    <td style="border-top:none;border-bottom:none"><br/></td>
+                                    <td style="border-top:none;border-bottom:none"><br/></td>
+                                </tr>  
+                            </t>
+                            <tr>
+                                <td>
+                                    <b>
+                                        <span>Total</span>
+                                    </b>
+                                </td>
+                                <td/>
+                                <td>
+                                    <span t-esc="'%.2f'%(total_qty)"></span>
+                                </td>    
+                                <td/>   
+                            </tr>
+                        </table>
+                        <br/>
+                        <!-- align="right" -->
+                        <table width="40%" style="float:right;">
+                            <tr>
+                                <td>
+                                    <b>
+                                        <span>Meal Type</span>
+                                    </b>
+                                </td>
+                                <td>
+                                    <span t-esc="o.meal_type"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>
+                                        <span>No Of Pax</span>
+                                    </b>
+                                </td>
+                                <td>
+                                    <span t-esc="o.no_of_pax"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

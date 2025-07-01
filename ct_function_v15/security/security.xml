@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hop_calendar_rule" model="ir.rule">
+        <field name="name">Event Inquiry</field>
+        <field name="model_id" ref="model_hop_calendar"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="hop_lead_rule" model="ir.rule">
+        <field name="name">Menu Planner</field>
+        <field name="model_id" ref="model_hop_lead"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="hop_function_rule" model="ir.rule">
+        <field name="name">Confirmed Orders</field>
+        <field name="model_id" ref="model_hop_function"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+    
+    <record id="hop_utensils_rule" model="ir.rule">
+        <field name="name">Utensils Manager</field>
+        <field name="model_id" ref="model_utensils_mst"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+    
+    <record id="hop_cal_alrm_rule" model="ir.rule">
+        <field name="name">Calendar Alaram</field>
+        <field name="model_id" ref="model_calendar_alarm"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+    
+    <record id="hop_opening_stock_rule" model="ir.rule">
+        <field name="name">Opening Stock</field>
+        <field name="model_id" ref="model_hop_opening_stock"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

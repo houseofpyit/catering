@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="website_menu"
+        name="Website"
+        sequence="0"/>
+
+    <menuitem
+        id="package_menu"
+        name="Package"
+        action="action_package"
+        sequence="1"
+        parent="website_menu"
+        />
+    
+    <menuitem
+        id="gallery_menu"
+        name="Gallery"
+        action="action_gallery"
+        sequence="2"
+        parent="website_menu"
+        />
+
+    <menuitem 
+        id="season_recipe_menu"
+        name="Season Receipe" 
+        action="action_season_recipe" 
+        sequence="4" 
+        parent="website_menu" />
+
+    <menuitem
+        id="configuration_menu"
+        name="Configuration"
+        parent="website_menu"
+        sequence="4"/>
+
+    <menuitem
+        id="season_menu"
+        name="Season"
+        action="action_season"
+        sequence="3"
+        parent="configuration_menu"
+        />
+
+    
+
+        
+</odoo>

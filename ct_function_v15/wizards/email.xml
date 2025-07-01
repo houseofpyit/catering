@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wizard_from" model="ir.ui.view">
+        <field name="name">hop.send.email.whatsapp.name</field>
+        <field name="model">hop.send.email.whatsapp</field>
+        <field name="arch" type="xml">
+            <form string="Email">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="email" />
+                        </group>
+                        <group>
+                            <field name="wpno" />
+                        </group>
+                        <group>
+                            <field name="pno" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Save" name="action_send" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wizard_email_action" model="ir.actions.act_window">
+        <field name="name">Send Email Whatsapp</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.send.email.whatsapp</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- tree view-->
+    <record id="hop_add_raw_material" model="ir.ui.view">
+        <field name="name">hop_add_raw_material</field>
+        <field name="model">hop.add.raw.material</field>
+        <field name="arch" type="xml">
+            <tree string="Add Raw Material" export_xlsx="false" create="0" >
+                <header>
+                    <button string="Save" name="add_raw_material" type="object" class="btn btn-primary o_form_button_save"/>
+                </header>
+                <field name="item_id" options="{'no_quick_create':true}"/>
+                <field name="categ_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hop_add_raw_material_filter" model="ir.ui.view">
+        <field name="name">hop.add.raw.material.search</field>
+        <field name="model">hop.add.raw.material</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="item_id" string="Search Raw Material" filter_domain="[
+                ('item_id', 'ilike', self)]"/>
+            <group expand="0" string="Group By">
+                <filter string="Raw Material Category" name="category_product" context="{'group_by':'categ_id'}"/>
+            </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hop_add_raw_material" model="ir.actions.act_window">
+        <field name="name">Add Raw Material</field>
+        <field name="res_model">hop.add.raw.material</field>
+        <field name="view_mode">tree</field>
+         <field name="target">new</field>
+    </record>
+
+</odoo>

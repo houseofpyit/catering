@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_inherit_calendar" model="ir.ui.view">
+        <field name="name">calendar.event.view.form.inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="fuction_id"/>
+                <field name="lead_id"/>
+                <field name="fuction_name_id"/>
+                <field name="mobile_num"/>
+            </xpath>
+            <xpath expr="//field[@name='duration']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='alarm_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='location']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='videocall_location']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='allday']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='recurrency']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='privacy']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='show_as']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_open_composer']" position="attributes">
+               <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='page_options']" position="attributes">
+               <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hop_inherit_calendar_event" model="ir.ui.view">
+        <field name="name">calendar.event.view.form.inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="arch" type="xml">
+            <calendar position="attributes">
+                <attribute name="mode">month</attribute>
+            </calendar>
+            <xpath expr="//field[@name='partner_ids']" position="after">
+                <field name="fuction_id"/>
+                <field name="lead_id"/>
+                <field name="fuction_name_id"/>
+                <field name="mobile_num"/>
+            </xpath>
+            <xpath expr="//field[@name='privacy']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- <record id="hop_inherit_calendar_event_form_inherited" model="ir.ui.view">
+        <field name="name">calendar.event.view.form.inherit</field> 
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar_sms.view_calendar_event_form_inherited"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div/button[@name='action_send_sms']" position="attributes">
+               <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+        </field>
+    </record>    -->
+
+
+</odoo>

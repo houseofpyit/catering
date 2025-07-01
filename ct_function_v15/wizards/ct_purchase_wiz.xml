@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ct_purchase_wiz_view_form" model="ir.ui.view">
+        <field name="name">ct.purchase.wiz.view.form</field>
+        <field name="model">ct.purchase.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Raw Material Wiz">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="add_category_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="category_ids" widget="many2many_tags" force_save="1" invisible="1"/>
+                            <field name="ct_category_id"  options="{'no_quick_create':true}" domain="[('id','in',category_ids),('id','not in',add_category_ids)]"/>
+                            <field name="vender_id" options="{'no_quick_create':true}" context="{'default_is_vender': True}"/>
+                        </group>
+                        <group>
+                            <field name="function_date"  readonly="1"/>
+                            <field name="delivery_date" required="1" />
+                            <field name="delivery_time" widget="float_time" required="1" />
+                            <field name="delivery_am_pm" required="1" />
+                        </group>  
+                    </group>
+                    <group>
+                        <group>
+
+                        </group>
+                        <group>
+                            <button name="action_apply_all" string="Apply All" type="object" class="oe_highlight"/>
+                        </group>
+                    </group>
+                    <group>
+                        <div>
+                            <field name="line_ids"  widget="section_and_note_one2many"  mode="tree" >
+                                <tree editable="bottom" delete="0" create="0" edit="0">
+                                    <control>
+                                        <create name="add_line_control" string="Add a product"/>
+                                        <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                        <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                    </control>
+                                    <field name="sequence" widget="handle" />
+                                    <field name="recipe_id" invisible="1" force_save="1"/>
+                                    <field name="name" widget="section_and_note_text" readonly="1" force_save="1"/>
+                                    <field name="display_type" force_save="1" invisible="1" readonly="1"/>
+                                    <field name="no_of_time" force_save="1" readonly="1" />
+                                    <field name="weight" readonly="1" force_save="1"/>
+                                    <field name="req_weight" force_save="1"/>
+                                    <field name="uom" readonly="1" force_save="1"/>
+                                    <field name="category_id" invisible="1" force_save="1"/>
+                                    <field name="cost_price" invisible="1" force_save="1"/>
+                                    <!-- <field name="item_cost" sum="item_cost" readonly="1" forec_save="1"/> -->
+                                    <field name="vender_id" options="{'no_quick_create':true}" context="{'default_is_vender': True}"/>
+                                    <field name="delivery_date" readonly="0" />
+                                    <field name="delivery_time" widget="float_time" readonly="0" />
+                                    <field name="delivery_am_pm" readonly="1" />
+                                </tree>
+                            </field>
+                        </div>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirm" string="Generate" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ct_purchase_wiz" model="ir.actions.act_window">
+        <field name="name">Raw Materials Wizard</field>
+        <field name="res_model">ct.purchase.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

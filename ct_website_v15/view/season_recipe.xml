@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seasonrecipe_form" model="ir.ui.view">
+        <field name="name">SeasonRecipe</field>
+        <field name="model">hop.season.recipe</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <group>
+                        <group>
+                            <field name="season_id" options="{'no_quick_create':true}"/>
+                            <field name="recipe_id" options="{'no_quick_create':true}"/>
+                            <field name="description"/>
+                        </group>
+                        
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="seasonrecipe_tree" model="ir.ui.view">
+        <field name="name">SeasonRecipe</field>
+        <field name="model">hop.season.recipe</field>
+        <field name="arch" type="xml">
+
+            <tree>
+                <field name="season_id"/>
+                <field name="recipe_id"/>
+                <field name="description"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="action_season_recipe" model="ir.actions.act_window">
+        <field name="name">SeasonRecipe</field>
+        <field name="res_model">hop.season.recipe</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+</odoo>

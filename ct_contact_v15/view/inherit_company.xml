@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_res_company_inherit" model="ir.ui.view">
+        <field name="name">res.company.view.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="Bank Details" name="bank_details">
+                    <group>
+                        <group >
+                            <field name="acc_name" />
+                            <field name="bank_name" />
+                            <field name="acc_no" />
+                            <field name="ifsc_code" />
+                            <field name="branch" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='bank_details']" position="after">
+                <page string="Payment Condition" name="payment_condition">
+                    <group>
+                        <group>
+                            <field name="payment_condition" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="string">GST</attribute>
+            </xpath>
+            <xpath expr="//field[@name='currency_id']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_registry']" position="after">
+                <field name="pan_no" />
+                <field name="fssai_no" />
+                <field name="location" />
+            </xpath>
+            <xpath expr="//field[@name='favicon']" position="after">
+                <field name="manager_name_id" options="{'no_quick_create': True}" context="{'default_is_vender': True}"/>
+                <field name="parent_company_id" />
+                <field name="children_company_id" />
+                <field name="watermark_image" widget="image" Width="100" height="120"/>
+                <field name="watermark_image_name_tag" widget="image" Width="100" height="120"/>
+            </xpath>
+            <xpath expr="//group[@name='social_media']" position="before">
+                <group string="Financial Year" name="financial_year">
+                    <field name="from_date" />
+                    <field name="to_date"/>
+                    <field name="is_date" invisible="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

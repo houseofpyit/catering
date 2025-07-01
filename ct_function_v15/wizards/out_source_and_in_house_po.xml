@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_fuction_out_source_and_in_house_wizard_view_form" model="ir.ui.view">
+        <field name="name">hop.fuction.out.source.and.in.house.wizard.view.form</field>
+        <field name="model">hop.fuction.out.source.and.in.house.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Raw Material Wiz">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="vender_ids" options="{'no_quick_create':true}" widget="many2many_tags" invisible="1" />
+                            <field name="vender_id" domain="[('id','in',vender_ids)]" options="{'no_quick_create':true}"/>
+                            <field name="function_date" readonly="1"/>
+                            <field name="delivery_date" required="0" />
+                            
+                        </group>
+                        <group>
+                           <field name="delivery_time" widget="float_time" required="0" />
+                            <field name="delivery_am_pm" required="0" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                        </group>
+                        <group>
+                            <button name="action_apply_all" string="Apply All" type="object" class="oe_highlight"/>
+                        </group>
+                    </group>
+                    <group>
+                        <div>
+                            <field name="line_ids"  widget="section_and_note_one2many"  mode="tree" >
+                                <tree editable="bottom" delete="0" create="0" edit="0" readonly="1">
+                                    <control>
+                                        <create name="add_line_control" string="Add a product"/>
+                                        <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                        <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                    </control>
+                                    <field name="category_id" force_save="1"  readonly="1" options="{'no_quick_create':true}"/>
+                                    <field name="name"  widget="section_and_note_text" readonly="1" force_save="1"/>
+                                    <field name="display_type" force_save="1" invisible="1" readonly="1"/>
+                                    <field name="item_id" options="{'no_quick_create':true}" force_save="1" readonly="1" domain="[('category_id','=',category_id)]"/>
+                                    <field name="no_of_pax"  force_save="1" readonly="1"/>
+                                    <field name="per_qty"  force_save="1" readonly="1"/>
+                                    <field name="qty"  force_save="1" readonly="1"/>
+                                    <field name="uom"  force_save="1" readonly="1"/>
+                                    <field name="out_sider_id" force_save="1" readonly="1" options="{'no_quick_create':true}" context="{'default_is_vender': True}" invisible = "1"/>
+                                    <field name="insider_id" force_save="1" readonly="1" options="{'no_quick_create':true}" context="{'default_is_vender': True}" invisible = "1"/>
+                                    <field name="cost"  force_save="1" readonly="1" invisible="1"/>
+                                    <field name="rate"  force_save="1" readonly="1" invisible="1"/>
+                                    <field name="instruction"  force_save="1" readonly="1"/>
+                                    <field name='type' invisible = "1"/>
+                                    <field name="delivery_date"  force_save="1" readonly="1" />
+                                    <field name="delivery_time"  force_save="1" widget="float_time" readonly="1" />
+                                    <field name="delivery_am_pm"  force_save="1" readonly="1" />
+                                </tree>
+                            </field>
+                        </div>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirm" string="Generate" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_out_source_po" model="ir.actions.act_window">
+        <field name="name">Purchase order</field>
+        <field name="res_model">hop.fuction.out.source.and.in.house.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

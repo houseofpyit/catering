@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hop_vender_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">hop.vender.report.wizard.view.form</field>
+        <field name="model">hop.vender.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="order Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="from_date" />
+                            <field name="type" required="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="to_date" />
+                            <field name="vender_ids" widget="many2many_tags" options="{'no_quick_create':true}"/>
+                            <field name="function_ids" invisible="1" widget="many2many_tags" options="{'no_quick_create':true}"/>
+                            <field name="company_id" invisible="1" />
+                            <field name="language" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print" string="Generate" type="object" class="oe_highlight" />
+                    <button name="create_pdf" string="Generate Pdf" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link oe_highlight" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vender_report_wizard" model="ir.actions.act_window">
+        <field name="name">Vendor Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.vender.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="hop_fuction_line_report_treeview" model="ir.ui.view">
+        <field name="name">hop.fuction.line.report.view.tree</field>
+        <field name="model">hop.fuction.line.report</field>
+        <field name="arch" type="xml">
+            <tree string="" expand="1"  create="false" edit="false" delete="false">
+                <field name="category_id"/>
+                <field name="item_id"/>
+                <field name="no_of_pax"/>
+                <field name="qty"/>
+                <field name="uom" />
+                <field name="helper" />
+                <field name="chief" />
+                <field name="time" widget="float_time" sum="false"/>
+                <field name="am_pm"/>
+                <field name="instruction" />
+                <field name="function_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="hop_function_line_report_action" model="ir.actions.act_window">
+        <field name="name">HOP Fuction Line Report</field>
+        <field name="res_model">hop.fuction.line.report</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="hospitality_shift_line_report_treeview_custom" model="ir.ui.view">
+        <field name="name">hospitality.shift.line.report.view.tree.custom</field>
+        <field name="model">hospitality.shift.line.report</field>
+        <field name="arch" type="xml">
+            <tree string="" create="false" edit="false" delete="false">
+                <field name="service_id"/>
+                <field name="vender_id"/>
+                <field name="venue_address"/>
+                <field name="qty_person" sum="Qty"/>
+                <field name="uom_id"/>
+                <field name="hospitality_ids"/>
+                <field name="shift_date"/>
+                <field name="shift_time" widget="float_time" sum="false"/>
+                <field name="remarks"/>
+                <field name="location"/>
+                <field name="time" widget="float_time" sum="false"/>
+                <field name="am_pm"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hospitality_shift_line_report_action" model="ir.actions.act_window">
+        <field name="name">Hospitality Shift Line Report</field>
+        <field name="res_model">hospitality.shift.line.report</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="hop_extra_service_line_report_treeview_custom" model="ir.ui.view">
+        <field name="name">hop.extra.service.line.report.view.tree.custom</field>
+        <field name="model">hop.extra.service.line.report</field>
+        <field name="arch" type="xml">
+            <tree string="" create="false" edit="false" delete="false">
+                <field name="service_id" />
+                <field name="vender_id" />
+                <field name="date" width="20"/>
+                <field name="time" width="20" widget="float_time" sum="false"/>
+                <field name="am_pm" width="20"/>
+                <field name="qty_ids" width="25"/>
+                <field name="uom_id" width="25"/>
+                <field name="price" width="25" force_save="1"/>
+                <field name="instruction" width="25"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hop_extra_service_line_report_action" model="ir.actions.act_window">
+        <field name="name">hop.extra.service.line.report</field>
+        <field name="res_model">hop.extra.service.line.report</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

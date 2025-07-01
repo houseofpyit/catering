@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- tree view-->
+    <record id="hop_add_utensils" model="ir.ui.view">
+        <field name="name">hop_add_utensils</field>
+        <field name="model">hop.add.utensils</field>
+        <field name="arch" type="xml">
+            <tree string="Add Utensils" export_xlsx="false" create="0" expand="1">
+                <header>
+                    <button string="Save" name="add_utensils" type="object" class="btn btn-primary o_form_button_save"/>
+                </header>
+                <field name="item_id" options="{'no_quick_create':true}" />
+                <field name="utensils_type" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="hop_add_utensils_filter" model="ir.ui.view">
+        <field name="name">hop.add.utensils.search</field>
+        <field name="model">hop.add.utensils</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="item_id"  string="Search Utensils" filter_domain="[
+                ('item_id', 'ilike', self)]"/>
+                <group expand="1" string="Group By">
+                    <filter name="groupby_utensils_type" context="{'group_by' : 'utensils_type'}"
+                        string="Utensils Type" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hop_add_utensils" model="ir.actions.act_window">
+        <field name="name">Add Utensils</field>
+        <field name="res_model">hop.add.utensils</field>
+        <field name="view_mode">tree</field>
+        <field name="target">new</field>
+        <field name="context">{'search_default_groupby_utensils_type': 1}</field>
+    </record>
+
+</odoo>

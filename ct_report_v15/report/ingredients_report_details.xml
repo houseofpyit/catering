@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="ingredients_report_details">
+            <t t-call="web.basic_layout">
+                <style>
+                    td,th {
+                    border: 1px solid black;
+                    }
+
+                    table {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                    }
+                </style>
+
+                <t t-foreach="docs" t-as="t">
+                    <t t-foreach="t.ingredients_report_details()" t-as="line">
+
+                    <table width="100%" style="border:none;">
+                        <td width="10%" style="border:none;padding-right:200px;">
+                        </td>
+                        <td width="80%" style="border:none;">
+                            <center>
+                                <h4>
+                                    <b>Production's</b>
+                                </h4>
+                            </center>
+                            <center>
+                                <h4>
+                                    <b>Aggregate Total Raw material</b>
+                                </h4>
+                            </center>
+                        </td>
+                        <td width="10%" style="border:none;">
+                            <t t-if="line.get('company_id')">
+                                <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>
+                            </t>
+                        </td>
+                    </table>
+                    <br />
+
+                    <table width="100%" style="border:none;">
+
+                        <tr style="border:none;">
+                            <td style="border-top:none;border-left:none;border-right:none;width:50%;">
+                                <b>Date : <t t-esc="line.get('date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}' /></b>
+                            </td>
+                            <td
+                                style="border-top:none;border-left:none;border-right:none; text-align:right;width:50%;">
+                                <b>Venue Address : <t t-esc="line.get('venue_address')" /></b>
+                            </td>
+                        </tr>
+                        <!-- <tr style="border:none;">
+                            <td style="border:none;">
+                                <b>Party Name : </b><t t-esc="line.get('party_name')"/>
+                            </td>
+                            <td style="border:none; text-align:right;">
+                                <b>Mobile Number : </b><t t-esc="line.get('party_number')"/>
+                            </td>
+                        </tr> -->
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Fucntion Name : </b>
+                                <t t-esc="line.get('fuction_name')" />
+                            </td>
+                            <td style="border:none; text-align:right;width:50%;">
+                                <b>Meal type : </b>
+                                <t t-esc="line.get('meal_type')" />
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Time : </b>
+                                <t t-esc="line.get('time')" />
+                                <!-- <t t-esc="line.get('am_pm')"/> -->
+                            </td>
+                            <td style="border:none;text-align:right;width:50%;">
+                                <b>No Of Pax : </b>
+                                <t t-esc="line.get('no_of_pax')" />
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;color:red;width:50%;">
+                                <!-- <b>Emergency Contact : </b><t
+                                t-esc="line.get('emergency_contact')"/> -->
+                                <b>Remarks : </b>
+                                <t t-esc="line.get('remarks')" />
+                            </td>
+                            <td style="border:none;text-align:right;width:50%;">
+                                <!-- <b>Remarks : </b><t t-esc="line.get('remarks')"/>                             -->
+                            </td>
+                        </tr>
+                        <tr style="border:none;">
+                            <td style="border:none;width:50%;">
+                                <b>Manager Name : </b>
+                                <t t-esc="line.get('manager_name')" />
+                            </td>
+                            <td style="border:none;text-align:right;width:50%;">
+                                <b>Contact Details : </b>
+                                <t t-esc="line.get('phone')" />
+                            </td>
+                        </tr>
+                    </table>
+                    <t t-if="line.get('product_list')">
+                        <t t-foreach="line.get('product_list')" t-as="product">
+                            <br />
+                            <table width="100%">
+                                <tr style="border:none;">
+                                    <th style="width:23%;text-align:center;">Vendor</th>
+                                    <th style="width:25%;text-align:center;">Product</th>
+                                    <th style="width:7%;text-align:center;">Total</th>
+                                    <th style="width:5%;text-align:center;">Unit</th>
+                                    <th style="width:23%;text-align:center;">Item</th>
+                                    <th style="width:7%;text-align:center;">Qty</th>
+                                    <th style="width:5%;text-align:center;">Unit</th>
+                                </tr>
+
+                                <center>
+                                    <h5>
+                                        <b>
+                                            <t t-esc="product.get('catag')" />
+                                        </b>
+                                    </h5>
+                                </center>
+                                <t t-foreach="product.get('raw_detail')" t-as="x">
+                                    <tr>
+                                        <t t-if="x.get('vender') == ''">
+                                            <td style="border-right:none;border-top:none;border-bottom:none;">
+
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="font-weight: bold;padding-left:10px;">
+                                                <t t-esc="x.get('vender')" />
+                                            </td>
+                                        </t>
+
+                                        <t t-if="x.get('product') == ''">
+                                            <td style="border-right:none;border-left:none;border-top:none;border-bottom:none;">
+
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="font-weight: bold;padding-left:10px;">
+                                                <t t-esc="x.get('product')" />
+                                            </td>
+                                        </t>
+
+                                        <t t-if="x.get('total') == 0">
+                                            <td style="border-right:none;border-left:none;border-top:none;border-bottom:none;">
+
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td
+                                                style="font-weight: bold;text-align:right;padding-right:10px;">
+                                                <t t-esc="x.get('total')" />
+                                            </td>
+                                        </t>
+                                        <t t-if="x.get('product') == ''">
+                                            <td style="border-right:none;border-left:none;border-top:none;border-bottom:none;">
+
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="font-weight: bold;padding-left:10px;">
+                                                <t t-esc="x.get('uom')" />
+                                            </td>
+                                        </t>
+                                        <td style="font-weight: bold;padding-left:10px;">
+                                            <t t-esc="x.get('item')" />
+                                        </td>
+                                        <td
+                                            style="font-weight: bold;text-align:right;padding-right:10px;">
+                                            <t t-esc="x.get('qty')" />
+                                        </td>
+                                        <td style="font-weight: bold;padding-left:10px;">
+                                            <t t-esc="x.get('u_uom')" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </t>
+                    </t>
+                    <p style="page-break-before:always;" />
+                </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

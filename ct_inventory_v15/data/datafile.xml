@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="res.partner" id="partner_godown">
+        <field name="name">GODOWN</field>
+        <field name="is_vender">True</field>
+    </record>
+</odoo>

@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- <menuitem 
+        id="hop_calendar_main_menu"
+        name="Calendar"
+        action="ct_function_v15.hop_calendar_action"
+        sequence="1" /> -->
+    <menuitem
+        id="menu_purchase_custome"
+        name="Purchase"
+        groups="group_purchase"
+        web_icon="ct_function_v15,static/img/icon 9 Purchase.png"
+        sequence="4"/>
+
+    <menuitem
+        id="purchase.menu_procurement_management"
+        name="Orders"
+        parent="ct_menu_v15.menu_purchase_custome"
+        sequence="1"/>
+
+    <menuitem
+        id="function_row_main_menu"
+        name="Raw Material PO"
+        action="ct_function_v15.action_row_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem
+        id="function_out_main_menu"
+        name="Out-Source PO"
+        action="ct_function_v15.action_out_source_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem
+        id="function_in_main_menu"
+        name="In-House PO"
+        action="ct_function_v15.action_in_house_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem
+        id="function_service_main_menu"
+        name="Service PO"
+        action="ct_function_v15.action_service_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem
+        id="function_addons_main_menu"
+        name="Add-ons PO"
+        action="ct_function_v15.action_addons_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem
+        id="function_normal_main_menu"
+        name="Normal"
+        action="ct_function_v15.action_normal_material"
+        sequence="1"
+        parent="purchase.menu_procurement_management"
+    />
+
+    <menuitem
+        id="function_main_menu"
+        name="Confirmed Orders"
+        groups="group_confirm_order"
+        web_icon="ct_function_v15,static/img/icon 11 Function.png"
+        sequence="3"
+    />
+
+    <menuitem
+        id="sale.sale_menu_root"
+        name="Sales"
+        groups="group_sales"
+        web_icon="ct_function_v15,static/img/icon 8 Sales.png"
+        sequence="5"
+    />
+
+    <menuitem
+        id="purchase.menu_purchase_root"
+        name="Purchase"
+        groups="group_purchase,base.group_no_one"
+        web_icon="ct_function_v15,static/img/icon 9 Purchase.png"
+        sequence="4"
+    />
+
+    <menuitem
+        id="account.menu_finance"
+        name="Invoicing"
+        web_icon="ct_function_v15,static/img/icon 10 Invoice.png"
+        sequence="5"
+    />
+
+    <menuitem
+        id="account.menu_finance_configuration"
+        name="Master"
+        parent="account.menu_finance"
+        sequence="2"
+    />
+
+    <menuitem
+        id="function_menu"
+        name="Order Details"
+        action="ct_function_v15.hop_function_action"
+        parent="function_main_menu"
+        sequence="1"
+    />
+
+    <menuitem
+        id="configuration_menu"
+        name="Master"
+        parent="function_main_menu"
+        sequence="2"
+    />
+
+    <!-- <menuitem
+        id="function_mst_menu"
+        name="Function Master"
+        action="ct_function_v15.hop_function_mst_action"
+        parent="configuration_menu"
+        sequence="1"
+    /> -->
+
+    <!-- <menuitem
+        id="main_menu_utensils"
+        name="Utensils Manager"
+        sequence="6"
+        action="ct_function_v15.utensils_mst_action"
+        web_icon="ct_function_v15,static/img/icon 15 manager utensil.png"
+    /> -->
+
+    <menuitem
+        id="main_menu_lead"
+        name="Menu Planner"
+        sequence="2"
+        action="ct_function_v15.hop_lead_action"
+        groups="group_menu_planner"
+        web_icon="ct_function_v15,static/img/icon 14 Lead.png" />
+
+    <menuitem
+        id="calendar.mail_menu_calendar"
+        name="Event Inquiry"
+        sequence="1"
+        action="ct_function_v15.hop_calendar_action"
+        groups="group_event_inq"
+        web_icon="ct_function_v15,static/img/icon 16 calender.png"
+    />
+
+    <menuitem
+        id="calendar.calendar_menu_config"
+        parent="calendar.mail_menu_calendar"
+        name="Master"
+        sequence="1"
+    />
+
+    <menuitem
+        id="sale.menu_sale_config"
+        name="Master"
+        sequence="6"
+        parent="sale.sale_menu_root"
+    />
+
+    <menuitem
+        id="purchase.menu_purchase_config"
+        name="Master"
+        parent="purchase.menu_purchase_root"
+    />
+
+    <menuitem
+        id="configuration_menu"
+        name="Master"
+        parent="function_main_menu"
+        sequence="2"
+    />
+
+    <!-- <menuitem
+        id="function_mst_menu"
+        name="Function Master"
+        action="ct_function_v15.hop_function_mst_action"
+        parent="configuration_menu"
+        sequence="1"
+    /> -->
+
+    <menuitem
+        id="main_menu_utensils"
+        name="Utensils Manager"
+        sequence="6"
+        action="ct_function_v15.utensils_mst_action"
+        groups="group_utensils_manager"
+        web_icon="ct_function_v15,static/img/icon 15 manager utensil.png"
+    />
+
+    <!-- <menuitem
+        id="main_menu_feedback"
+        name="Feedback"
+        sequence="10"
+        action="ct_feedback_v15.ct_feedback_action"
+    /> -->
+        <!-- web_icon="ct_function_v15,static/img/icon 15 manager utensil.png" -->
+
+
+    <menuitem
+        id="calendar.calendar_menu_config"
+        parent="calendar.mail_menu_calendar"
+        name="Calendar Meeting"
+        sequence="1"
+    />
+
+    <menuitem
+        id="sale.menu_sale_config"
+        name="Master"
+        sequence="6"
+        parent="sale.sale_menu_root"
+    />
+
+    <menuitem
+        id="purchase.menu_purchase_config"
+        name="Master"
+        parent="purchase.menu_purchase_root"
+    />
+
+
+        <menuitem 
+        id="function_utility_main_menu"
+        name="Utility"
+        groups="group_utility,base.group_system,base.group_erp_manager"
+        web_icon="ct_contact_v15,static/img/icon 20 utility.png"
+        sequence="9"
+    />
+        <!-- action="ct_function_v15.hop_function_action" -->
+    <menuitem
+        id="stock.menu_stock_root"
+        name="Inventory"
+        sequence="140"
+        parent="function_utility_main_menu"
+        groups="base.group_no_one"
+    />
+    <!-- web_icon="ct_inventory_v15,static/img/icon_Inventory.png" -->
+    <menuitem 
+        id="function_master_main_menu"
+        name="Master"
+        groups="group_master"
+        web_icon="ct_contact_v15,static/img/icon 19 masters.png"
+        sequence="8"
+    />
+    <menuitem
+        id="ct_inventory_v15.menu_raw_materials"
+        name="Raw Materials"
+        sequence="7"
+        action="ct_inventory_v15.hop_product_raw_materials_action"
+        parent="function_master_main_menu"
+    />
+    <!-- web_icon="ct_inventory_v15,static/img/Materials.png" -->
+
+    <menuitem
+        id="hop_menu_raw_materials"
+        name="Name"
+        sequence="1"
+        action="ct_inventory_v15.hop_product_raw_materials_action"
+        parent="ct_inventory_v15.menu_raw_materials"
+    />
+
+    <menuitem
+        id="hop_menu_raw_materials_category"
+        name="Raw Materials Category"
+        sequence="2"
+        action="ct_inventory_v15.product_category_action"
+        parent="ct_inventory_v15.menu_raw_materials"
+    />
+
+    <menuitem 
+    id="menu_stock_uom_form_action"
+    name="Unit Master" 
+    action="uom.product_uom_form_action"
+    sequence="3"
+    parent="ct_inventory_v15.menu_raw_materials"  
+    groups="base.group_no_one"
+    />
+
+    <menuitem
+        id="ct_inventory_v15.menu_utensils"
+        name="Utensils Master"
+        sequence="8"
+        parent="function_master_main_menu"
+    />
+    <!-- web_icon="ct_inventory_v15,static/img/Utensils.png" -->
+
+    <menuitem
+        id="hop_menu_utensils"
+        name="Name"
+        sequence="1"
+        action="ct_inventory_v15.hop_product_utensisl_action"
+        parent="ct_inventory_v15.menu_utensils"
+    />
+
+    <menuitem
+        id="ct_inventory_v15.menu_labour"
+        name="Labour Master"
+        sequence="8"
+        parent="function_master_main_menu"
+    />
+
+    <menuitem
+        id="hop_menu_labour"
+        name="Name"
+        sequence="1"
+        action="ct_inventory_v15.hop_product_labour_action"
+        parent="ct_inventory_v15.menu_labour"
+    />
+
+    <menuitem
+        id="hop_recipes_main_menu"
+        name="Item with Recipes"
+        parent="function_master_main_menu"
+        sequence="6"
+    />
+    <!-- web_icon="ct_inventory_v15,static/img/icon_recipe.png" -->
+
+    <menuitem
+        id="hop_recipes_menu"
+        name="Name"
+        action="ct_inventory_v15.hop_recipes_action"
+        parent="hop_recipes_main_menu"
+        sequence="1"
+    />
+
+    <menuitem
+        id="hop_function_master_main_menu"
+        name="Function Master"
+        parent="function_master_main_menu"
+        sequence="9"
+    />
+
+    <!-- <menuitem
+        id="hop_transfer_master_menu"
+        name="Transfer"
+        action='ct_function_v15.action_hop_transfer'
+        sequence="10"
+        parent="function_master_main_menu"
+    /> -->
+
+    <menuitem
+        id="hop_function_mst_menu"
+        name="Name"
+        action="ct_function_v15.hop_function_mst_action"
+        parent="hop_function_master_main_menu"
+        sequence="1"
+    />
+
+    <menuitem
+        id="hop_opening"
+        name="Opening"
+        parent="function_master_main_menu"
+        sequence="10"
+    />
+
+    <menuitem
+        id="hop_opening_stock"
+        name="Opening Stock"
+        action="ct_function_v15.hop_opening_stock_action"
+        parent="hop_opening"
+        sequence="1"
+    />
+
+    <menuitem
+        id="hop_recipes_raw_import_menu"
+        name="Import Recipe Raw"
+        action="ct_inventory_v15.hop_raw_materials_action"
+        parent="hop_recipes_main_menu"
+        sequence="2"
+        groups="base.group_no_one"
+    />
+
+    <menuitem
+        id="hop_recipes_category_menu"
+        name="Recipes category"
+        action="ct_inventory_v15.hop_recipes_category_action"
+        parent="hop_recipes_main_menu"
+        sequence="2"
+    />
+    
+    <menuitem
+        id="vender_menu"
+        name="Vendor"
+        action='ct_contact_v15.action_vender'
+        sequence="3"
+        parent="function_master_main_menu"
+        />
+
+    <menuitem 
+        id="hop_category_menu"
+        name="Category"
+        parent="vender_menu"
+        action="ct_contact_v15.hop_category_action"
+        sequence="2"
+        />
+
+    <menuitem
+        id="hop_vender_menu"
+        name="Name"
+        action='ct_contact_v15.action_vender'
+        sequence="1"
+        parent="vender_menu"
+        />
+
+    <menuitem
+        id="hop_custom_product_menu"
+        name="Products"
+        parent="stock.menu_stock_root"
+        sequence="5" />
+
+    <menuitem
+        id="hop_raw_materials_menu"
+        name="Raw Materials"
+        action="ct_inventory_v15.hop_product_raw_materials_action"
+        parent="hop_custom_product_menu"
+        sequence="1"
+    />
+
+    <menuitem
+        id="hop_utensils_main_menu"
+        name="Utensils Master"
+        parent="stock.menu_stock_root"
+        sequence="6" />
+
+    <menuitem
+        id="hop_utensils_menu"
+        name="Utensils"
+        action="ct_inventory_v15.hop_product_utensisl_action"
+        parent="hop_utensils_main_menu"
+        sequence="1"
+    />
+
+    <menuitem
+        id="hop_service_menu"
+        name="Service"
+        action="ct_inventory_v15.hop_product_service_action"
+        parent="stock.menu_stock_root"
+        sequence="7"
+    />
+
+    <menuitem
+        id="hop_recipes_product_main_menu"
+        name="Product Recipes"
+        parent="stock.menu_stock_root"
+        action="ct_inventory_v15.hop_product_recipes_action"
+        groups="base.group_no_one"
+        sequence="7" />
+
+    <menuitem
+        id="inventory_adj_sub_menu"
+        name="Inventory Adjustments"
+        parent="stock.menu_stock_root"
+        sequence="3" />
+
+    <menuitem
+        id="inventory_adj_main_sub_menu"
+        name="Inventory Adjustments"
+        action="ct_inventory_v15.hop_inventory_adj_action"
+        parent="inventory_adj_sub_menu"
+        sequence="1" />
+
+    <menuitem
+        id="inventory_adj_tree_sub_menu"
+        name="Inventory Line"
+        action="ct_inventory_v15.hop_inventory_adj_line_action"
+        parent="inventory_adj_sub_menu"
+        groups="base.group_system"
+        sequence="2" />
+
+       <menuitem 
+        id="contacts.menu_contacts"
+        name="Party Master"
+        sequence="4"
+        parent="function_master_main_menu"
+        />
+
+        <menuitem 
+        id="contacts.res_partner_menu_contacts"
+        name="Name"
+        parent="contacts.menu_contacts"
+        sequence="1"
+        />
+
+        <menuitem name="Communication"
+        id="mail.menu_root_discuss"
+        action="mail.action_discuss"
+        parent="function_utility_main_menu"
+        groups="base.group_user"
+        sequence="50"
+    />
+
+    <menuitem 
+        id="sale.sale_order_menu"
+        name="Quotations"
+        parent="sale.sale_menu_root"
+        sequence="1"/>
+
+    <menuitem 
+        id="sale.menu_sale_quotations"
+        name="All Quotations"
+        parent="sale.sale_order_menu"
+        sequence="1"
+    />
+
+    <menuitem 
+        id="sale.menu_sale_order"
+        name="Confirm Orders"
+        parent="sale.sale_order_menu"
+        sequence="2"/>
+
+    <menuitem name="Settings"
+    id="base.menu_administration"
+   sequence="550"
+    parent="function_utility_main_menu"
+    groups="base.group_erp_manager"/>
+
+
+    <menuitem
+        id="meeting_menu"
+        name="Meeting"
+        parent="calendar.mail_menu_calendar"
+        action="ct_function_v15.action_meeting"
+        sequence="1"
+    />
+
+
+    <menuitem id="sale_menu_finance_receivables" 
+        name="Invoices" sequence="3" 
+        parent="sale.sale_menu_root" />
+
+        <menuitem id="account.menu_action_move_out_invoice_type"
+         action="account.action_move_out_invoice_type" 
+         sequence="111" 
+         parent="sale_menu_finance_receivables"/>
+
+        <menuitem id="account.menu_action_move_out_refund_type"
+         action="account.action_move_out_refund_type" 
+         sequence="2"
+         parent="sale_menu_finance_receivables"/>
+
+        <menuitem id="account.menu_action_move_out_receipt_type" 
+        action="account.action_move_out_receipt_type" 
+        groups="account.group_sale_receipts"
+         sequence="3"
+         parent="sale_menu_finance_receivables"/>
+
+        <menuitem id="account.menu_action_account_payments_receivable"
+         action="account.action_account_payments" 
+         sequence="15"
+         parent="sale_menu_finance_receivables"/>
+
+        <menuitem id="account.product_product_menu_sellable" 
+        name="Products" action="account.product_product_action_sellable" 
+        sequence="100"
+        parent="sale_menu_finance_receivables"/>
+
+        <!-- <menuitem id="account.menu_account_customer" 
+        name="Customers" 
+        action="account.res_partner_action_customer" 
+        sequence="110"
+        parent="sale_menu_finance_receivables"/> -->
+
+        <menuitem id="menu_account_customer_multi_bull" 
+        name="Customer Invoices" 
+        action="ct_function_v15.action_hop_saleorder_bill_wiz" 
+        sequence="1"
+        parent="sale_menu_finance_receivables"/>
+
+        
+  
+
+        <menuitem id="purchase_menu_finance_payables" 
+            name="Vendors" sequence="3" 
+            parent="ct_menu_v15.menu_purchase_custome"
+             />
+
+        <menuitem
+        id="hop_in_vendor_bill_wiz_menu"
+        name="Vendor Bill"
+        action="ct_function_v15.action_hop_in_house_bill_wiz"
+        parent="purchase_menu_finance_payables"
+        sequence="1" />
+
+        <menuitem id="account.menu_action_move_in_invoice_type" 
+        action="account.action_move_in_invoice_type"
+         sequence="2"
+         parent="purchase_menu_finance_payables"/>
+
+        <menuitem id="account.menu_action_move_in_refund_type"
+         action="account.action_move_in_refund_type" 
+         sequence="3"
+         parent="purchase_menu_finance_payables"/>
+
+        <menuitem id="account.menu_action_move_in_receipt_type"
+         action="account.action_move_in_receipt_type" 
+         groups="account.group_purchase_receipts"
+          sequence="4"
+          parent="purchase_menu_finance_payables"/>
+
+        <menuitem id="account.menu_action_account_payments_payable" 
+        action="account.action_account_payments_payable" 
+        sequence="20"
+        parent="purchase_menu_finance_payables"/>
+
+        <menuitem id="account.product_product_menu_purchasable" 
+        name="Products" 
+        action="account.product_product_action_purchasable" 
+        sequence="100"
+        parent="purchase_menu_finance_payables"/>
+
+        <menuitem
+        id="hop_in_house_bill_wiz_menu"
+        name="PO Printing"
+        action="ct_report_v15.action_purchesh_all_po_wizard"
+        parent="ct_menu_v15.menu_purchase_custome"
+        sequence="3" />
+<!-- 
+        <menuitem id="account.menu_account_supplier"
+         name="Vendors" action="account.res_partner_action_supplier" 
+         sequence="200"
+         parent="purchase_menu_finance_payables"/> -->
+         <record model="ir.ui.menu" id="purchase.menu_procurement_management_supplier_name">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+        </record>
+    <!-- <record id="make_invisible" model="res.groups">
+        <field name="name">Invisible</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_no_one'))]"/>
+    </record> -->
+    <record model="ir.ui.menu" id="stock.menu_stock_root">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="contacts.res_partner_menu_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="base_setup.menu_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="calendar.calendar_menu_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="sale.menu_sale_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.res_partner_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.report_sales_team">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.menu_sale_report">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.product_menu_catalog">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.menu_sale_invoicing">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.purchase_report_main">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_products">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_incoterm_open">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_account_bank_journal_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.action_account_reconcile_model_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_finance_entries_accounting_journals">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_currency_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="base.menu_apps">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_account_fiscal_position_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_account_journal_group_list">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="payment.payment_acquirer_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_product_product_categories">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_warehouse_report">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_move_in_refund_type">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.product_product_menu_purchasable">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_move_out_refund_type">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.product_product_menu_sellable">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_finance_reports">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+
+    <record model="ir.ui.menu" id="sale.menu_sale_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.res_partner_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.report_sales_team">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.menu_sale_report">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.product_menu_catalog">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.menu_sale_invoicing">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.purchase_report_main">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_products">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_incoterm_open">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_account_bank_journal_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.action_account_reconcile_model_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_finance_entries_accounting_journals">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_currency_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_account_fiscal_position_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_account_journal_group_list">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="payment.payment_acquirer_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_warehouse_report">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_move_in_refund_type">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.product_product_menu_purchasable">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_move_out_refund_type">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.product_product_menu_sellable">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_finance_reports">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_stock_warehouse_mgmt">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="stock.stock_picking_type_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_warehouse_report">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <!-- <record model="ir.ui.menu" id="stock.menu_stock_config_settings">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+        </record> -->
+
+    <record model="ir.ui.menu" id="stock.menu_stock_inventory_control">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_warehouse_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_attribute_action">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_reordering_rules_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]" />
+    </record>
+
+</odoo>

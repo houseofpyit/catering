@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_res_company_inherit" model="ir.ui.view">
+        <field name="name">res.company.view.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//page[@name='general_info']" position="after">
+               <page string="Terms &amp; Condition" name="terms_Condition">
+                    <!-- <group> -->
+                        <field name="terms_condition" widget="html" placeholder="Write your Terms &amp; Condition here .... " />
+                    <!-- </group> -->
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

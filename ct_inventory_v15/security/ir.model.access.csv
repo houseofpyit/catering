@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hop_venue,hop_venue,model_hop_venue,,1,1,1,1
+access_hop_recipes,hop_recipes,model_hop_recipes,,1,1,1,1
+access_hop_recipes_category,hop_recipes_category,model_hop_recipes_category,,1,1,1,1
+access_hop_raw_materials,hop_raw_materials,model_hop_raw_materials,,1,1,1,1
+access_hop_agencies_type,hop_agencies_type,model_hop_agencies_type,,1,1,1,1
+access_hop_inventory_adj,hop_inventory_adj,model_hop_inventory_adj,,1,1,1,1
+access_hop_inventory_adj_line,hop_inventory_adj_line,model_hop_inventory_adj_line,,1,1,1,1
+access_hop_add_raw_material,hop_add_raw_material,model_hop_add_raw_material,,1,1,1,1
+access_hop_product_running_report,hop_product_running_report,model_hop_product_running_report,,1,1,1,1

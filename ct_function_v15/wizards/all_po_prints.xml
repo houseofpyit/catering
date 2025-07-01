@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="po_print_report_wizard" model="ir.ui.view">
+        <field name="name">poprintreportwizard</field>
+        <field name="model">po.print.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Po Print">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="language"  required="True" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirm" string="Generate" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_po_print_report_wizard" model="ir.actions.act_window">
+        <field name="name">Po Print</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">po.print.report.wizard</field>
+        <field name="view_mode">form</field>
+         <field name="target">new</field>
+    </record>
+    
+    <!-- <menuitem
+        id="hop_in_house_bill_wiz_menu"
+        name="Vender Bill"
+        action="action_hop_in_house_bill_wiz"
+        parent ="account.menu_finance_payables"
+        sequence="1"/> -->
+
+</odoo>     

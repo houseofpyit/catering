@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <template id="lead_funtion_reports">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <!-- <t t-call="web.external_layout"> -->
+                        <style type="text/css">
+                            .watermark {
+                                position: absolute;
+                                top: 0%;
+                                left: 0%;
+                                transform: translate(/ct_report_v15/static/src/HOP.png-50%, -50%);
+                                opacity: 0.3;
+                                font-size: 48px;
+                                color: gray;
+                                z-index: -1;
+                            }
+                            table,td {
+                                font-size: 18px; 
+                            }
+                        </style>
+                      
+                        <div class="header">
+                        </div>
+
+                        <div class="page">
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                </td>
+                                <td width="10%" style="border:none;padding-right:30px;">
+                                       <t t-if="o.company_id.logo">
+                                        <img class="img img-responsive" t-att-src="image_data_uri(o.company_id.logo)" width="150" height="100"/>
+                                    </t>
+                                </td>
+                            </table>
+                            <br/>
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="padding-left:40px;width:50%;">
+                                        <b>Name : </b>
+                                        <span t-esc="o.party_name_id.name"/>
+                                    </td>
+                                    <td style="width:50%;">
+                                        <b>Venue : </b>
+                                        <span t-esc="o.venue_address"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left:40px;width:50%;">
+                                        <b>Mobile : </b>
+                                        <span t-esc="o.mobile_num"/>
+                                    </td>
+                                    <td style="width:50%;">
+                                        <b>Event Date : </b>
+                                        <span t-esc="o.date" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left:40px;width:50%;">
+                                        <b>Food Type : </b>
+                                        <span t-esc="o.meal_type"/>
+                                    </td>
+                                    <td style="width:50%;">
+                                        <b>Event Time : </b>
+                                        <span t-field="o.time" t-options="{'widget': 'float_time'}"/>
+                                        <span t-esc="o.am_pm"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left:40px;width:50%;">
+                                        <b>Function Name : </b>
+                                        <span t-esc="o.fuction_name_id.name"/>
+                                    </td>
+                                    <td style="width:50%;">
+                                        <b>No. of Person : </b>
+                                        <span t-esc="o.no_of_pax"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left:40px;color:red;width:50%;">
+                                        <b>Food Note : </b>
+                                        <span t-esc="o.remarks"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <b>
+                                <span style="padding-left:40px;font-size: 20px;">Extra Message : </span>
+                            </b>
+                            <br/>
+                            <br/>
+                            <b>
+                                <span style="padding-left:40px;font-size: 35px;">ITEMS</span>
+                            </b>
+                            <br/>
+                            <br/>
+                            <t t-if="o.get_menu_item()">
+                                <t t-foreach="o.get_menu_item().get('product_list', [])" t-as="product" >
+                                    <t t-foreach="product.items()" t-as="item">
+                                    <div style="page-break-inside: avoid;">
+                                        <b style="padding-left: 90px;font-size: 21px;">
+                                            <t t-esc="item[0]" />
+                                        </b>
+                                        <br/>
+                                        <t t-foreach="item[1]" t-as="value">
+                                            <li style="padding-left: 150px;font-size: 18px;">
+                                                <t t-esc="o.item_with_accomplisment(value)" />
+                                                <t t-if="o.get_item_instruction(value)">
+                                                    <br/>
+                                                    <t t-if="o.without_description == False">
+                                                        <t t-esc="o.get_item_instruction(value)" />
+                                                        <t t-if="o.item_description(value)">
+                                                            <br/>
+                                                                <t t-esc="o.item_description(value)" />
+                                                        </t>
+                                                    </t>
+                                                   
+                                                </t>
+                                        
+                                            </li>
+                                            
+                                            <!-- <br/> -->
+                                        </t>
+                                        </div>
+                                    </t>
+                                </t>
+                            </t>
+                            <br/>
+                            <br/>
+                            <tr>
+                                <td>
+                                    <span style="padding-left:40px;font-size: 20px;"><b>Note : </b></span>
+                                    <span t-esc="o.notes"/>
+                                </td>
+                            </tr>                            
+                        </div>
+                        <!-- <div class="footer-content">
+                            
+                        </div> -->
+                        <!-- <footer> -->
+                        <div class="footer" style="padding-top:100px;">
+                            <!-- <table style="width: 50%;" align="right">
+                                <tr>
+                                    <td>
+                                        <span t-esc="o.company_id.partner_id.name"/><br/>
+                                        <span t-esc="o.company_id.phone"/>
+                                    </td>
+                                    <td>
+                                        <span>WEBSITE</span><br/>
+                                        <span t-esc="o.company_id.website"/>
+                                    </td>
+                                </tr>
+                            </table> -->
+                        </div>
+                        <!-- </footer> -->
+                    <!-- </t> -->
+                    <p style="page-break-before:always;" />
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

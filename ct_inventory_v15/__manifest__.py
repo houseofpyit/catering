@@ -1,0 +1,41 @@
+{
+    'name': 'ct_inventory_v15',
+    'version': '15.0',
+    'category': '',
+    'sequence': 1,
+    'summary': 'Master',
+    'author': 'Oretta Incorporation',
+    'maintainer': 'Oretta Incorporation',
+    'company': 'Oretta Incorporation',
+    'depends': ['base','contacts','stock','sale','web','product'],
+    'data': [  
+        'data/sequence.xml',
+        # 'data/data.xml',
+        'data/datafile.xml',
+        'security/ir.model.access.csv',
+        'wizard/add_raw_material.xml',
+        'report/paper_formate.xml',
+        'report/recipes_prints.xml',
+        'view/inherit_product_temp.xml',
+        'view/hop_utility.xml',
+        'view/venue.xml',
+        'view/recipes.xml',
+        'view/recipes_category.xml',
+        'view/raw_materials.xml',
+        'view/inventory_adj.xml',
+        'view/inventry_adj_line.xml',
+        'view/product_running_report.xml',
+        # 'view/main_menu.xml',
+          ],    
+    'assets': {
+        # 'web.assets_qweb': [
+        #     'ct_inventory_v15/view/list_view.xml',
+        # ],
+        # 'web.assets_backend': [
+        #     'ct_inventory_v15/static/js/form_controller.js',
+        # ],
+    },
+    'installable': True,
+    'application':True,
+    'auto_install': False
+}

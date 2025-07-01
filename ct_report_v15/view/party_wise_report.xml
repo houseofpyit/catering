@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hop_party_wise_report_tree" model="ir.ui.view">
+        <field name="name">hop.party.wise.report.tree</field>
+        <field name="model">hop.party.wise.report</field>
+        <field name="arch" type="xml">
+            <tree string="Party Wise Report" expand="1" create="0" edit="0">
+                <field name="function_id" />
+                <field name="party_name_id" width="30" context="{'default_is_customer': True}"/>
+                <field name="mobile_num" width="30" />
+                <field name="fuction_name_id" width="30" />
+                <field name="date" width="30" />
+                <field name="emergency_contact" />
+                <field name="remarks" width="30" />
+                <field name="manager_name_id" options="{'no_quick_create':true}" width="30" context="{'default_is_vender': True}"/>
+                <field name="meal_type" width="30" />
+                <field name="no_of_pax" sum="Total" />
+                <field name="time" width="30" />
+                <field name="am_pm" />
+                <field name="venue_address" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="hop_party_wise_report_filter" model="ir.ui.view">
+        <field name="name">hop.party.wise.report.search</field>
+        <field name="model">hop.party.wise.report</field>
+        <field name="arch" type="xml">
+            <search string="Party Wise Report">
+                    <field name="party_name_id" />
+                    <group expand="1" string="Group By">
+                        <filter name="groupby_party" context="{'group_by' : 'party_name_id'}"
+                            string="Party" />
+                    </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hop_party_wise_report_action" model="ir.actions.act_window">
+        <field name="name">Party Wise Report</field>
+        <field name="res_model">hop.party.wise.report</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

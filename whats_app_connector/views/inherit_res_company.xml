@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_res_company_inherit_whatsapp" model="ir.ui.view">
+        <field name="name">res.company.view.form.inherit.whatsapp</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="ct_contact_v15.hop_res_company_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='bank_details']" position="after">
+                <page name="whatsapp_detail" string="Whatsapp Credentials">
+                    <group>
+                        <group>
+                            <field name="whatsapp_user_id" />
+                            <field name="whatsapp_pwd" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

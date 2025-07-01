@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_venue_view_form" model="ir.ui.view">
+        <field name="name">hop.venue.view.form</field>
+        <field name="model">hop.venue</field>
+        <field name="arch" type="xml">
+            <form string="Venue">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="venue_add" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hop_venue_view_tree" model="ir.ui.view">
+        <field name="name">hop.venue.view.tree</field>
+        <field name="model">hop.venue</field>
+        <field name="arch" type="xml">
+            <tree string="Venue">
+                <field name="name" />
+                <field name="venue_add" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="hop_venue_action" model="ir.actions.act_window">
+        <field name="name">Venue</field>
+        <field name="res_model">hop.venue</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

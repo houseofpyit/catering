@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="function_costing_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">function.costing.report.wizard.view.form</field>
+        <field name="model">function.costing.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Costing Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="from_date" />
+                        </group>
+                        <group>
+                        <field name="to_date" />
+                            <field name="fuction_ids" options="{'no_quick_create':true}" widget="many2many_tags"/>
+
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print" string="Generate" type="object" class="oe_highlight" />
+                    <button name="generate_pdf" string="Generate Pdf" type="object"
+                    class="oe_highlight" />
+                    <button string="Cancel" class="oe_link oe_highlight" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_function_costing_report_wizard" model="ir.actions.act_window">
+        <field name="name">Costing Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">function.costing.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="hop_costing_view_tree" model="ir.ui.view">
+        <field name="name">hop.costing.view.tree</field>
+        <field name="model">hop.costing</field>
+        <field name="arch" type="xml">
+            <tree string="" export_xlsx="false" expand="1" create="0" edit="0" delete="0">
+                <field name="function_id"/>
+                <field name="raw_material_cost" />
+                <field name="in_house_cost" />
+                <field name="out_source_cost"/>
+                <field name="addons_cost"/>
+                <field name="labour_cost"/>
+                <field name="raw_material_issue_cost"/>
+                <field name="raw_material_return_cost"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="hop_costing_action" model="ir.actions.act_window">
+        <field name="name">Costing</field>
+        <field name="res_model">hop.costing</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

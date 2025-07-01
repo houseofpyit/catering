@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hop_rm_with_category_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">hop.rm.with.category.report.wizard.view.form</field>
+        <field name="model">hop.rm.with.category.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Raw-Material With Category Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="from_date" />
+                            <field name="category_ids" options="{'no_quick_create':true}" widget="many2many_tags"/>
+                            <field name="product_ids" options="{'no_quick_create':true}" widget="many2many_tags" domain="[('categ_id','in',category_ids)]"/>
+                        </group>
+                         <group>
+                            <field name="to_date" />
+                            <field name="party_ids" options="{'no_quick_create':true}" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print" string="Generate" type="object" class="oe_highlight" />           
+                    <button string="Cancel" class="oe_link oe_highlight" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rm_with_category_report_wizard" model="ir.actions.act_window">
+        <field name="name">Raw-Material With Category Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.rm.with.category.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

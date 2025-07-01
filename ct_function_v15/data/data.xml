@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="base.lang_en" model="res.lang">
+        <field name="date_format">%d/%m/%Y</field> 
+    </record>
+
+    <data noupdate="0">
+        <record model="ct.hospitality.shift" id="shift3">
+            <field name="name">Night</field>
+        </record>
+
+        <record model="ct.hospitality.shift" id="shift1">
+            <field name="name">Morning</field>
+        </record>
+        <record model="ct.hospitality.shift" id="shift2">
+            <field name="name">Evening</field>
+        </record>
+        <record model="ct.hospitality.shift" id="shift4">
+            <field name="name">Late Night</field>
+        </record>
+
+        <record model="hop.recipes.category" id="rec_cat_1">
+            <field name="name">Accomplishment</field>
+        </record>
+        <!-- comm product for services -->
+        <record model="product.template" id="product1">
+            <field name="name">Services</field>
+            <field name="detailed_type">product</field>
+        </record>
+
+        <!-- Meal Type	 -->
+        <record model="product.product" id="meal_1">
+            <field name="name">Early Morning Tea</field>
+        </record>
+        <record model="product.product" id="meal_2">
+            <field name="name">Breakfast</field>
+        </record>
+        <record model="product.product" id="meal_3">
+            <field name="name">Brunch</field>
+        </record>
+        <record model="product.product" id="meal_4">
+            <field name="name">Lunch</field>
+        </record>
+        <record model="product.product" id="meal_5">
+            <field name="name">HI-TEA</field>
+        </record>
+        <record model="product.product" id="meal_6">
+            <field name="name">Dinner</field>
+        </record>
+        <record model="product.product" id="meal_7">
+            <field name="name">Late Night Snacks</field>
+        </record>
+        <record model="product.product" id="meal_8">
+            <field name="name">Mini Meals</field>
+        </record>
+        <record id="hr_discount_journal" model="account.journal">
+            <field name="name">Discount</field>
+            <field name="code">DISC</field>
+            <field name="type">cash</field>
+            <field name="sequence">100</field>
+        </record>
+    </data>
+
+</odoo>

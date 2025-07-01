@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+    <template id="remove_custom_groupby_template" inherit_id="web.GroupByMenu">
+        <xpath expr="//t[@t-name='web.CustomGroupByItem']" position="replace"/>
+    </template>
+
+</odoo>
+<!-- <templates xml:space="preserve">
+
+    <t t-name="web.CustomGroupByItem" owl="1">
+        <Dropdown class="o_add_custom_group_menu" style="display:none">
+            <t t-set-slot="toggler">
+                Add Custom Group
+            </t>
+            <div class="px-3 py-2">
+                <select class="w-100 o_input" t-model="state.fieldName">
+                    <option t-foreach="props.fields" t-as="field" t-key="field.name"
+                    t-att-value="field.name"
+                    t-esc="field.string"
+                    />
+                </select>
+            </div>
+            <div class="px-3 py-2">
+                <button class="btn btn-primary w-100" t-on-click="onApply">
+                    Apply
+                </button>
+            </div>
+        </Dropdown>
+    </t>
+
+</templates> -->

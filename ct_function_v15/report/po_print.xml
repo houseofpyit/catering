@@ -1,0 +1,1163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="po_prints">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o.po_type == 'addons'">
+                        <div class="page">
+                            <!-- <div class="oe_structure"/> -->
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h1>
+                                                        <b>ADD-ON PO</b>
+                                                    </h1>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="o.name" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h4>
+                                                        <span t-esc="o.partner_id.name" /> (<span
+                                                            t-esc="o.partner_id.phone" />) </h4>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="o.company_id.logo">
+                                        <img class="img img-responsive"
+                                            t-att-src="image_data_uri(o.company_id.logo)"
+                                            width="150" height="100" />
+                                    </t>
+                                </td>
+                            </table>
+                           
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:50%">
+                                        <b><span>Address</span> :</b>
+                                        <span t-esc="o.venue_address" />
+                                    </td>
+                                    <td style="text-align:right;width:50%">
+                                        <b><span>Manager Name</span> :</b>
+                                        <span t-esc="o.manager_name_id.name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">
+                                        <t t-if="o.delivery_date == False">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.delivery_date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b><span>Manager Mobile</span> :</b>
+                                        <span t-esc="o.manager_name_id.phone" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">
+                                        <t t-if="o.delivery_time == False">
+                                            <b><span>Function Time</span> : </b>
+                                            <span t-field="o.time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.am_pm" />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Delivery Time</span> : </b>
+                                            <span t-field="o.delivery_time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.delivery_am_pm" />
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <hr style="border: 1px solid black;" />
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Date</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Function Time</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        AM-PM</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Quantity</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        UOM</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Instruction</th>
+                                    <!-- <th style="background-color:grey">Unit Price</th>
+                                    <th style="background-color:grey">Sub Total</th> -->
+                                </tr>
+                                <t t-foreach="o.order_line" t-as="item">
+                                    <tr>
+                                        <t t-if="item.product_id">
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_id.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.date.strftime('%d/%m/%Y')"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.time"
+                                                    t-options="{'widget': 'float_time'}"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.am_pm"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="'%.2f'%(item.product_qty)"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_uom.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.instruction"></span>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td colspan="99"
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-field="item.name" />
+                                            </td>
+                                        </t>
+
+                                        <!-- <td>
+                                            <span t-esc="item.price_unit"></span>
+                                        </td>
+                                        <td>
+                                            <span t-esc="item.price_subtotal"></span>
+                                        </td> -->
+                                    </tr>
+                                </t>
+                                <!-- <t t-foreach="range(15-counter)" t-as="p">
+                                    <tr>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                    </tr>  
+                                </t> -->
+                            </table>
+                            <!-- <div id="total" class="row justify-content-end">
+                                    <div class="col-4">
+                                        <table class="table table-sm">
+                                            <t t-set="tax_totals" t-value="json.loads(o.tax_totals_json)"/>
+                                            <t t-call="account.document_tax_totals"/>
+                                        </table>
+                                    </div>
+                                </div>
+                            <div class="oe_structure"/> -->
+                            <p style="page-break-before:always;" />
+                        </div>
+                    </t>
+                    <t t-elif="o.po_type == 'service'">
+                        <div class="page">
+                            <!-- <div class="oe_structure"/> -->
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h1>
+                                                        <b>LABOUR PO</b>
+                                                    </h1>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="o.name" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h4>
+                                                        <span t-esc="o.partner_id.name" /> (<span
+                                                            t-esc="o.partner_id.phone" />) </h4>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="o.company_id.logo">
+                                        <img class="img img-responsive"
+                                            t-att-src="image_data_uri(o.company_id.logo)"
+                                            width="150" height="100" />
+                                    </t>
+                                </td>
+                            </table>
+                          
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:50%">
+                                        <b><span>Address</span> : </b>
+                                        <span t-esc="o.venue_address" />
+                                    </td>
+                                    <td style="text-align:right;width:50%">
+                                        <b><span>Manager Name</span> : </b>
+                                        <span t-esc="o.manager_name_id.name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">
+                                        <t t-if="o.delivery_date == False">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.delivery_date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b>
+                                            <span>Manager Mobile</span> :</b>
+                                        <span t-esc="o.manager_name_id.phone" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">
+                                        <t t-if="o.delivery_time == False">
+                                            <b><span>Function Time</span> : </b>
+                                            <span t-field="o.time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.am_pm" />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Delivery Time</span> : </b>
+                                            <span t-field="o.delivery_time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.delivery_am_pm" />
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <hr style="border: 1px solid black;" />
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Quantity</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        UOM</th>
+                                    <!-- <th style="background-color:grey">Received</th>
+                                    <th style="background-color:grey">Billed</th> -->
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Hospitality</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">Shift
+                                        Date</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">Shift
+                                        Function Time</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">Shift
+                                        Remark</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Location</th>
+                                    <!-- <th style="background-color:grey">Unit Price</th> -->
+                                    <!-- <th style="background-color:grey">Remark</th> -->
+                                </tr>
+                                <!-- <t t-set="counter" t-value="0" /> -->
+                                <t t-foreach="o.order_line" t-as="item">
+                                    <!-- <t t-set="counter" t-value="counter + 1" /> -->
+                                    <tr>
+                                        <t t-if="item.product_id">
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_id.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="'%.2f'%(item.product_qty)"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_uom.name"></span>
+                                            </td>
+                                            <!-- <td>
+                                            <span t-esc="item.qty_received"></span>
+                                        </td>
+                                        <td>
+                                            <span t-esc="item.qty_invoiced"></span>
+                                        </td> -->
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.hospitality_ids.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.shift_date.strftime('%d-%m-%Y')"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.shift_time"
+                                                    t-options="{'widget': 'float_time'}"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.remarks"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.selection_name()"></span>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td colspan="99"
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-field="item.name" />
+                                            </td>
+                                        </t>
+                                        <!-- <td>
+                                            <span t-esc="item.price_unit"></span>
+                                        </td> -->
+                                        <!-- <td style="text-align:left;padding-left:10px;">
+                                            <span t-esc="item.name"></span>
+                                        </td> -->
+                                    </tr>
+                                </t>
+                                <!-- <t t-foreach="range(15-counter)" t-as="p">
+                                    <tr>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                    </tr>  
+                                </t> -->
+                            </table>
+                            <!-- <div id="total" class="row justify-content-end">
+                                    <div class="col-4">
+                                        <table class="table table-sm">
+                                            <t t-set="tax_totals" t-value="json.loads(o.tax_totals_json)"/>
+                                            <t t-call="account.document_tax_totals"/>
+                                        </table>
+                                    </div>
+                                </div>
+                            <div class="oe_structure"/> -->
+                            <p style="page-break-before:always;" />
+                        </div>
+                    </t>
+                    <t t-elif="o.po_type == 'in_house'">
+                        <div class="page">
+                            <!-- <div class="oe_structure"/> -->
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h1>
+                                                        <b>IN-HOUSE</b>
+                                                    </h1>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="o.name" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h4>
+                                                        <span t-esc="o.partner_id.name" /> (<span
+                                                            t-esc="o.partner_id.phone" />) </h4>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="o.company_id.logo">
+                                        <img class="img img-responsive"
+                                            t-att-src="image_data_uri(o.company_id.logo)"
+                                            width="150" height="100" />
+                                    </t>
+                                </td>
+                            </table>
+                            
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b>
+                                            <span>Venue Address</span> :</b>
+                                        <span t-esc="o.venue_address" />
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b>
+                                            <span>Manager Name</span> :</b>
+                                        <span t-esc="o.manager_name_id.name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        <t t-if="o.delivery_date == False">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.delivery_date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b><span>Manager Mobile</span> :</b>
+                                        <span t-esc="o.manager_name_id.phone" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        <t t-if="o.delivery_time == False">
+                                            <b><span>Function Time</span> : </b>
+                                            <span t-field="o.time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.am_pm" />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Delivery Time</span> : </b>
+                                            <span t-field="o.delivery_time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.delivery_am_pm" />
+                                        </t>
+                                    </td>
+                                </tr>
+                                <td style="width:50%;">
+                                    <b><span>Meal Type</span> :</b>
+                                    <span t-esc="o.selection_meal_type()" />
+                                </td>
+                                <tr>
+                                    <td style="color:red;width:50%;">
+                                        <b><span>Remark</span> :</b>
+                                        <span t-esc="o.remarks" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <hr style="border: 1px solid black;" />
+                            <br />
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Category</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Helper</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Chief</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">No
+                                        Of Pax</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">Total
+                                        Qty</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Instruction</th>
+                                    <!-- <th style="background-color:grey">Remark</th> -->
+                                </tr>
+                                <!-- <t t-set="counter" t-value="0" /> -->
+                                <t t-foreach="o.order_line" t-as="item">
+                                    <!-- <t t-set="counter" t-value="counter + 1" /> -->
+                                    <tr>
+                                        <t t-if="item.product_id">
+
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.category_id.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_id.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.helper"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.chief"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.no_of_pax"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="'%.2f'%(item.order_qty)"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.instruction"></span>
+                                            </td>
+
+                                        </t>
+
+                                        <t t-else="">
+                                            <td colspan="99"
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-field="item.name" />
+                                            </td>
+                                        </t>
+                                    </tr>
+
+                                </t>
+                                <!-- <t t-foreach="range(15-counter)" t-as="p">
+                                    <tr>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                        <td style="border-top:none;border-bottom:none"><br/></td>
+                                    </tr>  
+                                </t> -->
+                            </table>
+                            <!-- <div id="total" class="row justify-content-end">
+                                    <div class="col-4">
+                                        <table class="table table-sm">
+                                            <t t-set="tax_totals" t-value="json.loads(o.tax_totals_json)"/>
+                                            <t t-call="account.document_tax_totals"/>
+                                        </table>
+                                    </div>
+                                </div>
+                            <div class="oe_structure"/> -->
+                            <p style="page-break-before:always;" />
+                        </div>
+
+                    </t>
+                    <t t-elif="o.po_type == 'row_material'">
+                        <div class="page">
+                            <!-- <div class="oe_structure"/> -->
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h1>
+                                                        <b>RAW MATERIAL</b>
+                                                    </h1>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="o.name" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h4>
+                                                        <span t-esc="o.partner_id.name" /> (<span
+                                                            t-esc="o.partner_id.phone" />) </h4>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="o.company_id.logo">
+                                        <img class="img img-responsive"
+                                            t-att-src="image_data_uri(o.company_id.logo)"
+                                            width="150" height="100" />
+                                    </t>
+                                </td>
+                            </table>
+
+                            
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b>
+                                            <span>Venue Address</span> : </b>
+                                        <span t-esc="o.venue_address" />
+                                    </td>
+                                    <td style="width:50%;text-align:right;">
+                                        <b><span>Manager Name</span> : </b>
+                                        <span t-esc="o.manager_name_id.name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="">
+                                        <t t-if="o.delivery_date == False">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.delivery_date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <b>
+                                            <span>Manager Mobile</span> : </b>
+                                        <span t-esc="o.manager_name_id.phone" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="">
+                                        <t t-if="o.delivery_time == False">
+                                            <b><span>Function Time</span> : </b>
+                                            <span t-field="o.time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.am_pm" />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Delivery Time</span> : </b>
+                                            <span t-field="o.delivery_time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.delivery_am_pm" />
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                            <hr style="border: 1px solid black;" />
+                            <table style="width:100%;border: 1px solid black;">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Date</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Time</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        AM-PM</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Quantity</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        UOM</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Remark</th>
+                                </tr>
+                                <t t-foreach="o.order_line" t-as="item">
+                                    <tr>
+                                        <t t-if="item.product_id">
+                                            <td
+                                                style="text-align:center;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_id.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:center;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.date"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:center;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.time"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:center;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.am_pm"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="'%.2f'%(item.product_qty)"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_uom.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.name"></span>
+                                            </td>
+
+
+                                        </t>
+
+                                        <t t-else="">
+                                            <td colspan="99"
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-field="item.name" />
+                                            </td>
+                                        </t>
+
+
+                                    </tr>
+                                </t>
+
+                            </table>
+                            <p style="page-break-before:always;" />
+                        </div>
+                    </t>
+                    <t t-elif="o.po_type == 'out_source'">
+                        <div class="page">
+                            <div class="oe_structure" />
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h1>
+                                                        <b>OUT-SOURSE</b>
+                                                    </h1>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="o.name" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h4>
+                                                        <span t-esc="o.partner_id.name" /> (<span
+                                                            t-esc="o.partner_id.phone" />) </h4>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="o.company_id.logo">
+                                        <img class="img img-responsive"
+                                            t-att-src="image_data_uri(o.company_id.logo)"
+                                            width="150" height="100" />
+                                    </t>
+                                </td>
+                            </table>
+                           
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b><span>Venue</span> : </b>
+                                        <span t-esc="o.venue_address"></span>
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b>
+                                            <span>Manager Name</span> : </b>
+                                        <span t-esc="o.manager_name_id.name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        <t t-if="o.delivery_date == False">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.delivery_date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b>
+                                            <span>Contact</span> : </b>
+                                        <span t-esc="o.manager_name_id.phone" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        <t t-if="o.delivery_time == False">
+                                            <b><span>Function Time</span> : </b>
+                                            <span t-field="o.time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.am_pm" />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Delivery Time</span> : </b>
+                                            <span t-field="o.delivery_time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.delivery_am_pm" />
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b><span>Meal Type</span> :</b>
+                                        <span t-esc="o.selection_meal_type()" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="color:red;width:50%;">
+                                        <b><span>Remark</span> :</b>
+                                        <span t-esc="o.remarks" />
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <hr style="border: 1px solid black;" />
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Category</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Helper</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Chief</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">No
+                                        Of Pax</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">UOM
+                                        </th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">Total
+                                        Qty</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Instruction</th>
+
+                                </tr>
+                                <t t-foreach="o.order_line" t-as="item">
+                                    <tr>
+                                        <t t-if="item.product_id">
+
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.category_id.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_id.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.helper"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.chief"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.no_of_pax"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                 <t t-if="o.qty_cal_type == 'total_qty'">
+                                                    <span t-esc="item.product_uom.NAME"></span>
+                                                 </t>
+                                                  <t t-else="">
+                                                 <span>-</span>
+                                                 </t>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="'%.2f'%(item.order_qty)"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.instruction"></span>
+                                            </td>
+
+                                        </t>
+
+                                        <t t-else="">
+                                            <td colspan="99"
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-field="item.name" />
+                                            </td>
+                                        </t>
+
+                                    </tr>
+                                </t>
+                            </table>
+                            <p style="page-break-before:always;" />
+                        </div>
+                    </t>
+                    <t t-if="o.po_type == 'normal'">
+                        <div class="page">
+                            <!-- <div class="oe_structure"/> -->
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="o.name" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h4>
+                                                        <span t-esc="o.partner_id.name" /> (<span
+                                                            t-esc="o.partner_id.phone" />) </h4>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="o.company_id.logo">
+                                        <img class="img img-responsive"
+                                            t-att-src="image_data_uri(o.company_id.logo)"
+                                            width="150" height="100" />
+                                    </t>
+                                </td>
+                            </table>
+                            
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b><span>Address</span> :</b>
+                                        <span t-esc="o.venue_address" />
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <b><span>Manager Name</span> :</b>
+                                        <span t-esc="o.manager_name_id.name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        <t t-if="o.delivery_date == False">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="o.delivery_date"
+                                                t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <b><span>Manager Mobile</span> :</b>
+                                        <span t-esc="o.manager_name_id.phone" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        <t t-if="o.delivery_time == False">
+                                            <b><span>Function Time</span> : </b>
+                                            <span t-field="o.time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.am_pm" />
+                                        </t>
+                                        <t t-else="">
+                                            <b><span>Delivery Time</span> : </b>
+                                            <span t-field="o.delivery_time"
+                                                t-options="{'widget': 'float_time'}" />
+                                            <span t-field="o.delivery_am_pm" />
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b><span>Meal Type</span> :</b>
+                                        <span t-esc="o.selection_meal_type()" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="color:red;width:50%;">
+                                        <b><span>Remark</span> :</b>
+                                        <span t-esc="o.remarks" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <hr style="border: 1px solid black;" />
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        UOM</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Quantity</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Subtotal</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Remark</th>
+                                </tr>
+                                <t t-foreach="o.order_line" t-as="item">
+                                    <tr>
+                                        <t t-if="item.product_id">
+
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_id.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_uom.name"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.product_qty"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="item.price_subtotal"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.name"></span>
+                                            </td>
+
+                                        </t>
+
+                                        <t t-else="">
+                                            <td colspan="99"
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-field="item.name" />
+                                            </td>
+                                        </t>
+
+                                    </tr>
+                                </t>
+                            </table>
+                            <p style="page-break-before:always;" />
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

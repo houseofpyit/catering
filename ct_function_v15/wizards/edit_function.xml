@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="edit_function" model="ir.ui.view">
+        <field name="name">hop.edit.function.name</field>
+        <field name="model">hop.edit.function</field>
+        <field name="arch" type="xml">
+            <form string="Edit Function">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="edit_type" widget="radio" options="{'horizontal': false}"/>
+                        </group>
+                    </group>
+                    <group>            
+                        <group>
+                            <field name="no_of_pax"  attrs="{'invisible': [('edit_type','!=','edit_no_of_pax')],'required': [('edit_type','=','edit_no_of_pax')]}"/>
+                            <field name="menu_recipes_ids" widget="many2many_tags" invisible="1" />
+                            <field name="add_recipes_id" options="{'no_quick_create':true}" domain="[('id','not in',menu_recipes_ids)]" attrs="{'invisible': [('edit_type','!=','add_menu')],'required': [('edit_type','=','add_menu')]}"/>
+                            <field name="replace_recipes_id" options="{'no_quick_create':true}" domain="[('id','in',menu_recipes_ids)]" attrs="{'invisible': [('edit_type','!=','replace_menu')],'required': [('edit_type','=','replace_menu')]}"/>
+                            <field name="remove_recipes_id" options="{'no_quick_create':true}" domain="[('id','in',menu_recipes_ids)]" attrs="{'invisible': [('edit_type','!=','remove_menu')],'required': [('edit_type','=','remove_menu')]}"/>
+                        </group>
+                       
+                        <group>
+                            <field name="new_recipes_id" options="{'no_quick_create':true}" domain="[('id','not in',menu_recipes_ids)]" attrs="{'invisible': [('edit_type','!=','replace_menu')],'required': [('edit_type','=','replace_menu')]}"/>
+                        </group>
+                       
+                    </group>
+                    <notebook>
+                        <page string="Add-ons" attrs="{'invisible': [('edit_type','!=','add_edit_addons')]}">
+                            <field name="addons_line_ids" nolabel="1" tracking="1">
+                                <tree editable="bottom" >
+                                    <field name="service_id" options="{'no_quick_create':true}" width="25" domain="[('utility_type','=','service')]" context="{'default_utility_type': 'service'}"/>
+                                    <field name="vender_id" options="{'no_quick_create':true}" width="20" context="{'default_is_vender': True}"/>
+                                    <field name="date"  width="20"/>
+                                    <field name="time"  width="20" widget="float_time"/>
+                                    <field name="am_pm"  width="20"/>
+                                    <field name="qty_ids"   width="25" required="1"/>
+                                    <field name="uom_id"  width="25" options="{'no_quick_create':true}"/>
+                                    <field name="price"   width="25" force_save="1"/>
+                                    <field name="cost"  width="25" force_save="1"/>
+                                    <field name="instruction"  width="25"/>
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="vender_id"/> 
+                                    <field name="service_id"/> 
+                                    <field name="date"/>
+                                    <field name="qty_ids"/> 
+                                    <field name="price"/> 
+                                    <field name="cost"/>
+                                    <field name="instruction" />
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click ">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <strong>
+                                                            <span>
+                                                                Vendor Name:
+                                                                <t t-esc="record.vender_id.value"/>
+                                                            </span>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Service:
+                                                            <t t-esc="record.service_id.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                            Quantity/Person:
+                                                            <t t-esc="record.qty_ids.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                            Sale Price:
+                                                            <t t-esc="record.price.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                            Cost:
+                                                            <t t-esc="record.cost.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                            Instruction:
+                                                            <t t-esc="record.instruction.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="vender_id" width="20" options="{'no_quick_create':true}"/>
+                                            <field name="service_id" width="20" domain="[('utility_type','=','service')]" context="{'default_utility_type': 'service'}" options="{'no_quick_create':true}"/>
+                                            <field name="qty_ids" width="20"/>
+                                            <field name="price" width="20"/>
+                                        </group>
+                                        <group>
+                                            <field name="cost" width="20"/>
+                                            <field name="instruction" width="20"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button string="Ok" name="confirm" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="edit_function_action" model="ir.actions.act_window">
+        <field name="name">Send Email Whatsapp</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.edit.function</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

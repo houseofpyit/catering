@@ -1,0 +1,1196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_function_view_form" model="ir.ui.view">
+        <field name="name">hop.function.view.form</field>
+        <field name="model">hop.function</field>
+        <field name="arch" type="xml">
+            <form string="Order Details" create="0" delete="0">
+                <header>
+                    <field name="stage" widget="statusbar" statusbar_visible="confirm_menu,purchase_order,invoice" clickable="1"/>
+                    <!-- <button string="Set to Draft" name="action_set_to_drafr" type="object" class="oe_highlight button-color-inherit" attrs="{'invisible': [('stage' , 'in', ['draft'])] }"/>
+                    <button string="Confirm Menu" name="action_confirm_menu" type="object" class="oe_highlight button-color-inherit" attrs="{'invisible': [('stage' , 'in', ['confirm','issue_rm'])] }"/>
+                    <button string="Issue RM" name="issue_rm" type="object" class="oe_highlight button-color-inherit" attrs="{'invisible': [('stage' , 'in', ['menu','draft','issue_rm'])] }"/> -->
+                    <button string="Raw Material PO" name="action_create_po" type="object"  class="oe_highlight button-color-inherit" attrs="{'invisible': ['|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('visible_raw_material','=',False)] }" />
+                    <!-- <button string="Out-Source PO" name="action_outsource_and_in_house_po"  type="object" context="{'out_sider': True}" class="oe_highlight button-color-inherit" attrs="{'invisible': ['|','|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('out_source','>',0),('visible_out_source','=',False)] }" /> -->
+                    <button string="Out-Source PO" name="action_outsource_and_in_house_po"  type="object" context="{'out_sider': True}" class="oe_highlight button-color-inherit" attrs="{'invisible': ['|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('visible_out_source','=',False)] }" />
+                    <!-- <button string="In-House PO"  name="action_outsource_and_in_house_po" type="object" context="{'in_house': True}" class="oe_highlight button-color-inherit" attrs="{'invisible': ['|','|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('in_house','>',0),('visible_in_house','=',False)] }" /> -->
+                    <button string="In-House PO"  name="action_outsource_and_in_house_po" type="object" context="{'in_house': True}" class="oe_highlight button-color-inherit" attrs="{'invisible': ['|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('visible_in_house','=',False)] }" />
+                    <!-- <button string="Labour PO" name="action_create_service_po" type="object"  class="oe_highlight button-color-inherit"  attrs="{'invisible': ['|','|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('service','>',0),('visible_labour','=',False)] }" /> -->
+                    <button string="Labour PO" name="action_create_service_po" type="object"  class="oe_highlight button-color-inherit"  attrs="{'invisible': ['|','|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('visible_labour','=',False),('skip_labour','=',True)] }" />
+                    <!-- <button string="Add-ons PO" name="action_create_addons" type="object"  class="oe_highlight button-color-inherit"  attrs="{'invisible': ['|','|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('addons','>',0),('visible_addons','=',False)] }" /> -->
+                    <button string="Add-ons PO" name="action_create_addons" type="object"  class="oe_highlight button-color-inherit"  attrs="{'invisible': ['|','|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('visible_addons','=',False),('skip_addons','=',True)] }" />
+                    <button string="Issue" name="%(action_issue)d" type="action"  class="oe_highlight button-color-inherit" attrs="{'invisible': [('issue_return_visible' , '=', False)]}"/>
+                    <button string="return" name="%(action_return)d" type="action"  class="oe_highlight button-color-inherit" attrs="{'invisible': [('issue_return_visible' , '=', False)]}"/>
+                    <!-- <button string="Cancel" name="action_cancel" type="object"  class="oe_highlight button-cancel-color-inherit"  attrs="{'invisible': [('stage' , '=', 'cancel')]}"/> -->
+                    <!-- <button string="Create Hospitality" name="action_hospitality" type="object" class="oe_highlight button-color-inherit"/> -->
+                    <button string="File Completed" name="file_completed_button" type="object" class="oe_highlight button-color-inherit" attrs="{'invisible': ['|',('completed' , '=', False),('stage' , '!=','purchase_order')]}"/>
+                    <!-- <button string="Reset To Draft" name="reset_to_draft" type="object" class="oe_highlight button-color-inherit" attrs="{'invisible': [('stage' , '!=','invoice')]}"/> -->
+                </header>                
+                <sheet>
+                <field name="file_completed" invisible="1"/>
+                <field name="completed"  invisible="1"/>
+                <field name="active" invisible="1"/>
+                <field name="issue_return_visible" invisible="1" />            
+                <field name="visible_raw_material" invisible="1" />
+                <field name="visible_labour" invisible="1" />
+                <field name="visible_addons" invisible="1" />
+                <field name="visible_out_source" invisible="1" />
+                <field name="visible_in_house" invisible="1" />
+                    <div class="oe_button_box" name="button_box" style="color:white !important;" >
+                        <button style="background-color:#3abedc;" name="action_create_po_count"           
+                            type="object"
+                            class="oe_stat_button smart-button-inherit"
+                            icon="fa-cogs" 
+                            context="{'po_type': 'row_material'}"
+                            attrs="{'invisible': ['|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('po_count','=',0)]}">
+                            <field name="po_count" widget="statinfo" string="RM PO" style="color:black;" force_save="1" />
+                        </button> 
+                        <!-- <button name="quotation_open" type="object" class="oe_stat_button smart-button-inherit" icon="fa-pencil-square-o" 
+                        attrs="{'invisible': ['|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('quotation_count','=',0)]}">
+                            <field name="quotation_count" widget="statinfo" string="Quotation" style="color:black;"/>
+                        </button> -->
+                        <button name="action_create_po_count" type="object"  class="oe_stat_button smart-button-inherit" icon="fa-pencil-square-o" context="{'po_type': 'out_source'}"
+                        attrs="{'invisible': ['|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('out_source','=',0)]}">
+                            <field name="out_source" widget="statinfo" string="Out Source" style="color:black;"/>
+                        </button>
+                        <button name="action_create_po_count" type="object"  class="oe_stat_button smart-button-inherit" icon="fa-pencil-square-o" context="{'po_type': 'in_house'}" 
+                        attrs="{'invisible': ['|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('in_house','=',0)]}">
+                            <field name="in_house" widget="statinfo" string="In House" style="color:black;"/>
+                        </button>
+                        <button name="action_create_po_count" type="object"  class="oe_stat_button smart-button-inherit" icon="fa-pencil-square-o" context="{'po_type': 'service'}"
+                        attrs="{'invisible': ['|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('service','=',0)]}">
+                            <field name="service" widget="statinfo" string="Labour" style="color:black;"/>
+                        </button>
+                        <button name="action_create_po_count" type="object"  class="oe_stat_button smart-button-inherit" icon="fa-pencil-square-o" context="{'po_type': 'addons'}"
+                            attrs="{'invisible': ['|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('addons','=',0)]}">
+                            <field name="addons" widget="statinfo" string="Add-ons" style="color:black;"/>
+                        </button>
+                        <button name="action_utensils" type="object"  class="oe_stat_button smart-button-inherit" icon="fa-pencil-square-o" attrs="{'invisible': [('is_utensils', '=', False)]}">
+                            <span style="color:black;">Utensils</span>
+                        </button>
+                        <!-- <button name="lead_order_open" type="object"  class="oe_stat_button smart-button-inherit" icon="fa-pencil-square-o" 
+                        attrs="{'invisible': ['|',('stage' , 'in', ['details','create_menu','confirm_menu','raw_materials']),('lead_order_count','=',0)]}">
+                            <field name="lead_order_count" widget="statinfo" string="Lead Order" style="color:black;"/>
+                        </button> -->
+                    </div>
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>  
+                    <group>
+                        <group>
+                            <field name="is_utensils" invisible="1"/>
+                            <field name="is_purchase" invisible="1"/>
+                            <field name="is_service_po" invisible="1"/>
+                            <field name="is_addons_po" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="party_name_id" required="True" force_save="1" context="{'default_is_customer': True}" options="{'no_quick_create': True}" />
+                            <field name="mobile_num" required="True" readonly="False" force_save="1"/>
+                            <field name="venue_address" required="True" force_save="1" />
+                            <field name="fuction_name_id" required="True" force_save="1" attrs="{'readonly': [('stage' , 'in', ['create_menu','raw_materials','purchase_order','manager_report','invoice'])] }"/>                           
+                        </group>
+                        <group>
+                            <field name="date" force_save="1" required="True" attrs="{'readonly': [('stage' , 'in', ['create_menu','raw_materials','purchase_order','manager_report','invoice'])] }"/>
+                            <field name="emergency_contact" />
+                            <field name="remarks" force_save="1" attrs="{'readonly': [('stage' , 'in', ['create_menu','raw_materials','purchase_order','manager_report','invoice'])] }"/>
+                            <field name="hop_lead_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="manager_name_id" options="{'no_quick_create': True,}" force_save="1" required="True" context="{'default_is_vender': True}" />
+                            <!-- <field name="manager_name_id" force_save="1" required="True" context="{'default_is_vender': True}"
+                                attrs="{'readonly': [('stage' , 'in', ['create_menu','raw_materials','confirm_menu','purchase_order','manager_report','invoice'])] }"/> -->
+                            </group>
+                            <group>
+                                <field name="meal_type" required="True" force_save="1" 
+                                attrs="{'readonly': [('stage' , 'in', ['create_menu','raw_materials','purchase_order','manager_report','invoice'])] }"/>
+                                <span class="o_form_label o_td_label" name="order no">
+                                    <b>Time</b>
+                                </span>
+                                <div class="o_address_format">
+                                    <field name="time" class="o_address_city" style="width:20%;" force_save="1" required="True" widget="float_time" attrs="{'readonly': [('stage' , 'in', ['create_menu','raw_materials','purchase_order','manager_report','invoice'])] }"/>
+                                    <field name="am_pm" class="o_address_city" style="width:20%;" force_save="1" required="True" attrs="{'readonly': [('stage' , 'in', ['create_menu','raw_materials','purchase_order','manager_report','invoice'])] }"/>
+                                </div>
+                                <field name="skip_labour" />
+                                <field name="skip_addons" />
+                            </group>
+                        <group>
+                            <field name="no_of_pax" required="True" force_save="1" 
+                            attrs="{'readonly': [('stage' , 'in', ['create_menu','raw_materials','purchase_order','manager_report','invoice'])] }"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Menu" attrs="{'invisible': [('stage' , 'in', 'details' )]}">
+                            <field name="recipes_ids" widget="many2many_tags" invisible="1"/>
+                            <group string="Menu">
+                                <!-- <div> -->
+                                    <field name="fuction_line_ids" nolabel="1" tracking="1" >
+                                        <tree editable="bottom" create="0" delete="0">
+                                            <field name="category_id" options="{'no_quick_create': True}" required="True" readonly="1" />
+                                            <field name="item_id" required="True" readonly="1" domain="[('id','not in',parent.recipes_ids),('category_id','=',category_id)]" context="{'default_category_id': category_id}" options="{'no_quick_create': True}"/>
+                                            <field name="insider_id" context="{'default_is_vender': True}" attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')] }" options="{'no_quick_create': True}"/>
+                                            <field name="out_sider_id" context="{'default_is_vender': True}" attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')] }"  options="{'no_quick_create': True}" />
+                                            <field name="helper" />
+                                            <field name="chief" />
+                                            <field name="no_of_pax" force_save="1" attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')] }" />
+                                            <field name="per_qty" attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')] }"  />
+                                            <field name="qty"  attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')] }"  />
+                                            <field name="uom" attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')],'readonly': [('parent.stage' ,  'in', ['raw_materials','purchase_order','manager_report','invoice'])] }" force_save="1" options="{'no_quick_create': True}"/>
+                                            <field name="cost" column_invisible="1" force_save="1" sum="cost" invisible="1" />
+                                            <field name="rate"  sum="rate"  invisible="1"  /> 
+                                            <field name="type" invisible="1"  /> 
+                                            <field name="jobwork_type" optional="hide" />
+                                            <field name="total_cost" readonly="1" optional="hide" sum="Totatl Cost" force_save="1"/>
+                                            <!-- attrs="{'column_invisible': [('parent.stage' , '=', 'menu')] }" -->
+                                            <field name="instruction" attrs="{'readonly': [('parent.stage' ,'in', ['raw_materials','purchase_order','manager_report','invoice'])] }"/>
+                                            <button string="Edit RM" name="open_rm_list" type="object" class="oe_highlight button-color-inherit" attrs="{'invisible': ['|','|',('parent.stage' , 'in' , ['details','create_menu','confirm_menu']),('parent.visible_raw_material','=',False),('type','=','out')] }"/>                                            
+                                        </tree>
+                                        <kanban class="o_kanban_mobile">
+                                            <field name="category_id"/>
+                                            <field name="item_id" />
+                                            <field name="insider_id" />
+                                            <field name="out_sider_id"  />
+                                            <field name="helper" />
+                                            <field name="chief" />
+                                            <field name="no_of_pax" />
+                                            <field name="per_qty" />
+                                            <field name="qty" />
+                                            <field name="uom"/>
+                                            <!-- <field name="cost"  />  -->
+                                            <field name="instruction" />
+                                            <templates>
+                                                <t t-name="kanban-box">
+                                                    <div t-attf-class="oe_kanban_card oe_kanban_global_click ">
+                                                        <div class="row">
+                                                            <div class="col-12" >
+                                                                <strong>
+                                                                    <span>
+                                                                            Category:
+                                                                        <t t-esc="record.category_id.value"/>
+                                                                    </span>
+                                                                </strong>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <strong>
+                                                                    <span>
+                                                                            Item Name:
+                                                                        <t t-esc="record.item_id.value"/>
+                                                                    </span>
+                                                                </strong>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 text-muted">
+                                                                <span>
+                                                                    In-House:
+                                                                    <t t-esc="record.insider_id.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 text-muted">
+                                                                <span>
+                                                                    Out-Source:
+                                                                    <t t-esc="record.out_sider_id.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 text-muted">
+                                                                <span>
+                                                                    Helper:
+                                                                    <t t-esc="record.helper.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 text-muted">
+                                                                <span>
+                                                                    Chief:
+                                                                    <t t-esc="record.chief.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 text-muted">
+                                                                <span>
+                                                                    No Of Pax:
+                                                                    <t t-esc="record.no_of_pax.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 text-muted">
+                                                                <span>
+                                                                        Per Head Quantity:
+                                                                    <t t-esc="record.per_qty.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 text-muted">
+                                                                <span>
+                                                                        Quantity:
+                                                                    <t t-esc="record.qty.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 text-muted">
+                                                                <span>
+                                                                        Uom:
+                                                                    <t t-esc="record.uom.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="row">
+                                                            <div class="col-12 text-muted">
+                                                                <span>
+                                                                    Cost:
+                                                                    <t t-esc="record.cost.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div> -->
+                                                        <div class="row">
+                                                            <div class="col-12 text-muted">
+                                                                <span>
+                                                                    Instruction:
+                                                                    <t t-esc="record.instruction.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </templates>
+                                        </kanban>
+                                        <form create="0" delete="0">
+                                            <group>
+                                                <group>
+                                                    <field name="category_id" options="{'no_quick_create': True}" required="True" readonly="1" />
+                                                    <field name="item_id" required="True" readonly="1" domain="[('id','not in',parent.recipes_ids),('category_id','=',category_id)]" context="{'default_category_id': category_id}" options="{'no_quick_create': True}"/>
+                                                    <field name="insider_id" context="{'default_is_vender': True}" attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')] }" options="{'no_quick_create': True}"/>
+                                                    <field name="out_sider_id" context="{'default_is_vender': True}" attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')] }"  options="{'no_quick_create': True}" />
+                                                    <field name="helper" />
+                                                    <field name="chief" />
+                                                </group>
+                                                <group>
+                                                    <field name="no_of_pax" force_save="1" attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')] }" />
+                                                    <field name="per_qty" attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')] }"  />
+                                                    <field name="qty"  attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')] }"  />
+                                                    <field name="uom" attrs="{'column_invisible': [('parent.stage' , '=', 'create_menu')],'readonly': [('parent.stage' ,  'in', ['raw_materials','purchase_order','manager_report','invoice'])] }" force_save="1" options="{'no_quick_create': True}"/>
+                                                    <field name="cost" column_invisible="1" force_save="1" sum="cost" invisible="1" />
+                                                    <field name="rate"  sum="rate"  invisible="1"  /> 
+                                                    <field name="type" invisible="1" /> 
+                                                    <field name="instruction" attrs="{'readonly': [('parent.stage' ,'in', ['raw_materials','purchase_order','manager_report','invoice'])] }"/>
+                                                    <button string="Edit RM" name="open_rm_list" type="object" class="oe_highlight button-color-inherit" attrs="{'invisible': ['|','|',('parent.stage' , 'in' , ['details','create_menu','confirm_menu']),('parent.visible_raw_material','=',False),('type','=','out')] }"/>                                            
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                    <group string="Accomplishment Item" invisible="1">
+                                        <div>
+                                            <field name="accompplishment_line_ids">
+                                                <tree editable="bottom">
+                                                    <field name="item_id" force_save="1"></field>
+                                                    <field name="accomplishment_id" options="{'no_quick_create': True}"  widget="many2many_tags"  force_save="1"></field>
+                                                </tree>
+                                                    <kanban class="o_kanban_mobile">
+                                                    <field name="item_id"/> 
+                                                    <field name="accomplishment_id"/> 
+                                                    <templates>
+                                                        <t t-name="kanban-box">
+                                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click ">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <strong>
+                                                                            <span>
+                                                                                    Item Name:
+                                                                                <t t-esc="record.item_id.value"/>
+                                                                            </span>
+                                                                        </strong>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 text-muted">
+                                                                        <span>
+                                                                                Accomplishment Item:
+                                                                            <t t-esc="record.accomplishment_id.value"/>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </t>
+                                                    </templates>
+                                                </kanban>
+                                                <form>
+                                                    <group>
+                                                        <group>
+                                                            <field name="item_id" force_save="1" widget="handle" options="{'no_quick_create': True}" />
+                                                        </group>
+                                                        <group>
+                                                            <field name="accomplishment_id" force_save="1" options="{'no_quick_create': True}"/>
+                                                        </group>
+                                                    </group>
+                                                </form>
+                                            </field>
+                                        </div>
+                                    </group>
+                                <!-- </div> -->
+                            </group>
+                        </page>
+                        <page string="Raw Material" attrs="{'invisible': True }">
+                            <field name="material_line_ids" nolabel="1" tracking="1" widget="section_and_note_one2many">
+                                <tree editable="bottom">
+                                    <control>
+                                        <create name="add_line_control" string="Add a product"/>
+                                        <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                        <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                    </control>
+                                    <field name="sequence" force_save="1" widget="handle" />
+                                    <field name="recipes_id" force_save="1"  invisible="1"/>
+                                    <field name="rm_vender_id" force_save="1"  invisible="0"/>
+                                    <field name="recipe_id" force_save="1"  invisible="1"/>
+                                    <field name="name" widget="section_and_note_text" readonly="1" force_save="1" required="1"/>
+                                    <field name="display_type" force_save="1" invisible="1" readonly="1"/>
+                                    <field name="weight" force_save="1"  readonly="1"/>
+                                    <field name="req_weight" force_save="1" invisible="1" />
+                                    <field name="uom" readonly="1" force_save="1" />
+                                    <field name="cost_price" invisible="1" force_save="1"/>
+                                    <field name="item_cost" sum="item_cost" invisible="1" force_save="1"/>
+                                    <field name="vender_id" options="{'no_quick_create': True}" invisible="1" force_save="1" context="{'default_is_vender': True}" />
+                                    <!-- <field name="is_stock"  invisible="1"/> -->
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="name"/> 
+                                    <field name="weight"/> 
+                                    <field name="req_weight" invisible="1"/> 
+                                    <field name="uom"/> 
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click ">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <strong>
+                                                            <span>
+                                                                    Raw Material:
+                                                                <t t-esc="record.name.value"/>
+                                                            </span>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Quantity:
+                                                            <t t-esc="record.weight.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Change in Quantity:
+                                                            <t t-esc="record.req_weight.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div> -->
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Uom:
+                                                            <t t-esc="record.uom.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>                       
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="sequence" force_save="1" widget="handle" />
+                                            <field name="recipes_id" force_save="1"  invisible="1"/>
+                                            <field name="recipe_id" force_save="1"  invisible="1"/>
+                                            <field name="name" widget="section_and_note_text" readonly="1" force_save="1"/>
+                                            <field name="weight" force_save="1"  readonly="1"/>
+                                        </group>
+                                        <group>
+                                            <field name="req_weight" force_save="1" invisible="1" />
+                                            <field name="uom" readonly="1" force_save="1" />
+                                            <field name="cost_price" invisible="1" force_save="1"/>
+                                            <field name="item_cost" sum="item_cost" invisible="1" force_save="1"/>
+                                            <field name="vender_id" options="{'no_quick_create': True}" invisible="1" force_save="1" context="{'default_is_vender': True}" />
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+               
+                        <page string="Labour" attrs="{'invisible': ['|',('stage','in',['details','create_menu']),('skip_labour', '=', True)] }">
+                           <group>
+                                <group>
+                                    <field name="vender_id" options="{'no_quick_create': True}" width="20" context="{'default_is_vender': True}" />
+                                    <field name="service_id" options="{'no_quick_create': True}"  width="20" domain="[('utility_type','=','service')]" context="{'default_utility_type': 'service'}"/>
+                                </group>
+                                <group>
+                                    <field name="hospitality_ids" widget="many2many_checkboxes" options="{'no_quick_create': True}" width="20"/>
+                                </group>
+                                <group>
+                                    <button name="action_apply_all" string="Apply All" type="object" class="oe_highlight button-color-inherit"/>
+                                </group>
+                            </group>
+                            <field name="hospitality_line_ids" nolabel="1" tracking="1">
+                                <tree editable="bottom">
+                                    <field name="service_id" options="{'no_quick_create': True}" width="20" domain="[('utility_type','=','service')]" context="{'default_utility_type': 'service','form_view_ref':'product.product_template_only_form_view'}"/>
+                                    <field name="vender_id" options="{'no_quick_create': True}" width="20" context="{'default_is_vender': True}"/>
+                                    <field name="qty_person" width="20"  sum="Qty"/>
+                                    <field name="rate" />
+                                    <field name="cost"  sum="Cost"/>
+                                    <field name="uom_id" width="20" required="1" options="{'no_quick_create': True}"/>
+                                    <field name="hospitality_ids" options="{'no_quick_create': True}" width="20"/>
+                                    <!-- <field name="morning" width="20"  attrs="{'readonly': [('is_morning','=',False)]}"/>
+                                    <field name="evening" width="20" attrs="{'readonly': [('is_evening','=',False)]}"/>
+                                    <field name="night" width="20" attrs="{'readonly': [('is_night','=',False)]}"/>
+                                    <field name="early_morning" width="20" attrs="{'readonly': [('is_early_morning','=',False)]}"/> -->
+                                    <field name="shift_date" width="20"/>
+                                    <field name="shift_time" width="20" widget="float_time"/>
+                                    <field name="remarks" width="20"/>
+                                    <field name="location" width="20" required="1"/>
+                                    <!-- <field name="is_morning" invisible="1"/>
+                                    <field name="is_evening" invisible="1"/>
+                                    <field name="is_night" invisible="1"/>
+                                    <field name="is_early_morning" invisible="1"/> -->
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="vender_id" options="{'no_quick_create': True}" context="{'default_is_vender': True}"/>
+                                    <field name="service_id" options="{'no_quick_create': True}"/> 
+                                    <field name="qty_person" sum="Qty"/>
+                                    <field name="hospitality_ids" options="{'no_quick_create': True}"/> 
+                                    <field name="uom_id"/>
+                                    <field name="shift_date"/> 
+                                    <field name="shift_time"/> 
+                                    <field name="remarks" />
+                                    <field name="location"/> 
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click ">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <strong>
+                                                            <span>
+                                                                Vendor Name:
+                                                                <t t-esc="record.vender_id.value"/>
+                                                            </span>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Service:
+                                                            <t t-esc="record.service_id.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Quantity/Person:
+                                                            <t t-esc="record.qty_person.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Hospitality Shift:
+                                                            <t t-esc="record.hospitality_ids.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                UOM:
+                                                            <t t-esc="record.uom_id.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Shift Date:
+                                                            <t t-esc="record.shift_date.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Shift Time:
+                                                            <t t-esc="record.shift_time.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Shift Remarks:
+                                                            <t t-esc="record.remarks.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Location:
+                                                            <t t-esc="record.location.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="vender_id" options="{'no_quick_create':true}" context="{'default_is_vender': True}" /> 
+                                            <field name="service_id" options="{'no_quick_create':true}"/> 
+                                            <field name="qty_person"/>
+                                            <field name="uom_id" options="{'no_quick_create':true}"/>
+                                            <field name="hospitality_ids" options="{'no_quick_create':true}"/> 
+                                        </group>
+                                        <group>
+                                            <field name="shift_date"/> 
+                                            <field name="shift_time"/> 
+                                            <field name="remarks" />
+                                            <field name="location"/> 
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Add-ons" attrs="{'invisible': ['|',('stage','in',['details','create_menu']),('skip_addons', '=', True)] }">
+                            <field name="extra_service_line_ids" nolabel="1" tracking="1">
+                                <tree editable="bottom" create="false" edit="false" delete="false">
+                                    <field name="service_id" readonly="1" options="{'no_quick_create':true}" width="25" domain="[('utility_type','=','service')]" context="{'default_utility_type': 'service'}"/>
+                                    <field name="vender_id" options="{'no_quick_create':true}" width="20" context="{'default_is_vender': True}"/>
+                                    <field name="date" readonly="1" width="20"/>
+                                    <field name="time" readonly="1" width="20" widget="float_time"/>
+                                    <field name="am_pm" readonly="1" width="20"/>
+                                    <field name="qty_ids"  readonly="1" width="25" required="1" sum="qty"/>
+                                    <field name="uom_id" readonly="1" width="25" options="{'no_quick_create':true}"/>
+                                    <field name="price"  readonly="1" width="25" force_save="1"/>
+                                    <field name="cost" readonly="1" width="25" force_save="1" sum="Cost"/>
+                                    <field name="instruction" readonly="1" width="25"/>
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="vender_id"/> 
+                                    <field name="service_id"/> 
+                                    <field name="date"/>
+                                    <field name="time"/>
+                                    <field name="am_pm"/>
+                                    <field name="qty_ids"/> 
+                                    <field name="uom_id"/>
+                                    <field name="price"/> 
+                                    <field name="cost"/>
+                                    <field name="instruction" />
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click ">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <strong>
+                                                            <span>
+                                                                Vendor Name:
+                                                                <t t-esc="record.vender_id.value"/>
+                                                            </span>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Service:
+                                                            <t t-esc="record.service_id.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <span>
+                                                                Date:
+                                                            <t t-esc="record.date.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <span>
+                                                                Time:
+                                                            <t t-esc="record.time.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                 <div class="row">
+                                                    <div class="col-12">
+                                                        <span>
+                                                                AM-PM:
+                                                            <t t-esc="record.am_pm.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                            Quantity/Person:
+                                                            <t t-esc="record.qty_ids.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                            UoM
+                                                            <t t-esc="record.uom_id.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                            Sale Price:
+                                                            <t t-esc="record.price.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                            Cost:
+                                                            <t t-esc="record.cost.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                            Instruction:
+                                                            <t t-esc="record.instruction.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="vender_id" width="20" options="{'no_quick_create':true}"/>
+                                            <field name="service_id" width="20" domain="[('utility_type','=','service')]" context="{'default_utility_type': 'service'}" options="{'no_quick_create':true}"/>
+                                            <field name="date" width="20"/>
+                                            <field name="time" readonly="1" width="20" widget="float_time"/>
+                                            <field name="am_pm" readonly="1" width="20"/>
+                                        </group>
+                                        <group>
+                                            <field name="uom_id" readonly="1" width="25" options="{'no_quick_create':true}"/>
+                                            <field name="qty_ids"  readonly="1" width="25" required="1"/>
+                                            <field name="price"  readonly="1" width="25" force_save="1"/>
+                                            <field name="cost" readonly="1" width="25" force_save="1"/>
+                                            <field name="instruction" readonly="1" width="25"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Inventory" attrs="{'invisible': [('issue_return_visible' , '=', False)]}">
+                            <field name="inventory_line_ids" nolabel="1" tracking="1">
+                                <tree editable="bottom">
+                                    <field name="type"/>
+                                    <field name="product_id" options="{'no_quick_create':true}"/>
+                                    <field name="uom_id" options="{'no_quick_create':true}"/>
+                                    <field name="qty" sum="qty"/>
+                                    <field name="cost" sum="cost"/>
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="type"/>
+                                    <field name="product_id" options="{'no_quick_create':true}"/>
+                                    <field name="uom_id" options="{'no_quick_create':true}"/>
+                                    <field name="qty"/>
+                                    <field name="cost"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click ">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <strong>
+                                                            <span>
+                                                                    Type:
+                                                                <t t-esc="record.type.value"/>
+                                                            </span>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                            Product:
+                                                            <t t-esc="record.product_id.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Uom:
+                                                            <t t-esc="record.uom_id.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Quantity:
+                                                            <t t-esc="record.qty.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Cost:
+                                                            <t t-esc="record.cost.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="type"/>
+                                            <field name="product_id" options="{'no_quick_create':true}"/>
+                                            <field name="uom_id" options="{'no_quick_create':true}"/>
+                                        </group>
+                                        <group>
+                                            <field name="qty"/>
+                                            <field name="cost"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Utensils" invisible="1" attrs="{'invisible': [('stage','not in',['manager_report','invoice'])] }">
+                            <field name="utensils_line_ids" nolabel="1" tracking="1">
+                                <tree editable="bottom">
+                                    <field name="utensils_type" />
+                                    <field name="utensils_id" options="{'no_quick_create': True}" domain="[('utility_type','=','utensils'),('utensils_type','=',utensils_type)]"  required="True" context="{'form_view_ref':'product.product_template_only_form_view','default_utility_type':'utensils','default_utensils_type':utensils_type}"/>
+                                    <field name="uom" />
+                                    <field name="qty" sum="qty"/>
+                                    <field name="uten_cost" sum="uten_cost"/>
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="utensils_id"/> 
+                                    <field name="uom" />
+                                    <field name="utensils_type"/> 
+                                    <field name="qty"/> 
+                                    <field name="uten_cost"/> 
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click ">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <strong>
+                                                            <span>
+                                                                    Raw Material:
+                                                                <t t-esc="record.utensils_id.value"/>
+                                                            </span>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Uom:
+                                                            <t t-esc="record.uom.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Utensils Type:
+                                                            <t t-esc="record.utensils_type.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Quantity:
+                                                            <t t-esc="record.qty.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Utensil Cost:
+                                                            <t t-esc="record.uten_cost.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="utensils_id" options="{'no_quick_create':true}" domain="[('utility_type','=','utensils')]" context="{'form_view_ref':'product.product_template_only_form_view','default_utility_type':'utensils'}"/>
+                                            <field name="uom" />
+                                            <field name="utensils_type" />
+                                        </group>
+                                        <group>
+                                            <field name="qty" />
+                                            <field name="uten_cost"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group name="note_group" col="8" class="mt-4 mt-md-0">
+                        <group colspan="4">
+                            
+                        </group>
+                
+                        <group class="oe_subtotal_footer oe_right" colspan="4" name="sale_total">
+                            <field name="menu_cost" attrs="{'invisible': [('menu_cost', '=', 0)]}" force_save='1' />
+                            <field name="labour_cost" attrs="{'invisible': [('labour_cost', '=', 0)]}" force_save='1' />
+                            <field name="add_ons_cost" attrs="{'invisible': [('add_ons_cost', '=', 0)]}" force_save='1' />
+    
+                            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                <label for="total_cost" />
+                            </div>
+                            <field name="total_cost" nolabel="1" class="oe_subtotal_footer_separator" force_save='1' />
+                        </group>
+                        <div class="oe_clear"/>
+                    </group>
+                                        
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- <record id="view_hop_function_filter" model="ir.ui.view">
+        <field name="name">hop.function.search</field>
+        <field name="model">hop.function</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="0" string="Group By">
+                    <filter string="Party Name" name="group_by_party_name_id" context="{'group_by': 'party_name_id'}"/>
+                    <filter string="Function Name" name="group_by_fuction_name_id" context="{'group_by': 'fuction_name_id'}"/>
+                    <filter string="Meal Type" name="group_by_meal_type" context="{'group_by': 'meal_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record> -->
+
+    <record id="hop_function_view_tree" model="ir.ui.view">
+        <field name="name">hop.function.view.tree</field>
+        <field name="model">hop.function</field>
+        <field name="arch" type="xml">
+            <tree string="Order Details" delete="0" default_order='id desc'>
+                <field name="name" />
+                <field name="date" width="30"/>
+                <field name="meal_type" width="30"/>
+                <field name="no_of_pax" />
+                <field name="party_name_id" width="30"/>
+                <field name="mobile_num" width="30"/>
+                <field name="manager_name_id" options="{'no_quick_create':true}" width="30"/>
+                <field name="stage" width="30"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hop_function_calendar" model="ir.ui.view">
+        <field name="name">hop.function.calendar</field>
+        <field name="model">hop.function</field>
+        <field name="arch" type="xml">
+            <calendar string="Order Details" date_start="date"  color="stage" mode="month" event_limit="5" hide_time="true" quick_add="false">
+                <field name="party_name_id" width="30"/>
+                <field name="mobile_num" width="30"/>
+                <field name="fuction_name_id" width="30"/>
+                <field name="date" width="30"/>
+                <field name="remarks" width="30"/>
+                <field name="manager_name_id" options="{'no_quick_create':true}" width="30"/>
+                <field name="meal_type" width="30"/>
+                <field name="time" width="30"/>
+            </calendar>
+        </field>
+     </record>
+
+     <record id="view_hop_function_filter" model="ir.ui.view">
+        <field name="name">hop.function.search</field>
+        <field name="model">hop.function</field>
+        <field name="arch" type="xml">
+            <search string="Function">
+                <field name="party_name_id" filter_domain="[('party_name_id', 'ilike', self)]"/>
+                <field name="fuction_name_id" filter_domain="[('fuction_name_id', 'ilike', self)]"/>
+                <field name="date" filter_domain="[('date', 'ilike', self)]"/>
+                <field name="venue_address" filter_domain="[('venue_address', 'ilike', self)]"/>
+                    
+                <separator/>
+                <filter string="Date" name="current_date"
+                    domain="[('date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Function Name" name="fuction_name_id"/>
+                <filter string="Party Name" name="party_name_id"/>
+                <separator/>
+                
+                <group expand="0" string="Group By">
+                    <filter string="Date" name="group_by_date" domain="[]" context="{'group_by': 'date'}"/>
+                    <filter string="Function Name" name="group_by_fuction_name_id" domain="[]" context="{'group_by': 'fuction_name_id'}"/>
+                    <filter string="Party Name" name="group_by_party_name_id" domain="[]" context="{'group_by': 'party_name_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hop_function_action" model="ir.actions.act_window">
+        <field name="name">Order Details</field>
+        <field name="res_model">hop.function</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="context">{'search_default_current_date': 1,'create':0}</field>
+    </record>
+
+    <record id="action_row_material" model="ir.actions.act_window">
+        <field name="name">Raw Material PO</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('po_type', '=', 'row_material')]</field>
+        <field name="context">{'default_is_vender': True,'default_is_company': True,'create':False}</field>
+        <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('purchase.purchase_order_view_tree')})]"/>
+    </record>
+
+    <record id="action_out_source_material" model="ir.actions.act_window">
+        <field name="name">Out-Source PO</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('po_type', '=', 'out_source')]</field>
+        <field name="context">{'default_is_vender': True,'default_is_company': True,'create':False}</field>
+        <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('purchase.purchase_order_view_tree')})]"/>
+    </record>
+
+    <record id="action_in_house_material" model="ir.actions.act_window">
+        <field name="name">In-House PO</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('po_type', '=', 'in_house')]</field>
+        <field name="context">{'default_is_vender': True,'default_is_company': True,'create':False}</field>
+        <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('purchase.purchase_order_view_tree')})]"/>
+    </record>
+
+    <record id="action_service_material" model="ir.actions.act_window">
+        <field name="name">Service PO</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('po_type', '=', 'service')]</field>
+        <field name="context">{'default_is_vender': True,'default_is_company': True,'create':False}</field>
+        <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('ct_function_v15.purchase_order_view_tree_service')})]"/>
+    </record>
+
+    <record id="action_addons_material" model="ir.actions.act_window">
+        <field name="name">Add-ons PO</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('po_type', '=', 'addons')]</field>
+        <field name="context">{'default_is_vender': True,'default_is_company': True,'create':False}</field>
+        <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('purchase.purchase_order_view_tree')})]"/>
+    </record>
+
+    <record id="action_normal_material" model="ir.actions.act_window">
+        <field name="name">Normal PO</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('po_type', '=', 'normal')]</field>
+        <field name="context">{'default_is_vender': True,'default_is_company': True}</field>
+        <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('ct_function_v15.purchase_order_view_tree_normal')})]"/>
+    </record>
+
+    <record id="hop_fuction_line_treeview" model="ir.ui.view">
+        <field name="name">hop.fuction.line.view.tree</field>
+        <field name="model">hop.fuction.line</field>
+        <field name="arch" type="xml">
+            <tree string="" create="false" edit="false" delete="false">
+                <field name="fuction_id"/>
+                <field name="category_id"/>
+                <field name="item_id"/>
+                <field name="insider_id"/>
+                <field name="out_sider_id"/>
+                <field name="no_of_pax"/>
+                <field name="per_qty"/>
+                <field name="qty"/>
+                <field name="uom"/>
+                <field name="cost"/>
+                <field name="rate" 
+                /> 
+            </tree>
+        </field>
+    </record>
+    <record id="hop_function_line_action" model="ir.actions.act_window">
+        <field name="name">HOP Fuction Line</field>
+        <field name="res_model">hop.fuction.line</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+
+    <record id="hospitality_shift_line_treeview_custom" model="ir.ui.view">
+        <field name="name">hospitality.shift.line.view.tree.custom</field>
+        <field name="model">hospitality.shift.line</field>
+        <field name="arch" type="xml">
+            <tree string="" create="false" edit="false" delete="false">
+                <field name="hs_id"/>
+                <field name="service_id"/>
+                <field name="vender_id"/>
+                <field name="qty_person"/>
+                <field name="uom_id"/>
+                <field name="hospitality_ids"/>
+                <field name="shift_date"/>
+                <field name="shift_time"/>
+                <field name="remarks"/>
+                <field name="location"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hospitality_shift_line_action" model="ir.actions.act_window">
+        <field name="name">Hospitality Shift Line</field>
+        <field name="res_model">hospitality.shift.line</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+
+    <record id="hop_extra_service_line_treeview_custom" model="ir.ui.view">
+        <field name="name">hop.extra.service.line.view.tree.custom</field>
+        <field name="model">hop.extra.service.line</field>
+        <field name="arch" type="xml">
+            <tree string="" create="false" edit="false" delete="false">
+                <field name="extra_service_id"/>
+                <field name="service_id" />
+                <field name="vender_id" />
+                <field name="date" width="20"/>
+                <field name="time" width="20" widget="float_time"/>
+                <field name="am_pm" width="20"/>
+                <field name="qty_ids" width="25"/>
+                <field name="uom_id" width="25"/>
+                <field name="price" width="25" force_save="1"/>
+                <field name="instruction" width="25"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hop_extra_service_line_action" model="ir.actions.act_window">
+        <field name="name">hop.extra.service.line</field>
+        <field name="res_model">hop.extra.service.line</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="action_all_order_po_cancel" model="ir.actions.server">
+        <field name="name">All PO Cancel</field>
+        <field name="model_id" ref="ct_function_v15.model_hop_function"/>
+        <field name="binding_model_id" ref="ct_function_v15.model_hop_function"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_all_order_cancel()
+        </field>
+    </record>
+
+    <record id="action_back_to_edit" model="ir.actions.server">
+        <field name="name">Back To Menu Planner</field>
+        <field name="model_id" ref="ct_function_v15.model_hop_function"/>
+        <field name="binding_model_id" ref="ct_function_v15.model_hop_function"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_back_to_edit()
+        </field>
+    </record>
+
+    <record id="action_edit_function" model="ir.actions.server">
+        <field name="name">Add/Update</field>
+        <field name="model_id" ref="ct_function_v15.model_hop_function"/>
+        <field name="binding_model_id" ref="ct_function_v15.model_hop_function"/>
+        <field name="state">code</field>
+        <field name="code">
+                action = records.edit_function()
+        </field>
+    </record>
+    
+    <!-- <record id="action_all_order_po_confirm" model="ir.actions.server">
+        <field name="name">All PO Confirm</field>
+        <field name="model_id" ref="ct_function_v15.model_hop_function"/>
+        <field name="binding_model_id" ref="ct_function_v15.model_hop_function"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_all_order_confirm()
+        </field>
+    </record> -->
+
+
+        <record id="hop_utensils_treeview_custom" model="ir.ui.view">
+        <field name="name">hop.utensils.view.tree.custom</field>
+        <field name="model">hop.utensils</field>
+        <field name="arch" type="xml">
+            <tree string="" create="false" edit="false" delete="false">
+                <field name="utensils_type" />
+                <field name="utensils_id" options="{'no_quick_create': True}" domain="[('utility_type','=','utensils'),('utensils_type','=',utensils_type)]"  required="True" context="{'form_view_ref':'product.product_template_only_form_view','default_utility_type':'utensils','default_utensils_type':utensils_type}"/>
+                <field name="uom" />
+                <field name="qty" sum="qty"/>
+                <field name="uten_cost" sum="uten_cost"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hop_extra_service_line_action" model="ir.actions.act_window">
+        <field name="name">Utensils</field>
+        <field name="res_model">hop.utensils</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.actions.server" id="hop_fuction_action">
+        <field name="name">Cancel Entire Function</field>
+        <field name="model_id" ref="ct_function_v15.model_hop_function"/>
+        <field name="binding_model_id" ref="ct_function_v15.model_hop_function"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_cancel()
+        </field>
+    </record>
+
+</odoo>

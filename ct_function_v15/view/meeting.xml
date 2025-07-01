@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="meeting_form" model="ir.ui.view">
+        <field name="name">Meeting</field>
+        <field name="model">hop.meeting</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="note"/>
+                            <field name="mobileno"/>
+                        </group>
+                        <group>
+                            <field name="time"/>
+                            <field name="date"/>
+                            <label for="next_activity_id"/>
+                            <div>
+                                <div class="o_row mr16">
+                                    <field name="next_activity_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <span class="oe_form_field" attrs="{'invisible': ['|', ('next_activity_id', '=', False), ('date_action_data', '=', False)]}">&#160;on&#160;</span>
+                                    <field name="date_action_data" attrs="{'invisible': [('next_activity_id', '=', False)]}" placeholder="Choose a date..." force_save='1'/>
+                                </div>
+                                <div>
+                                    <field name="title_action" placeholder="e.g. Discuss proposal"
+                                       attrs="{'invisible': [('next_activity_id', '=', False)]}"/>
+                                </div>
+                            </div> 
+                            <button name="%(action_done_activity)d" string="Done" class="oe_highlight" type="action" attrs="{'invisible':[('is_activity_done_today', '=', False)]}"/>
+                            <field name="is_activity_done_today" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook >
+                        <page string="Activity Log" autofocus="autofocus">
+                            <field name="next_activity_log_id">
+                                <tree edit="false" create="false" delete="false">
+                                    <field name="crm_next_activity_id" invisible="1"/>
+                                    <field name="next_activity_id"/>
+                                    <field name="date_action_data"/>
+                                    <field name="title_action"/>
+                                    <field name="description"/>
+                                    <field name="create_date" string="Done Date"/>
+                                    <field name="create_uid" string="User Name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="meeting_tree" model="ir.ui.view">
+        <field name="name">Meeting</field>
+        <field name="model">hop.meeting</field>
+        <field name="arch" type="xml">
+
+            <tree>
+                <field name="name"/>
+                <field name="time"/>
+                <field name="mobileno"/>
+                <field name="date"/>
+                <field name="note"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="view_hop_meeting_calendar" model="ir.ui.view">
+        <field name="name">Meeting</field>
+        <field name="model">hop.meeting</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendar" mode="month" date_start="date"  event_limit="5" hide_time="true" quick_add="False" event_open_popup="False">
+                <field name="name"/>
+                <field name="time"/>
+                <field name="mobileno"/>
+                <field name="date"/>
+                <field name="note"/>
+            </calendar>
+        </field>
+    </record>
+    <record id="view_hop_meeting_filter" model="ir.ui.view">
+        <field name="name">Meeting_Search</field>
+        <field name="model">hop.meeting</field>
+        <field name="arch" type="xml">
+            <search string="Search Date">
+                    <filter string="Upcoming/Running" name="upcoming"
+                    domain="[('date', '&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]" help="Upcoming events from today" />
+                <separator />
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_meeting" model="ir.actions.act_window">
+        <field name="name">Meeting</field>
+        <field name="res_model">hop.meeting</field>
+        <field name="view_mode">calendar,form,tree</field>
+    </record>
+
+
+
+</odoo>

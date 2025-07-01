@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_saleorder_bill_wiz" model="ir.ui.view">
+        <field name="name">hop.multi.saleorder.wiz</field>
+        <field name="model">hop.multi.saleorder.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Bill">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="customer_id"  required="True" options="{'no_quick_create':true}" domain="[('is_customer','=',True)]" context="{'default_is_customer': True}"/>
+                            <field name="sale_order_ids" widget="many2many_tags" domain="[('state','!=','cancel')]" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="order_ids" widget="many2many_tags"  domain="[('partner_id','=',customer_id),('id','not in',sale_order_ids)]" options="{'no_quick_create':True}" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hop_saleorder_bill_wiz" model="ir.actions.act_window">
+        <field name="name">Customer Bill</field>
+        <field name="res_model">hop.multi.saleorder.wiz</field>
+        <field name="view_mode">form</field>
+         <field name="target">new</field>
+    </record>
+    
+</odoo>     

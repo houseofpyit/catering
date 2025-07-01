@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seasonmaster_form" model="ir.ui.view">
+        <field name="name">SeasonMaster</field>
+        <field name="model">hop.season.master</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="seasonmaster_tree" model="ir.ui.view">
+        <field name="name">SeasonMaster</field>
+        <field name="model">hop.season.master</field>
+        <field name="arch" type="xml">
+
+            <tree>
+                <field name="name"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="action_season" model="ir.actions.act_window">
+        <field name="name">SeasonMaster</field>
+        <field name="res_model">hop.season.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+</odoo>

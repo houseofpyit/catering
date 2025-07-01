@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="meeting_prints">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <style>
+                        td{
+                            border:1px solid black;
+                            padding-left: 6px;
+                        }
+                    </style>
+                    <div class="page">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="border:none;">
+                                    <t t-if="o.company_id.logo">
+                                        <img class="img img-responsive" t-att-src="image_data_uri(o.company_id.logo)" width="150" height="150" style="float:right;"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width:100%; border:1px solid black;">
+                            <center><h1 style="margin-top:50px;margin-bottom:20px;color: #563d2d;"><b>MEETING DETAILS</b></h1></center>
+                            <tr>
+                                <td style="color: #563d2d;background-color: #f2f2f2;"><b>NAME:</b></td>
+                                <td><span t-esc="o.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #563d2d;background-color: #f2f2f2;"><b>TIME:</b></td>
+                                <td><span t-esc="o.time"/></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #563d2d;background-color: #f2f2f2;"><b>NOTE:</b></td>
+                                <td><span t-esc="o.note"/></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #563d2d;background-color: #f2f2f2;"><b>DATE:</b></td>
+                                <td><span t-esc="o.date"/></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #563d2d;background-color: #f2f2f2;"><b>MOBILE NO.:</b></td>
+                                <td><span t-esc="o.mobileno"/></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #563d2d;background-color: #f2f2f2;"><b>NEXT ACTIVITY:</b></td>
+                                <td><span t-esc="o.next_activity_id.name"/>
+                                    <t t-if="o.date_action_data">
+                                        <span t-esc="o.date_action_data"/>
+                                    </t><br/>
+                                    <t t-if="o.title_action">
+                                        <span t-esc="o.title_action"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

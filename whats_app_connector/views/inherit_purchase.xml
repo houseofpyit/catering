@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inherit_purchase_order_whatsapp" model="ir.ui.view">
+        <field name="name">purchase.order.view.form.inherit.whatsapp</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/button[@name='button_confirm']" position="before">
+                <button name="send_by_whatsapp"  type="object" string="Send PO" icon="fa-whatsapp" class="btn-primary"></button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

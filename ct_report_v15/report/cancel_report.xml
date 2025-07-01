@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="cancel_report">
+            <t t-call="web.basic_layout">
+                <style>
+                    td {
+                    border : 1px solid black;
+                    font-size: 20px;
+                    }
+                    th {
+                    border : 1px solid black;
+                    font-size: 20px;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="t">
+                <t t-foreach="t.generate_cancel_pdf_vals()" t-as="data">
+                <div class="page">
+                    <table width="100%" style="border:none;">
+                        <td width="30%" style="border:none;">
+                        </td>
+                        <td width="30%" style="border:none;">
+                        </td>
+                        <td width="30%" style="border:none;">
+                            <t t-if="data.get('company_id')">
+                                <img style="margin-left:150px;" t-att-src="'data:image/png;base64,' + str(data.get('company_id'), 'utf-8')"
+                                width="150" height="100" />
+                            </t>
+                        </td>
+                    </table>
+                    <table style="width:100%;">
+                        <center>
+                            <h2>
+                                Cancel Report
+                            </h2>
+                        </center>
+                    </table>
+
+                    <style>
+                        .total-row {
+                        background-color: grey;
+                        color: white;
+                        font-weight: bold;
+                        }
+                    </style>
+                    <t t-foreach="data.get('cancel_data')" t-as="line">
+                        <br />
+                        <center>
+                            <b>
+                                <span style="font-size: 30px; " t-esc="line.get('party')" />
+                            </b>
+                        </center>
+                        <table border="1" style="width: 100%; border: 1px solid black;">
+                            <tr>
+                                <th
+                                    style="width: 33%;border: 1px solid black; background-color: grey; color: white; text-align: center;">
+                                    Date</th>
+                                <th
+                                    style="width: 33%;border: 1px solid black; background-color: grey; color: white; text-align: center;">Meal
+                                    Type</th>
+                                <th
+                                    style="width: 33%;border: 1px solid black; background-color: grey; color: white; text-align: center;">Cancel
+                                    Department</th>
+                            </tr>
+                            <tr t-foreach="line.get('detail')" t-as="l">
+                                <td style="padding-left: 5px;">
+                                    <span t-esc="l.get('date')"
+                                        t-options='{"widget": "date","format": "dd-MM-yyyy"}' />
+                                </td>
+                                <td style="padding-left: 5px;">
+                                    <span t-esc="l.get('meal_type')" />
+                                </td>
+                                <td style="padding-left: 5px;">
+                                    <span t-esc="l.get('cancel_type')" />
+                                </td>
+                            </tr>
+                        </table>
+                    </t>
+                </div>
+            </t>
+            </t></t>
+        </template>
+    </data>
+</odoo>

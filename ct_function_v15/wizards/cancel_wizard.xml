@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wizard_cancel_from" model="ir.ui.view">
+        <field name="name">hop.cancel.name</field>
+        <field name="model">hop.cancel</field>
+        <field name="arch" type="xml">
+            <form string="Cancel">
+                <sheet>
+                    <spa>Are you sure you want to Cancel this record?</spa>
+                    <group >
+                        <field name="name" />
+                    </group>
+                    <footer>
+                        <button string="Ok" name="action_cancel" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wizard_action" model="ir.actions.act_window">
+        <field name="name">Confirm Cancel</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.cancel</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="wizard_confirm_from" model="ir.ui.view">
+        <field name="name">hop.confirm.name</field>
+        <field name="model">hop.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Confirm">
+                <sheet>
+                    <spa>Are you sure you want to Back To Menu Planner this record?</spa>
+                    <footer>
+                        <button string="Ok" name="action_confirm" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wizard_action" model="ir.actions.act_window">
+        <field name="name">Confirm</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.confirm</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="wizard_quotation_open" model="ir.ui.view">
+        <field name="name">hop.quotation.open.name</field>
+        <field name="model">hop.quotation.open</field>
+        <field name="arch" type="xml">
+            <form string="Confirm">
+                <sheet>
+                    <spa>You want to open quotation?</spa>
+                    <footer>
+                        <button string="Yes" name="action_confirm" type="object" class="oe_highlight"/>
+                        <button string="No" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wizard_action" model="ir.actions.act_window">
+        <field name="name">Confirm</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.quotation.open</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

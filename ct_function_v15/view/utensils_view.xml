@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="utensils_mst_view_form" model="ir.ui.view">
+        <field name="name">utensils.mst.view.form</field>
+        <field name="model">utensils.mst</field>
+        <field name="arch" type="xml">
+            <form string="Utensils">
+                <header>
+                    <field name="create_raw_utensils" invisible="1" />
+                    <field name="stage" widget="statusbar" />
+                    <button string="Set to Draft" name="set_to_drafr" type="object"
+                        class="oe_highlight" attrs="{'invisible': [('stage' , 'in', 'draft')] }" />
+                    <button string="Confirm" name="action_confirm_utensils" type="object"
+                        class="oe_highlight" attrs="{'invisible': [('stage' , 'in', 'confirm')] }" />
+                    <!-- <button string="Issue RM" name="issue_rm" type="object"
+                    class="oe_highlight" attrs="{'invisible': [('stage' , 'in',
+                    ['menu','draft','issue_rm'])] }"/> -->
+                    <!-- <button string="Create PO" name="action_create_po" type="object"
+                    class="oe_highlight" attrs="{'invisible': [('stage' , 'in',
+                    ['details','create_menu','confirm','raw_materials'])] }" />
+                    <button string="Out-Source PO" name="action_outsource_po" type="object" class="oe_highlight"
+                    attrs="{'invisible': [('stage' , 'in',
+                    ['details','create_menu','confirm','raw_materials'])] }" />
+                    <button string="Service PO" name="action_create_service_po" type="object" class="oe_highlight"
+                    confirm="Are You confirm to Create PO?!!!" attrs="{'invisible':
+                    [('is_service_po','!=',False)] }" /> -->
+                    <!-- <button string="Create Hospitality" name="action_hospitality" type="object"
+                    class="oe_highlight"/> -->
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" readonly="1" />
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="function_id" required="True" force_save="1" />
+                            <!-- <field name="mobile_num" required="True" readonly="True"
+                            force_save="1"/> -->
+                            <field name="venue_address" required="True" force_save="1" />
+                            <field name="fuction_name_id" required="True" force_save="1" />
+                        </group>
+                        <group>
+                            <field name="date" force_save="1" required="True" />
+                            <!-- <field name="emergency_contact" /> -->
+                            <field name="remarks" force_save="1" />
+                            <field name="company_id" invisible="1" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <!-- <field name="manager_name_id" force_save="1" required="True"
+                            context="{'default_is_vender': True}"
+                            attrs="{'readonly': [('stage' , 'in',
+                            ['create_menu','raw_materials','confirm','purchase_order','manager_report','invoice'])]
+                            }"/> -->
+                            <field name="manager_name_id"
+                                options="{'no_quick_create': True}"
+                                force_save="1" required="True" context="{'default_is_vender': True}" />
+                        </group>
+                        <group>
+                            <field name="meal_type" required="True" force_save="1"
+                            />
+                            <span class="o_form_label o_td_label" name="order no">
+                                <b>Time</b>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="time" class="o_address_city" style="width:20%;"
+                                    force_save="1" required="True" widget="float_time" />
+                                <field name="am_pm" class="o_address_city" style="width:20%;"
+                                    force_save="1" required="True" />
+                            </div>
+                        </group>
+                        <group>
+                            <field name="no_of_pax" required="True" force_save="1"
+                            />
+                        </group>
+                    </group>
+                    <!-- <notebook>
+                        <page string="Menu" > -->
+
+                    <!-- </page>
+                        
+                        <page string="Utensils" > -->
+
+
+                    <group>
+                        <div string="Menu" width="30px;">
+                            <field name="fuction_line_ids" nolabel="1" tracking="1">
+                                <tree editable="bottom">
+                                    <field name="category_id"
+                                        options="{'no_quick_create':true}"
+                                        required="True" />
+                                    <field name="item_id"
+                                        options="{'no_quick_create':true}"
+                                        domain="[('category_id','=',category_id)]" />
+                                    <field name="insider_id"
+                                        options="{'no_quick_create':true}"
+                                        context="{'default_is_vender': True}" invisible="1" />
+                                    <field name="out_sider_id"
+                                        options="{'no_quick_create':true}"
+                                        context="{'default_is_vender': True}" invisible="1" />
+                                    <field name="no_of_pax" invisible="1" force_save="1" />
+                                    <field name="per_qty" invisible="1" />
+                                    <field name="qty" invisible="1" />
+                                    <field name="uom" invisible="1" force_save="1" />
+                                    <!-- <field name="cost" attrs="{'column_invisible':
+                                    [('parent.stage' , '=', 'menu')] }" force_save="1" sum="cost"/> -->
+                                    <field name="rate" sum="rate" invisible="1" />
+                                    <!-- attrs="{'column_invisible': [('parent.stage' , '=',
+                                    'menu')] }" -->
+                                    <field name="instruction" />
+                                    <!-- <button string="Open RM"  invisible="1" name="open_rm_list"
+                                    type="object" class="oe_highlight" /> -->
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="category_id" />
+                                    <field name="item_id" />
+                                    <field name="per_qty" />
+                                    <field name="qty" />
+                                    <field name="uom" />
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div
+                                                t-attf-class="oe_kanban_card oe_kanban_global_click ">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <strong>
+                                                            <span> Item Name: <t
+                                                                    t-esc="record.item_id.value" />
+                                                            </span>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <strong>
+                                                            <span> Category: <t
+                                                                    t-esc="record.category_id.value" />
+                                                            </span>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span> Per Head Quantity: <t
+                                                                t-esc="record.per_qty.value" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span> Quantity: <t t-esc="record.qty.value" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span> Uom: <t t-esc="record.uom.value" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="category_id"
+                                                options="{'no_quick_create':true}"
+                                                required="True" />
+                                            <field name="item_id"
+                                                options="{'no_quick_create':true}"
+                                                domain="[('category_id','=',category_id)]" />
+                                            <field name="insider_id"
+                                                options="{'no_quick_create':true}"
+                                                context="{'default_is_vender': True}" invisible="1" />
+                                            <field name="out_sider_id"
+                                                options="{'no_quick_create':true}"
+                                                context="{'default_is_vender': True}" invisible="1" />
+                                            <field name="no_of_pax" invisible="1" force_save="1" />
+                                            <field name="per_qty" invisible="1" />
+                                        </group>
+                                        <group>
+                                            <field name="qty" invisible="1" />
+                                            <field name="uom" force_save="1" invisible="1" />
+                                            <field name="rate" sum="rate" invisible="1" />
+                                            <field name="instruction" />
+                                            <button string="Open RM" name="open_rm_list"
+                                                type="object" class="oe_highlight" />
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </div>
+                        <div string="Utensils" width="70px;">
+                            <group>
+                                <button type="action"
+                                    name="%(action_hop_add_utensils)d"
+                                    string="Add Utensils"
+                                    attrs="{'invisible': [('stage' , 'in', 'confirm')] }"
+                                    class="btn btn-sm btn-info" />
+                            </group>
+
+                            <field name="utensils_line_ids" nolabel="1" tracking="1"
+                                attrs="{'readonly': [('stage' , 'in', ['confirm'])] }">
+                                <tree editable="bottom">
+                                    <field name="utensils_type" />
+                                    <field name="utensils_id"
+                                        domain="[('utility_type','=','utensils'),('utensils_type','=',utensils_type)]"
+                                        required="True"
+                                        options="{'no_quick_create':true}"
+                                        context="{'form_view_ref':'product.product_template_only_form_view','default_utility_type':'utensils','default_utensils_type':utensils_type}" />
+                                    <field name="uom"
+                                        options="{'no_quick_create':true}" />
+                                    <field name="qty" sum="qty" />
+                                    <field name="uten_cost" sum="uten_cost" invisible="1" />
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="utensils_id"
+                                        options="{'no_quick_create':true}" />
+                                    <field name="uom"
+                                        options="{'no_quick_create':true}" />
+                                    <field name="utensils_type" />
+                                    <field name="qty" />
+                                    <field name="uten_cost" invisible="1" />
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div
+                                                t-attf-class="oe_kanban_card oe_kanban_global_click ">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <strong>
+                                                            <span> Raw Material: <t
+                                                                    t-esc="record.utensils_id.value" />
+                                                            </span>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span> Uom: <t t-esc="record.uom.value" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span> Utensils Type: <t
+                                                                t-esc="record.utensils_type.value" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span> Quantity: <t t-esc="record.qty.value" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="row">
+                                                    <div class="col-12 text-muted">
+                                                        <span>
+                                                                Utensil Cost:
+                                                            <t t-esc="record.uten_cost.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="utensils_id"
+                                                options="{'no_quick_create':true}"
+                                                domain="[('utility_type','=','utensils')]"
+                                                required="True"
+                                                context="{'form_view_ref':'product.product_template_only_form_view','default_utility_type':'utensils'}" />
+                                            <field name="uom"
+                                                options="{'no_quick_create':true}" />
+                                            <field name="utensils_type" />
+                                        </group>
+                                        <group>
+                                            <field name="qty" sum="qty" />
+                                            <field name="uten_cost" sum="uten_cost" invisible="1" />
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </div>
+                    </group>
+                    <!-- </page>
+                    </notebook> -->
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_utensils_mst_filter" model="ir.ui.view">
+        <field name="name">utensils.mst.search</field>
+        <field name="model">utensils.mst</field>
+        <field name="arch" type="xml">
+            <search string="Utensils">
+                <field name="name" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="function_id" filter_domain="[('fuction_id', 'ilike', self)]"/>
+                <field name="date" filter_domain="[('date', 'ilike', self)]"/>
+                <field name="venue_address" filter_domain="[('venue_address', 'ilike', self)]"/>
+                <field name="meal_type" filter_domain="[('meal_type', 'ilike', self)]"/>
+                <field name="stage" filter_domain="[('stage', 'ilike', self)]"/>
+                    
+                <separator/>
+                <filter string="Date" name="current_date"
+                    domain="[('date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Function Name" name="function_id"/>
+                <filter string="Meal Type" name="meal_type"/>
+                <separator/>
+                
+                <group expand="0" string="Group By">
+                    <filter string="Date" name="group_by_date" domain="[]" context="{'group_by': 'date'}"/>
+                    <filter string="Function Name" name="group_by_function_id" domain="[]" context="{'group_by': 'function_id'}"/>
+                    <filter string="Meal Type" name="group_by_meal_type" domain="[]" context="{'group_by': 'meal_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="utensils_mst_view_tree" model="ir.ui.view">
+        <field name="name">utensils.mst.view.tree</field>
+        <field name="model">utensils.mst</field>
+        <field name="arch" type="xml">
+            <tree string="Utensils" decoration-info="stage == 'confirm'"
+                decoration-warning="stage == 'draft'"  default_order='id desc'>
+                <field name="name" width="30" />
+                <field name="function_id" width="30" />
+                <field name="date" width="30" />
+                <field name="venue_address" />
+                <field name="meal_type" width="30" />
+                <field name="stage" />
+                <button string="Confirm" name="action_confirm_utensils" type="object"
+                    class="oe_highlight" attrs="{'invisible': [('stage' , 'in', 'confirm')] }" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="utensils_mst_action" model="ir.actions.act_window">
+        <field name="name">Utensils</field>
+        <field name="res_model">utensils.mst</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

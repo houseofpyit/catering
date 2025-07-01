@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hop_rm_with_category_report_report_tree" model="ir.ui.view">
+        <field name="name">hop.rm.with.category.report.tree</field>
+        <field name="model">hop.rm.with.category.report</field>
+        <field name="arch" type="xml">
+            <tree string="Party Wise Report" expand="1" create="0" edit="0">
+                 <field name="function_id" />
+                <field name="recipe_id" width="30" />
+                <!-- <field name="categ_id" width="30" /> -->
+                <field name="name" width="30" />
+                
+                <field name="weight" sum="Total" />
+                <field name="uom" width="30" />
+                <field name="req_weight" width="30" sum="Total"/>
+                <field name="cost_price" width="30" sum="Total"/>
+                <field name="item_cost" width="30" sum="Total"/>
+                <field name="vender_id"  options="{'no_quick_create':true}" sum="Total" context="{'default_is_vender': True}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hop_rm_with_category_report_report_filter" model="ir.ui.view">
+        <field name="name">hop.rm.with.category.report.search</field>
+        <field name="model">hop.rm.with.category.report</field>
+        <field name="arch" type="xml">
+            <search string="Party Wise Report">
+                    <field name="categ_id" />
+                    <group expand="1" string="Group By">
+                        <filter name="groupby_categ" context="{'group_by' : 'categ_id'}"
+                            string="Category" />
+                    </group>
+                    <group expand="1" string="Group By">
+                        <filter name="R" context="{'group_by' : 'categ_id'}"
+                            string="Category" />
+                    </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hop_rm_with_category_report_report_action" model="ir.actions.act_window">
+        <field name="name">Party Wise Report</field>
+        <field name="res_model">hop.rm.with.category.report</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

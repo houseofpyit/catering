@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="recipes_prints">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <style>
+                        td{
+                            border:2px solid #563d2d;
+                        }
+                        th {
+                            border:2px solid #563d2d;
+                            color: #563d2d;
+                            padding: 10px;
+                            background-color: #f2f2f2;
+                        }
+                        .page {
+                            page-break-after: always;
+                        }
+                    </style>
+                    <div class="page">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="border:none;">
+                                    <t t-if="o.product_img">
+                                        <img class="img img-responsive" t-att-src="image_data_uri(o.product_img)" width="170" height="170" style="float:right;"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width:100%; border:1px solid black;">
+                            <center><h1 style="margin-top:50px;margin-bottom:30px;color: #563d2d;"><b>RECIPES DETAILS</b></h1></center>
+                            <tr>
+                                <td style="color: #563d2d;padding: 10px;"><b>NAME</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.name"/></td>
+                                <td style="color: #563d2d;padding: 10px;"><b>PRODUCT NAME</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.product_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #563d2d;padding: 10px;"><b>CONVERT NAME</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.convert_name"/></td>
+                                <td style="color: #563d2d;padding: 10px;"><b>GUJARATI</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.gujarati"/></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #563d2d;padding: 10px;"><b>HINDI</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.hindi"/></td>
+                                <td style="color: #563d2d;padding: 10px;"><b>CATEGORY</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.category_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #563d2d;padding: 10px;"><b>VENDOR NAME(Per Person)</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.rate"/></td>
+                                <td style="color: #563d2d;padding: 10px;"><b>PER UOM COST RATE</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.cost"/></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #563d2d;padding: 10px;"><b>QUANTITY</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.qty"/></td>
+                                <td style="color: #563d2d;padding: 10px;"><b>UOM</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.uom.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #563d2d;padding: 10px;"><b>DESCRIPTION</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.description"/></td>
+                                <td style="color: #563d2d;padding: 10px;"><b>WORK TYPE</b></td>
+                                <td style="padding: 10px;"><span t-esc="o.jobwork_type"/></td>
+                            </tr>
+                        </table>
+
+                        <table style="width:100%; border:1px solid black; margin-top: 30px;">
+                            <tr>
+                                <th><b>ITEM NAME</b></th>
+                                <th><b>UOM</b></th>
+                                <th><b>WEIGHT</b></th>
+                                <th><b>ITEM COST</b></th>
+                                <th><b>PRICE</b></th>
+                            </tr>
+
+                            <t t-set="total_weight" t-value="0"/>
+                            <t t-set="total_item_cost" t-value="0"/>
+                            <t t-set="total_price" t-value="0"/>
+
+                            <tr t-foreach="o.raw_materials_ids" t-as="line">
+                                <td>
+                                    <span t-field="line.item_id.name" style="padding-left:5px;"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.uom.name" style="padding-left:5px;"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.weight" style="padding-left:5px;"/>
+                                    <t t-set="total_weight" t-value="total_weight + line.weight"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.item_cost" style="padding-left:5px;"/>
+                                    <t t-set="total_item_cost" t-value="total_item_cost + line.item_cost"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.price" style="padding-left:5px;"/>
+                                    <t t-set="total_price" t-value="total_price + line.price"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="color: #563d2d;padding: 10px;"><b>TOTAL</b></th>
+                                <td style="color: #563d2d;padding: 10px;background-color: #f2f2f2;"></td>
+                                <td style="color: #563d2d;padding: 10px;background-color: #f2f2f2;">
+                                    <b><span t-esc="'%.2f'%(total_weight)"/></b>
+                                </td>
+                                <td style="color: #563d2d;padding: 10px;background-color: #f2f2f2;">
+                                    <b><span t-esc="'%.2f'%(total_item_cost)"/></b>
+                                </td>
+                                <td style="color: #563d2d;padding: 10px;background-color: #f2f2f2;">
+                                    <b><span t-esc="'%.2f'%(total_price)"/></b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

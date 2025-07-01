@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inherit_product_template_view_cust" model="ir.ui.view">
+        <field name="name">product.template.view.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <field name="detailed_type" position="before">
+                <field name="utensils_type" attrs="{'invisible': [('utility_type' , '!=', 'utensils')] }"/>
+                <field name="is_utensils" invisible="1"/>
+                <field name="is_funcion" invisible="1"/>
+                <field name="is_service" invisible="1"/>
+                <field name="is_recipe" invisible="1"/>
+            </field>
+            <field name="l10n_in_hsn_code" position="attributes">
+                <field name="l10n_in_hsn_code" invisible="1"/>
+            </field>
+            <xpath expr="//div[@class='oe_title']" position="after">
+            <group>
+                <group>
+                    <field name="convert_name" />
+                    <field name="gujarati" force_save="1"/>
+                    <field name="hindi" force_save="1"/>
+                    <field name="vender_id" />
+                </group>
+                <group></group>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='l10n_in_hsn_code']" position="attributes">
+                <attribute name="attrs">{'invisible': "[('utility_type' , '=', 'utensils')]" }</attribute>
+            </xpath>
+            <xpath expr="//field[@name='l10n_in_hsn_description']" position="attributes">
+                <attribute name="attrs">{'invisible': "[('utility_type' , '=', 'utensils')]" }</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="attrs">{'invisible': "[('utility_type' , '=', 'utensils')]" }</attribute>
+            </xpath>
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="utility_type" invisible="1"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='variants']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='inventory']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='detailed_type']" position="attributes">
+                <attribute name="attrs">{'readonly': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='list_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='list_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='sale_ok']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sale_ok']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sale_ok']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='barcode']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='uom_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='uom_po_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='open_pricelist_rules']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_stock_move_lines']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_sales']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_po']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_open_quants']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_product_tmpl_forecast_report']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='l10n_in_hsn_code']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='l10n_in_hsn_description']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='taxes_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_string']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='default_code']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_open_label_layout']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_update_quantity_on_hand']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='uom_id']" position="attributes">
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='priority']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='purchase_ok']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <div name="button_box" position="inside">
+                <!-- <button type="object" name="open_forecasted_purchase"  icon="fa-pencil-square-o" 
+                attrs="{'invisible': [('forecasted_purchase' , '=', 0)] }" >
+                    <field string="Fc Purchase" name="forecasted_purchase" widget="statinfo" />
+                </button> -->
+                <button type="object" name="open_forecasted_use"  icon="fa-pencil-square-o" 
+                attrs="{'invisible': [('forecasted_use' , '=', 0)] }" >
+                    <field string="Fc Use" name="forecasted_use" widget="statinfo"/>
+                </button>
+                <button type="object" name="open_running_stock"  icon="fa-pencil-square-o">
+                    <span>Stock</span>
+                </button>
+                <button type="object" name="open_on_hand"  icon="fa-pencil-square-o" 
+                attrs="{'invisible': [('on_hand' , '=', 0)] }" >
+                    <field string="On Hand" name="on_hand" widget="statinfo"/>
+                </button>
+            </div>
+            <!-- <xpath expr="//field[@name='seller_ids']" position="attributes">
+                <attribute name="attrs">{'invisible': "[('utensils_type','!=',False)]"}</attribute>
+            </xpath> -->
+        </field>
+    </record>
+
+    <record id="inherit_product_template_stock" model="ir.ui.view">
+        <field name="name">product.template.procurement</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='%(stock.action_product_replenish)d']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_orderpoints'][2]" position="attributes">
+               <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_product_template_form_view" model="ir.ui.view">
+        <field name="name">inherit.product.template.form.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='purchase']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='invoicing']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page string="Purchase">
+                    <field name="seller_ids" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True, 'tree_view_ref':'purchase.product_supplierinfo_tree_view2'}" nolabel="1" attrs="{'invisible': [('product_variant_count','&gt;',1)], 'readonly': [('product_variant_count','&gt;',1)]}"/>
+                    <field name="variant_seller_ids" context="{'default_product_tmpl_id': context.get('product_tmpl_id', active_id), 'tree_view_ref':'purchase.product_supplierinfo_tree_view2'}" nolabel="1" attrs="{'invisible': [('product_variant_count','&lt;=',1)], 'readonly': [('product_variant_count','&lt;=',1)]}"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_product_template_form_view_invoice_policy" model="ir.ui.view">
+        <field name="name">inherit.product.template.invoice.policy</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sale.product_template_form_view_invoice_policy"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_policy']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_product_template_sale_form_view" model="ir.ui.view">
+        <field name="name">inherit.product.template.sales</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sale.product_template_sale_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='font-italic text-muted']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- <record id="inherit_view_product_timesheet_form" model="ir.ui.view">
+        <field name="name">inherit.product.template.timesheet.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sale_timesheet.view_product_timesheet_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='%(stock.action_product_replenish)d']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_orderpoints'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>         -->
+
+    <record id="inherit_product_template_filter" model="ir.ui.view">
+        <field name="name">product.template.view.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//filter[@name='Can be Sold']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+            <xpath expr="//filter[@name='filter_to_sell']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='filter_to_purchase']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='services']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='favorites']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='inactive']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='activities_exception']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- <xpath expr="//filter[@name='type']" position="after">
+                    <filter string="Utensils Type" name="group_by_utensils_type"  context="{'group_by': 'utensils_type'}"/>
+            </xpath> -->
+        </field>
+        </record>
+        
+        <record model="ir.ui.view" id="stock.product_template_kanban_stock_view">
+            <field name="name">Product Template Kanban Stock</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="inside">
+                    <field name="type"/>
+                    <!-- <field name="show_on_hand_qty_status_button"/> -->
+                    <!-- <field name="on_hand"/> -->
+                </xpath>
+                <!-- <xpath expr="//div[@name='product_lst_price']" position="after">
+                    <div t-if="record.show_on_hand_qty_status_button.raw_value">On hand: <field name="on_hand"/> <field name="uom_id"/></div>
+                </xpath> -->
+            </field>
+        </record>
+</odoo>

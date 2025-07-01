@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_outstanding_view_form" model="ir.ui.view">
+        <field name="name">hop.outstanding.view.form</field>
+        <field name="model">hop.outstanding</field>
+        <field name="arch" type="xml">
+            <form string="Outstanding">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="type" invisible="1" />
+                            <field name="from_date" />
+                            <field name="customer_ids" widget="many2many_tags"
+                                options="{'no_quick_create':true}" 
+                                domain="[('is_customer','=',True)]"  attrs="{'invisible': [('type','=','vendor')] }"/>
+                                <field name="vendor_ids" widget="many2many_tags"
+                                options="{'no_quick_create':true}"
+                                 domain="[('is_vender','=',True)]" attrs="{'invisible': [('type','=','customer')]}"/>
+                        </group>
+                        <group>
+                            
+                            <field name="to_date" />
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                   
+                </sheet>
+                <footer>
+                    <button name="generate_outstanding" string="Generate" type="object"
+                                class="oe_highlight" />
+                    <button name="generate_outstanding_pdf" string="Generate Pdf" type="object"
+                    class="oe_highlight" />
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_customer_outstanding_form" model="ir.actions.act_window">
+        <field name="name">Customer Outstanding</field>
+        <field name="res_model">hop.outstanding</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_type':'customer'}</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_vendor_outstanding_form" model="ir.actions.act_window">
+        <field name="name">Vendor Outstanding</field>
+        <field name="res_model">hop.outstanding</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_type':'vendor'}</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="hop_outstanding_line_treeview_custom" model="ir.ui.view">
+        <field name="name">hop.outstanding.line.view.tree.custom</field>
+        <field name="model">hop.outstanding.line</field>
+        <field name="arch" type="xml">
+            <tree string="" export_xlsx="false" expand="1" decoration-danger="balance &lt; 0" create="0" edit="0" delete="0">
+                <field name="party_id" />
+                <field name="phone" />
+                <field name="total_amt" width="20"/>
+                <field name="received_amt" width="20" />
+                <field name="balance" width="20"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hop_outstanding_line_action" model="ir.actions.act_window">
+        <field name="name">Outstanding</field>
+        <field name="res_model">hop.outstanding.line</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

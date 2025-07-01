@@ -1,0 +1,85 @@
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: black;
+  background-color: #ffa69e;
+  border-color: #dee2e6 #dee2e6 #fff;
+  font-weight: bold;
+}
+
+.button-color-inherit{
+  background-color: #871657;
+  color: white;
+  height: 34px;
+}
+
+.button-cancel-color-inherit{
+  background-color: hsl(0, 100%, 50%);
+  color: white;
+  height: 34px;
+}
+
+.smart-button-inherit{
+  background-color:#ffa69e !important;
+  color:black
+}
+
+.o_form_view .oe_button_box .btn.oe_stat_button > .o_button_icon:before {
+  font-size: 22px;
+  vertical-align: middle;
+  color: black;
+}
+
+.o_form_view .oe_button_box .btn.oe_stat_button > .o_stat_info .o_stat_value, .o_form_view .oe_button_box .btn.oe_stat_button > span .o_stat_value {
+  font-weight: 700;
+  color: black;
+}
+
+.o_main_navbar {
+  background-color: #1167b1;
+  background-image: linear-gradient(to right, #871657, #ffa69e);
+  border-bottom: 1px solid #0d4c82;
+  display: grid;
+  height: 46px;
+  gap: 0px 0px;
+  grid-template-areas: "apps brand sections systray";
+  grid-template-columns: minmax(46px, max-content) max-content minmax(46px, 1fr) fit-content(100%);
+  grid-template-rows: 46px;
+  min-width: min-content;
+}
+
+.o_calendar_view .o_calendar_widget .fc-dayGridMonth-view .fc-day-top.fc-other-month .fc-day-number {
+  display: none;
+}
+
+.fc-dayGrid-view .fc-day-top .fc-week-number {
+  min-width: 1.5em;
+  text-align: center;
+  background-color: #f2f2f2;
+  color: white !important;
+}
+
+.o_navbar_apps_menu.show .dropdown-menu .o_app > a .mk_app_name {
+  color: #871657;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.o_calendar_sidebar_container {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 0px;
+  background-color: white;
+  border-left: 1px solid #dee2e6;
+  overflow-y: auto;
+}
+
+.o_cw_popover .o_cw_popover_fields_secondary {
+  max-height: 170px;
+  max-height: 25vh;
+  overflow: auto;
+  padding-bottom: 1px;
+  max-height:100% !important
+}

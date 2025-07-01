@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ct_inherit_sale_order" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.cust</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//form' position='attributes'>
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+            </xpath>
+            <xpath expr='//tree' position='attributes'>
+                <attribute name="delete">0</attribute>
+                <attribute name="create">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath>
+             <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='validity_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft" />
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="before">
+                <field name="confirm_date"/>
+                <field name="active" invisible="1"/>
+            </xpath>
+             <xpath expr="//field[@name='confirm_date']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <!-- <xpath  expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+            <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='name']" position="replace">
+                <field name="name" string="Instruction"/>
+            </xpath>
+            <xpath expr="//tree/field[@name='price_unit']" position="replace">
+                <field name="price_unit" />
+            </xpath>
+            <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_manu_planner', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='name']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_manu_planner', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_uom_qty']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_manu_planner', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_uom']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_manu_planner', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='tax_id']" position="replace">
+                <field
+                name="tax_id"
+                widget="many2many_tags"
+                options="{'no_quick_create':true}"
+                domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id), ('country_id', '=', parent.tax_country_id)]"
+                context="{'active_test': True}"
+                optional="show"
+            />
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/form/group/group/field[@name='product_id']" position="replace">
+                <field
+                name="product_id"
+                options="{'no_quick_create':true}"
+            />
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/form/group/group/div/field[@name='product_uom']" position="replace">
+                <field
+                name="product_uom"
+                options="{'no_quick_create':true}"
+            />
+            </xpath>
+            
+            <xpath expr="//tree/field[@name='name']" position="replace">
+                <field name="name" required="0"/>
+                <field name="is_manu_planner" invisible="1"/>
+            </xpath>
+            
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send'][1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>  
+            <xpath expr="//button[@name='action_quotation_send'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>    
+            <xpath expr="//button[@name='action_quotation_send'][3]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>  
+            <xpath expr="//button[@name='action_quotation_send'][4]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>   
+            <xpath  expr="//field[@name='l10n_in_gst_treatment']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            
+            <xpath expr="//button[@name='action_confirm']" position="replace">
+                <button name="action_confirm" id="action_confirm" data-hotkey="v"
+                string="Confirm" class="btn-primary" type="object"
+                attrs="{'invisible': True}"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_confirm'][2]" position="replace">
+                <button name="action_confirm" data-hotkey="v"
+                string="Confirm" type="object"
+                attrs="{'invisible':  [('state', 'not in', ['1'])]}"/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="context">{'default_is_customer': True}</attribute>
+                <attribute name="options">{'no_quick_create': True,}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='pricelist_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//label[@for='pricelist_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- <xpath expr="//button[@name='action_view_delivery']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+            
+            <xpath expr="//group/field[@name='date_order']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//group/field[@name='date_order'][2]" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//div[@class='o_td_label']/label[@for='date_order']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//div[@class='o_td_label'][2]/label[@for='date_order']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            
+            <xpath expr="//button[@name='preview_sale_order']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- <xpath expr="//tree/field[@name='product_uom_qty']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+            <xpath expr="//tree/field[@name='qty_delivered']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='qty_invoiced']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="date"></field>
+                <field name="send_email" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='date']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <!-- <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                <field name="no_of_pax"/>
+            </xpath> -->
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="remarks" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="fun_date" readonly="1"/>
+                <field name="venue_address" />
+                <field name="meal_type" readonly="1"/>
+            </xpath>
+            <xpath expr="//page[@name='other_information']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='customer_signature']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='optional_products']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_draft']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='order_lines']" position="attributes">
+                <attribute name="string">Order Details</attribute>
+            </xpath>
+
+
+            <xpath expr="//form/header/button[@name='action_confirm']" position="before">
+                <button name="%(wizard_email_action)d"  type="action" string="Send Quotation" class="btn-primary"></button>
+            </xpath>
+
+            <xpath expr="//field[@name='sale_order_template_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/form/group/group/field[@name='product_id']" position="after">
+                <field name="name"/>
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/form/group/group/field[@name='tax_id']" position="after">
+                <field name="price_subtotal"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="sale.view_order_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Orders"  decoration-info="invoice_status == 'to invoice'" decoration-muted="state == 'cancel'" delete="false">
+                    <field name="message_needaction" invisible="1"/>
+                    <field name="name" string="Number" readonly="1" decoration-bf="1"/>
+                    <field name="date"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="fun_date"/>
+                    <field name="venue_address"/>
+                    <field name="meal_type" width="30"/>
+                    <field name="commitment_date"    optional="hide"/>
+                    <field name="expected_date" optional="hide"/>
+                    <field name="user_id" optional="show" widget="many2one_avatar_user"/>
+                    <field name="activity_ids" widget="list_activity" optional="show"/>
+                    <field name="team_id" optional="hide"/>
+                    <field name="amount_untaxed" sum="Total Tax Excluded" widget="monetary" optional="hide"/>
+                    <field name="amount_tax" sum="Tax Total" widget="monetary" optional="hide"/>
+                    <field name="invoice_status" decoration-success="invoice_status == 'invoiced'" decoration-info="invoice_status == 'to invoice'" decoration-warning="invoice_status == 'upselling'" widget="badge" optional="hide"/>
+                    <field name="tag_ids" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_quotation_tree_inherit_ct" model="ir.ui.view">
+        <field name="name">inherit.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='create_date']" position="after">
+                <field name="confirm_date"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="hop_sale_order_form_inherit_l10n_in_sale" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="l10n_in_sale.view_order_form_inherit_l10n_in_sale"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='l10n_in_gst_treatment']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+         
+
+            <!-- hospitality_ids = fields.Many2one('ct.hospitality.shift',string="Hospitality Shift",tracking=True)
+    shift_date = fields.Date(string="Shift Date")
+    shift_time = fields.Float(string="Shift Time")
+    remarks = fields.Char(string="Shift Remarks")
+    location = fields.Selection([
+        ('add_venue', "At Venue"),
+        ('add_godown', "At Godown")], default=False, string="Location") -->
+
+            <!-- <xpath expr="//tree/field[@name='price_unit']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+        </field>
+    </record>    
+    <record id="hop_sale_order_form_inherit_l10n_in_sale" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='activity_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="date"></field>
+            </xpath> -->
+            <xpath expr="//field[@name='commitment_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='expected_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record> 
+
+    <record id="sale_order_view_search_inherit_sale_custom" model="ir.ui.view">
+        <field name="name">sale.order.search.inherit.sale.custom</field>
+        <field name="model">sale.order</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+                <separator/>
+                <filter string="Quotations" name="not_confirm" domain="[('state','in',('draft','sent'))]"/>
+                
+            </xpath>
+        </field>
+    </record>
+
+   <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <!-- <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/> -->
+            <field name="view_id" ref="sale.view_order_tree"/>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+            <field name="search_view_id" ref="sale_order_view_search_inherit_sale_custom"/>
+            <field name="context">{'search_default_my_quotation': 0,'search_default_not_confirm' : 1}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new quotation, the first step of a new sale!
+              </p><p>
+                Once the quotation is confirmed by the customer, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.
+              </p>
+            </field>
+    </record>
+
+     <record id="print_wizard" model="ir.actions.server">
+        <field name="name">Print</field>
+        <field name="model_id" ref="ct_function_v15.model_sale_order"/>
+        <field name="binding_model_id" ref="ct_function_v15.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">action = model.print()</field>
+    </record>
+    <record id="sale.action_sale_order_generate_link" model="ir.actions.act_window">
+        <field name="name">Generate a Payment Link</field>
+        <field name="res_model">payment.link.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="payment.payment_link_wizard_view_form"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_view_types">form</field>
+    </record>
+
+    <record id="sale.model_sale_order_action_quotation_sent" model="ir.actions.server">
+        <field name="name">Mark Quotation as Sent</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_quotation_sent()</field>
+    </record>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'sale'), ('name','=','model_sale_order_action_share')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="sale.model_sale_order_action_share" model="ir.actions.server">
+        <field name="name">Share</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_share()</field>
+    </record>
+    
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'sale'), ('name','=','model_sale_order_action_share')] "/> 
+        </function> 
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+
+    <record id="sale.action_report_saleorder" model="ir.actions.report">
+        <field name="name">Quotation / Order</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sale.report_saleorder</field>
+        <field name="report_file">sale.report_saleorder</field>
+        <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="print_wizard_event_inquiry" model="ir.actions.server">
+        <field name="name">Print</field>
+        <field name="model_id" ref="ct_function_v15.model_hop_calendar"/>
+        <field name="binding_model_id" ref="ct_function_v15.model_hop_calendar"/>
+        <field name="state">code</field>
+        <field name="code">action = model.print()</field>
+    </record>
+
+    <record model="ir.actions.server" id="hop_sale_action">
+        <field name="name">Cancel</field>
+        <field name="model_id" ref="ct_function_v15.model_sale_order"/>
+        <field name="binding_model_id" ref="ct_function_v15.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_cancel()
+        </field>
+    </record>
+
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'sale'), ('name','=','model_sale_order_action_share')] "/> 
+        </function> 
+        <value eval ="{'noupdate': False}"/> 
+    </function>
+
+    <record id="sale.model_sale_order_action_share" model="ir.actions.server">
+            <field name="name">Share</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_share()</field>
+            <field name="groups_id" eval="[(4,ref('base.group_no_one'))]"/>
+
+    </record>
+    
+    <function name = "write" model = "ir.model.data"> 
+        <function name = "search" model = "ir.model.data"> 
+            <value eval = "[('module', '=', 'sale'), ('name','=','model_sale_order_action_share')] "/> 
+        </function>
+        <value eval ="{'noupdate': True}"/> 
+    </function>
+</odoo>

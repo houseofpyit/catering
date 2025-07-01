@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <template id="quotation_print_report">
+            <t t-call="web.basic_layout">
+                    <!-- <t t-call="web.external_layout"> -->
+                        <style>
+                            td,th {
+                                border: 1px solid black;
+                            }
+        
+                            table {
+                                border: 1px solid black;
+                                <!-- border-collapse: collapse; -->
+                            }
+                        </style>
+                        <t t-foreach="data" t-as="line">
+                            <div class="page">
+                                <table width="100%" style="border:none;">
+                                    <td width="10%" style="border:none;padding-right:200px;">
+                                    </td>
+                                    <td width="80%" style="border:none;">
+                                    </td>
+                                    <td width="10%" style="border:none;">
+                                        <t t-if="line.get('company_id')">
+                                            <img t-att-src="'data:image/png;base64,' + line.get('company_id')" width="150" height="100"/>
+                                        </t>
+                                        
+                                    </td>
+                                </table>
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td style="width:20%;padding-top:3px;padding-bottom:3px;padding-left:4px;">
+                                            <span>NAME</span>
+                                        </td>
+                                        <td style="width:30%;padding-top:3px;padding-bottom:3px;padding-left:4px;">
+                                            <span t-esc="line.get('partner_id')"/>
+                                        </td>
+                                        <td style="width:20%;padding-top:3px;padding-bottom:3px;padding-left:4px;">
+                                            <span>EVENT DATE</span>
+                                        </td>
+                                        <td style="width:30%;padding-top:3px;padding-bottom:3px;padding-left:4px;">
+                                            <span t-esc="line.get('date')"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;padding-top:3px;padding-bottom:15px;padding-left:4px;">
+                                            <span>ADDRESS</span>
+                                        </td>
+                                        <td style="width:30%;padding-top:3px;padding-bottom:15px;padding-left:4px;">
+                                            <span t-esc="line.get('street')"/>
+                                            <span t-esc="line.get('city')"/>
+                                            <br/>
+                                            <span t-esc="line.get('state_id')"/>
+                                            <span t-esc="line.get('country_id')"/>
+                                        </td>
+                                        <td style="width:20%;padding-top:3px;padding-bottom:15px;padding-left:4px;">
+                                            <span>VENUE NAME</span>
+                                        </td>
+                                        <td style="width:30%;padding-top:3px;padding-bottom:15px;padding-left:4px;">
+                                            <span t-esc="line.get('venue_address')"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;padding-top:3px;padding-bottom:3px;padding-left:4px;">
+                                            <span>MOBILE NO</span>
+                                        </td>
+                                        <td style="width:30%;padding-top:3px;padding-bottom:3px;padding-left:4px;">
+                                            <span t-esc="line.get('phone')"/>
+                                        </td>
+                                        <td style="width:20%;padding-top:3px;padding-bottom:3px;padding-left:4px;">
+                                            <span>EVENT NAME</span>
+                                        </td>
+                                        <td style="width:30%;padding-top:3px;padding-bottom:3px;padding-left:4px;">
+                                            <span t-esc="line.get('fuction_name_id')"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width:100%;border-top:none;">
+                                    <tr>
+                                        <td style="border-top:none;padding-top:15px;padding-bottom:15px;" />
+                                    </tr>
+                                </table>
+                                <table style="width:100%;border-top:none;">
+                                    <tr>
+                                        <td style="border-top:none;padding-top:5px;padding-bottom:5px;font-size:28px;" >
+                                            <center>ESTIMATE</center>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width:100%;">
+                                    <tr>
+                                        <th style="width:25%;padding-top:3px;padding-bottom:3px;text-align: center;font-size:18px;">PARTICULARS</th>
+                                        <th style="width:25%;padding-top:3px;padding-bottom:3px;text-align: center;font-size:18px;">Instruction</th>
+                                        <th style="width:10%;padding-top:3px;padding-bottom:3px;text-align: center;font-size:18px;">QUANTITY</th>
+                                        <th style="width:10%;padding-top:3px;padding-bottom:3px;text-align: center;font-size:18px;">RATE</th>
+                                        <th style="width:15%;padding-top:3px;padding-bottom:3px;text-align: center;font-size:18px;">TAXES</th>
+                                        <th style="width:15%;padding-top:3px;padding-bottom:3px;text-align: center;font-size:18px;">AMOUNT</th>
+                                    </tr>
+                                    <t t-set="price" t-value="0" />
+                                    <t t-foreach="line.get('product_list')" t-as="pro">
+                                        <t t-set="price" t-value="price + pro.get('price_subtotal')" />
+                                        <tr>
+                                            <td style="padding-left:5px;">
+                                                <span t-esc="pro.get('product_id')"/>
+                                            </td>
+                                            <td style="padding-left:5px;">
+                                                <span t-esc="pro.get('name')"/>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span t-esc="pro.get('product_uom_qty')"/>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span t-esc="'%.2f'%(pro.get('price_unit'))"/>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span t-esc="pro.get('gst')"/>
+                                            </td>
+                                            <td style="text-align: right;padding-right:5px;padding-left:5px;">
+                                                <span t-esc="'%.2f'%(pro.get('price_subtotal'))"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                        <tr>
+                                            <td style="border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>   
+                                            <td style="text-align: right;border-left:none;padding-right:5px;padding-left:5px;">
+                                                <span>TOTAL</span>
+                                            </td>
+                                            <td style="text-align: right;padding-right:5px;padding-left:5px;">
+                                                <span t-esc="'%.2f'%(price)"/>
+                                            </td>
+                                        </tr>
+                                        <t t-if="line.get('sgst')">
+                                            <tr>
+                                            <td style="border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>   
+                                            <td style="text-align: right;border-left:none;padding-right:5px;padding-left:5px;">
+                                                <span>SGST</span>
+                                            </td>
+                                            <td style="text-align: right;padding-right:5px;padding-left:5px;">
+                                                <span t-esc="'%.2f'%(line.get('sgst'))"/>
+                                            </td>
+                                        </tr>
+                                         </t>
+                                         <t t-if="line.get('cgst')">
+                                            <tr>
+                                            <td style="border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>   
+                                            <td style="text-align: right;border-left:none;padding-right:5px;padding-left:5px;">
+                                                <span>CGST</span>
+                                            </td>
+                                            <td style="text-align: right;padding-right:5px;padding-left:5px;">
+                                                <span t-esc="'%.2f'%(line.get('cgst'))"/>
+                                            </td>
+                                        </tr>
+                                         </t>
+                                         <t t-if="line.get('igst')">
+                                            <tr>
+                                            <td style="border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>   
+                                            <td style="border-left:none;border-right:none;"></td>   
+                                            <td style="text-align: right;border-left:none;padding-right:5px;padding-left:5px;">
+                                                <span>IGST</span>
+                                            </td>
+                                            <td style="text-align: right;padding-right:5px;padding-left:5px;">
+                                                <span t-esc="'%.2f'%(line.get('igst'))"/>
+                                            </td>
+                                        </tr>
+                                         </t>
+                                        <!-- <tr>
+                                            <td style="border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="text-align: right;border-left:none;padding-right:5px;padding-left:5px;">
+                                                <span>DISCOUNT</span>
+                                            </td>
+                                            <td style="text-align: right;">
+                                                <span/>
+                                            </td>
+                                        </tr> -->
+                                        <tr>
+                                            <td style="border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="border-left:none;border-right:none;"></td>
+                                            <td style="text-align: right;border-left:none;padding-right:5px;padding-left:5px;">
+                                                <span>FINAL TOTAL</span>
+                                            </td>
+                                            <td style="text-align: right;padding-right:5px;padding-left:5px;">
+                                                <span t-esc="'%.2f'%(price+ line.get('sgst',0) + line.get('cgst',0) + line.get('igst',0))"/>
+                                            </td>
+                                        </tr>
+                                </table>
+                                <table style="width:40%;border:none;">
+                                    <tr>
+                                        <td style="border:none;padding-bottom:7px;padding-top:3px;color:red;">
+                                            <b><span>REMARK</span></b>
+                                        </td>
+                                        <td style="border:none;padding-bottom:7px;padding-left:2px;padding-top:3px;color:red;">
+                                            :<span t-esc="line.get('remarks')" style="padding-left:5px;"/>
+                                        </td>
+                                    </tr>
+                                    <t t-if="line.get('note')">
+                                        <tr>
+                                            <td style="border:none;padding-bottom:7px;padding-top:3px;color:red;">
+                                                <span>QUOTATION NOTE</span>
+                                            </td>
+                                            <td style="border:none;padding-bottom:7px;padding-left:2px;padding-top:3px;color:red;">
+                                                :<span t-esc="line.get('note')" style="padding-left:5px;"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="line.get('vat')">
+                                        <tr>
+                                            <td style="border:none;">
+                                                <span>COMPANY'S GST NO</span>
+                                            </td>
+                                            <td style="border:none;padding-left:2px;">
+                                                :<span t-esc="line.get('vat')" style="padding-left:5px;"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                   
+                                </table>
+                                <br/>
+                                <table style="border:none;">
+                                    <td style="font-size:22px;border:none;">
+                                        <span>PAYMENT CONDITIONS:-</span>
+                                    </td>
+                                </table>
+                                <table style="border:none;">
+                                    <tr>
+                                        <td style="padding-left: 0px;border:none;padding-left:20px;">
+                                            <t t-if="env.company.payment_condition">
+                                               <span t-esc="env.company.payment_condition"/>                                       
+                                            </t>
+                                            <t t-else="">
+                                                <ol>
+                                                    <li>Function Date will not be book untill and unless advance payment will not be given,after</li>
+                                                    <span>that order cannot be cancel. Management reserves the right to cancel the</span>
+                                                    <span>function if the payment not paid on time.</span>
+                                                    <li>20% Payment on Booking.</li>
+                                                    <li>50% Payment before one month of Booking dates.</li>
+                                                    <li>30% payment before function.</li>
+                                                    <li>Bill is compulsion.</li>
+                                                    <li>All government Taxes will be charged extra.</li>
+                                                    <li>Charges will be calculated as actual numbers of the guaranteed number of person</li>
+                                                    <span>whichever is Higher.</span>
+                                                    <li>The management shall not be liable for any inconvenience caused by an act of GOD,</li>
+                                                    <span>Nature orAccident or Failure of any service, which are beyond the control of</span>
+                                                    <span>management.</span>
+                                                </ol> 
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="border:none;">
+                                    <td style="font-size:22px;border:none;">
+                                        <span>SPECIAL NOTES:-</span>
+                                    </td>
+                                </table>
+                                <table style="border:none;">
+                                    <tr>
+                                        <td style="padding-left: 0px;border:none;">
+                                            <ol>
+                                                <li>All Types of Live counter will be served with Main Course (Dish).</li>
+                                                <li>Possession of Kitchen/Pantry should be given us before 12 Hours, for our Timely preparations.</li>
+                                                <li>Menu Rates may differ if any addition or selection of premium item.</li>
+                                            </ol>  
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="footer">
+                                <table style="width:100%;border: 1px solid black;border-right:none;border-left:none;border-bottom:none;border-top:none;">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: right;padding-bottom: 20px;">
+                                            <center><span t-esc="line.get('name')"/></center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:30%;border: 1px solid black;border-right:none;border-left:none;border-bottom:none;">
+                                            <center>Manager's Signature</center>
+                                        </td>
+                                        <td style="width:5%;border: 1px solid black;border-right:none;border-left:none;border-bottom:none;border-top:none;"></td>
+                                        <td style="width:30%;border: 1px solid black;border-right:none;border-left:none;border-bottom:none;">
+                                            <center>Customer's Signature</center>
+                                        </td>
+                                        <td style="width:5%;border: 1px solid black;border-right:none;border-left:none;border-bottom:none;border-top:none;"></td>
+                                        <td style="width:30%;border: 1px solid black;border-right:none;border-left:none;border-bottom:none;">
+                                            <center>Authorised Signatory</center>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                    <!-- </t> -->
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

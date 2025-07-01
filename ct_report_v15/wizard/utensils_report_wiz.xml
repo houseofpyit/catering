@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_utensils_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">hop.utensils.report.wizard.view.form</field>
+        <field name="model">hop.utensils.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Utensils Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="from_date" />
+                            <field name="utensils_type"/>
+                            <field name="is_utensils" invisible="1"/>
+                        </group>
+                        <group>
+                         <field name="to_date" />
+                            <field name="fuction_ids" options="{'no_quick_create':true}" widget="many2many_tags" required="1"/>
+                            <field name="language" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print" string="Generate" type="object" class="oe_highlight"  />                   
+                    <button string="Cancel" class="oe_link oe_highlight" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hop_utensils_report_wizard" model="ir.actions.act_window">
+        <field name="name">Utensils Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.utensils.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hop_package_master,hop_package_master,model_hop_package_master,,1,1,1,1
+access_hop_package_line,hop_package_line,model_hop_package_line,,1,1,1,1
+access_hop_gallery_master,hop_gallery_master,model_hop_gallery_master,,1,1,1,1
+acess_hop_season_master,hop_season_master,model_hop_season_master,,1,1,1,1
+acess_hop_season_recipe,hop_season_recipe,model_hop_season_recipe,,1,1,1,1
+access_hop_gallery_menu_master,hop_gallery_menu_master,model_hop_gallery_menu_master,,1,1,1,1
+access_hop_websit_category,hop_websit_category,model_hop_websit_category,,1,1,1,1
+

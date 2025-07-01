@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="costing_report">
+            <t t-call="web.basic_layout">
+                <style>
+                    td {
+                        border : 1px solid black;
+                        font-size: 15px; 
+                    }
+                    th {
+                        border : 1px solid black;
+                        font-size: 15px; 
+                    }
+                </style>
+                <t t-foreach="docs" t-as="t">
+                <t t-foreach="t.generate_pdf_vals()" t-as="data">
+                    <div class="page">
+                        <table width="100%" style="border:none;">
+                            <td width="30%" style="border:none;">
+                            </td>
+                            <td width="30%" style="border:none;">
+                            </td>
+                            <td width="30%" style="border:none;">
+                                <t t-if="data.get('company_id')">
+                                    <img style="margin-left:150px;" t-att-src="'data:image/png;base64,' + str(data.get('company_id'), 'utf-8')" width="150" height="100"/>
+                                </t>
+                                
+                            </td>
+                        </table>
+                        <table style="width:100%;">
+                            <center>
+                                <h2>
+                                    Costing Report
+                                </h2>
+                            </center>
+                            <!-- <center>
+                                    <h3 style="padding-bottom:10px;padding-top:10px;"> Date Between <span t-esc="data.get('from_date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'></span> To <span t-esc="data.get('to_date')" t-options='{"widget": "date","format": "dd-MM-yyyy"}'></span></h3>
+                            </center> -->
+                        </table>
+
+                        <style>
+                            .total-row {
+                                background-color: grey;
+                                color: white;
+                                font-weight: bold;
+                            }
+                        </style>        
+                        <t t-foreach="data.get('costing_data')" t-as="line">
+                            <br/>        
+                            <center><b><span style="font-size: 20px; " t-esc="line.get('partner')" /></b></center>
+                        <table border="1" style="width: 100%; border: 1px solid black;">
+                            <tr>
+                                <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Function</th>
+                                <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Raw Materials</th>
+                                <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">In House PO</th>
+                                <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Out Source PO</th>
+                                <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Add-ons PO</th>
+                                <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Labour PO</th>
+                                <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Raw Materials Issue</th>
+                                <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Raw Materials Return</th>
+                                <th style="border: 1px solid black; background-color: grey; color: white; text-align: center;">Total</th>
+                            </tr>
+                            <t t-set="raw_material_cost" t-value="0" />
+                            <t t-set="in_house_cost" t-value="0" />
+                            <t t-set="out_source_cost" t-value="0" />
+                            <t t-set="addons_cost" t-value="0" />
+                            <t t-set="labour_cost" t-value="0" />
+                            <t t-set="raw_material_issue_cost" t-value="0" />
+                            <t t-set="raw_material_return_cost" t-value="0" />
+                            <t t-set="total" t-value="0" />
+                            <tr t-foreach="line.get('detail')" t-as="l">
+                                <t t-set="raw_material_cost" t-value="raw_material_cost + l.get('raw_material_cost')" />
+                                <t t-set="in_house_cost" t-value="in_house_cost + l.get('in_house_cost')" />
+                                <t t-set="out_source_cost" t-value="out_source_cost + l.get('out_source_cost')" />
+                                <t t-set="addons_cost" t-value="addons_cost + l.get('addons_cost')" />
+                                <t t-set="labour_cost" t-value="labour_cost + l.get('labour_cost')" />
+                                <t t-set="raw_material_issue_cost" t-value="raw_material_issue_cost + l.get('raw_material_issue_cost')" />
+                                <t t-set="raw_material_return_cost" t-value="raw_material_return_cost + l.get('raw_material_return_cost')" />
+                                <t t-set="total" t-value="total + l.get('total')" />
+                                <td style="padding-left: 5px;">
+                                    <span t-esc="l.get('function')" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;">
+                                    <span t-esc="'%.2f'%(l.get('raw_material_cost'))" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;">
+                                    <span t-esc="'%.2f'%(l.get('in_house_cost'))"/>
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;">
+                                    <span t-esc="'%.2f'%(l.get('out_source_cost'))"/>
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;">
+                                    <span t-esc="'%.2f'%(l.get('addons_cost'))" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;">
+                                    <span t-esc="'%.2f'%(l.get('labour_cost'))" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;">
+                                    <span t-esc="'%.2f'%(l.get('raw_material_issue_cost'))" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;">
+                                    <span t-esc="'%.2f'%(l.get('raw_material_return_cost'))" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;">
+                                    <span t-esc="'%.2f'%(l.get('total'))" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 5px;background-color: grey; color: white;">
+                                    <span>Total</span>
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;background-color: grey; color: white;">
+                                    <span t-esc="'%.2f'%(raw_material_cost)" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;background-color: grey; color: white;">
+                                    <span t-esc="'%.2f'%(in_house_cost)"/>
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;background-color: grey; color: white;">
+                                    <span t-esc="'%.2f'%(out_source_cost)"/>
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;background-color: grey; color: white;">
+                                    <span t-esc="'%.2f'%(addons_cost)" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;background-color: grey; color: white;">
+                                    <span t-esc="'%.2f'%(labour_cost)" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;background-color: grey; color: white;">
+                                    <span t-esc="'%.2f'%(raw_material_issue_cost)" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;background-color: grey; color: white;">
+                                    <span t-esc="'%.2f'%(raw_material_return_cost)" />
+                                </td>
+                                <td style="text-align: right; padding-right: 5px;background-color: grey; color: white;">
+                                    <span t-esc="'%.2f'%(total)" />
+                                </td>
+                            </tr>
+                        </table>
+                        </t>
+                    </div>
+                </t>
+                </t></t>
+        
+        </template>
+    </data>
+</odoo>

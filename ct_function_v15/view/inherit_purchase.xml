@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inherit_purchase_order" model="ir.ui.view">
+        <field name="name">purchase.order.view.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//form' position='attributes'>
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+            </xpath>
+            <!-- <xpath expr="//button[@name='action_create_invoice'][1]" position="attributes">
+                <attribute name="attrs">{'invisible': [('create_bill','=',True)]}</attribute>
+            </xpath> -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="send_email" invisible="1" />
+                <field name="active" invisible="1"/>
+            </xpath>
+            <xpath expr="//form/header/button[@name='button_confirm']" position="before">
+                <button name="%(wizard_email_action)d"  type="action" string="Send Quotation" invisible="1" class="btn-primary"></button>
+            </xpath>
+            <xpath expr="//button[@name='button_confirm'][1]" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_rfq_send'][2]" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='print_quotation'][2]" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="purchase" readonly="1"/>
+            </xpath> -->
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft" />
+            </xpath>
+            <xpath expr="//button[@name='button_confirm'][2]" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- <xpath expr="//field[@name='l10n_in_gst_treatment']" position="attributes">
+                <attribute name="invisible">1</attribute>
+             </xpath> -->
+             <xpath expr="//field[@name='partner_ref']" position="attributes">
+                <attribute name="invisible">1</attribute>
+             </xpath>
+            <xpath expr="//field[@name='qty_received']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='qty_invoiced']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_create_invoice']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_cancel']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_picking']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_rfq_send']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_rfq_send'][1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_rfq_send'][3]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='print_quotation']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_create_invoice'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_done']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='confirm_reminder_mail']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="context">{'default_is_vender': True}</attribute>
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='purchase_delivery_invoice']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <field name="venue_address"/>
+                <field name="po_type" readonly="1"/>
+                <field name="fuction_id_rec" readonly="1" />
+                <field name="is_out_sider" invisible="1"/>
+                <field name="create_bill"  invisible="1"/>
+                <field name="total_qty" invisible="1"/>
+                <field name="category_id" widget="many2many_tags" invisible="0"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_title']" position="replace">
+                <center><span class="o_form_label"> <field name="po_type" readonly="1" /></span></center>
+                <div class="oe_title">
+                    <span class="o_form_label">Purchase Order </span>
+                    <h1>
+                        <field name="priority" widget="priority" class="mr-3"/>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>
+            <!-- <xpath expr="//tree/field[@name='product_qty']" position="before">
+                <field name="no_of_pax" attrs="{'column_invisible': [('parent.is_out_sider' , '!=', True)]}" />
+            </xpath> -->
+            <xpath expr="//tree/field[@name='product_qty']" position="attributes">
+                <attribute name="attrs">{'column_invisible': [('parent.is_out_sider' , '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_qty']" position="replace">
+                <field name="product_qty" sum="Qty" />
+            </xpath>
+            <xpath expr="//tree/field[@name='name']" position="replace">
+                <field name="name" required="0" readonly="0"/>
+            </xpath>
+            <xpath expr="//tree/field[@name='name']" position="attributes">
+                <attribute name="attrs">{'column_invisible': [('parent.po_type' , '=', 'row_material')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='currency_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_ref']" position="attributes">
+                <attribute name="string">Vendor Bill No</attribute>
+            </xpath>
+            <xpath expr="//div[@name='date_planned_div']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@name='reminder']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="manager_name_id" attrs="{'invisible': [('po_type', '=', 'normal')]}" options="{'no_quick_create':true}" context="{'default_is_vender': True}" readonly="1"/>
+                <field name="meal_type" readonly="1" attrs="{'invisible': [('po_type', '=', 'normal')]}" />
+                <field name="date" force_save="1" attrs="{'invisible': [('po_type', '!=', 'normal')]}" string="Date"/>
+                <field name="date"  force_save="1" readonly="1" attrs="{'invisible': [('po_type', '=', 'normal')]}" string="Function Date"/>
+                <field name="time" widget="float_time" readonly="1" attrs="{'invisible': [('po_type', '=', 'normal')]}"/>
+                <field name="am_pm" readonly="1" attrs="{'invisible': [('po_type', '=', 'normal')]}"/>
+                <field name="remarks" readonly="1" attrs="{'invisible': [('po_type', '=', 'normal')]}"/>
+                <field name="delivery_date" attrs="{'required': [('po_type', '=', 'row_material')], 'invisible': [('po_type', '=', 'in_house')]}"/>
+                <field name="delivery_time" widget="float_time" attrs="{'required': [('po_type', '=', 'row_material')], 'invisible': [('po_type', '=', 'in_house')]}"/>
+                <field name="delivery_am_pm" attrs="{'required': [('po_type', '=', 'row_material')], 'invisible': [('po_type', '=', 'in_house')]}"/>                
+            </xpath>
+            <xpath expr="//tree/field[@name='product_uom']" position="after">
+                <field name="fuction_line_id" invisible="1"/>
+                <field name="labour_line_id" invisible="1"/>
+                <field name="service_line_id" invisible="1" />
+                <field name="hospitality_ids" attrs="{'column_invisible': [('parent.po_type' , '!=', 'service')]}" options="{'no_quick_create':true}"/>
+                <field name="shift_date" attrs="{'column_invisible': [('parent.po_type' , '!=', 'service')]}"/>
+                <field name="shift_time" attrs="{'column_invisible': [('parent.po_type' , '!=', 'service')]}"/>
+                <field name="remarks" attrs="{'column_invisible': [('parent.po_type' , '!=', 'service')]}"/>
+                <field name="location" attrs="{'column_invisible': [('parent.po_type' , '!=', 'service')]}"/>
+                <field name="date" attrs="{'column_invisible': [('parent.po_type' , 'not in', ['row_material','addons'])]}"/>
+                <field name="time" widget="float_time" attrs="{'column_invisible': [('parent.po_type' , 'not in', ['row_material','addons'])]}"/>
+                <field name="am_pm" attrs="{'column_invisible': [('parent.po_type' , 'not in', ['row_material','addons'])]}"/>
+                <field name="instruction" attrs="{'column_invisible': [('parent.po_type' , 'not in', ('addons','in_house','out_source'))]}" />
+                <!-- <field name="product_id" column_invisible="1" options="{'no_create': True,'no_edit':True,'no_open':True}"/> -->
+                <field name="category_id" attrs="{'column_invisible': [('parent.po_type' , '!=', 'in_house')]}"  options="{'no_quick_create':true}"/>
+                <field name="helper" attrs="{'column_invisible': [('parent.po_type' , 'not in', ('in_house','out_source'))]}"/>
+                <field name="chief" attrs="{'column_invisible': [('parent.po_type' , 'not in', ('in_house','out_source'))]}"/>
+                <field name="no_of_pax" attrs="{'column_invisible': [('parent.po_type' , 'not in', ('in_house','out_source'))]}" />
+                <field name="order_qty" attrs="{'column_invisible': [('parent.po_type' , 'not in', ('in_house','out_source'))]}" />
+                <field name="qty_cal_type" attrs="{'column_invisible': [('parent.po_type' , 'not in', ('in_house','out_source'))]}" />
+            </xpath>  
+            <xpath expr="//tree/field[@name='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> 
+            <xpath expr="//tree/field[@name='product_id']" position="attributes">
+            <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath> 
+            <xpath expr="//tree/field[@name='product_uom']" position="attributes">
+            <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath> 
+            <xpath expr="//page/field[@name='order_line']/form/group/group/div/field[@name='product_uom']" position="attributes">
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath> 
+            <xpath expr="//page/field[@name='order_line']/form/group/group/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath> 
+            <!-- <xpath expr="//tree/field[@name='price_unit']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath> -->
+            <!-- <xpath expr="//tree/field[@name='taxes_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+            <!-- <xpath expr="//tree/field[@name='price_subtotal']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+            <!-- <xpath expr="//field[@name='efective_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+            <xpath expr="//page/field[@name='order_line']/form/group/group/field[@name='product_id']" position="after">
+            <field name="name" attrs="{'invisible': [('parent.po_type', '=', 'row_material')]}"/>
+                <field name="time" attrs="{'invisible': [('parent.po_type', 'in', ('out_source','normal'))]}" widget="float_time" readonly="1"/>
+                <field name="am_pm" attrs="{'invisible': [('parent.po_type', 'in', ('row_material','normal'))]}"/>
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/form/group/group/field[@name='taxes_id']" position="after">
+                <field name="instruction" attrs="{'invisible': [('parent.po_type', 'in', ('row_material','normal'))]}"/>
+                <field name="price_subtotal" attrs="{'invisible': [('parent.po_type', '=', 'service')]}"/>
+            </xpath>
+            <xpath expr="//tree/field[@name='price_subtotal']" position="attributes">
+                <attribute name="sum">Subtotal</attribute>
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/form/group/group/field[@name='instruction']" position="after">
+                <field name="helper" attrs="{'invisible': [('parent.po_type', 'in', ('row_material','normal'))]}"/>
+                <field name="no_of_pax" attrs="{'invisible': [('parent.po_type', 'in', ('row_material','normal'))]}"/>
+                <field name="qty_cal_type" attrs="{'invisible': [('parent.po_type', 'in', ('row_material','normal'))]}"/>
+                <field name="price_unit" attrs="{'invisible': [('parent.po_type', 'in', ('row_material','normal'))]}"/>
+                <field name="category_id" attrs="{'invisible': [('parent.po_type' , 'in', ('row_material','out_source','addons','normal'))]}" options="{'no_quick_create':true}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_view_tree_service" model="ir.ui.view">
+        <field name="name">purchase.order.view.tree</field>
+        <field name="model">purchase.order</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state == 'cancel'"
+                decoration-info="invoice_status == 'to invoice'"
+                string="Purchase Order"
+                class="o_purchase_order" delete="false">
+                <header>
+                    <button name="action_create_invoice" type="object" string="Create Bills"/>
+                </header>
+                <field name="name" string="Reference" readonly="1" decoration-bf="1" decoration-info="state in ('draft','sent')"/>
+                <field name="fuction_id_rec"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="venue_address"/>
+                <field name="meal_type" width="30"/>
+                <field name="state"/>
+                <field name="create_bill" invisible="1"/>
+                <field name="total_qty" sum="total_qty"/>
+                <field name="invoice_status" widget="badge" decoration-success="invoice_status == 'invoiced'" decoration-info="invoice_status == 'to invoice'" optional="hide"/>
+                <field name="amount_total"  sum="amount_total"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="purchase.purchase_order_view_tree" model="ir.ui.view">
+            <field name="name">purchase.order.view.tree</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <tree decoration-muted="state == 'cancel'"
+                    decoration-info="invoice_status == 'to invoice'"
+                    string="Purchase Order"
+                    class="o_purchase_order" delete="false">
+                    <header>
+                        <button name="action_create_invoice" type="object" string="Create Bills"/>
+                    </header>
+                   
+                    <field name="name" string="Reference" readonly="1" decoration-bf="1" decoration-info="state in ('draft','sent')"/>
+                    <field name="fuction_id_rec"/>
+                    <field name="date"/>
+                    <field name="partner_id"/>
+                    <field name="venue_address"/>
+                    <field name="meal_type" width="30"/>
+                    <field name="state"/>
+                    <field name="invoice_status" widget="badge" decoration-success="invoice_status == 'invoiced'" decoration-info="invoice_status == 'to invoice'" optional="hide"/>
+                    <field name="amount_total"  sum="amount_total"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="purchase_order_view_tree_normal" model="ir.ui.view">
+            <field name="name">purchase.order.view.tree</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <tree decoration-muted="state == 'cancel'"
+                    decoration-info="invoice_status == 'to invoice'"
+                    string="Purchase Order"
+                    class="o_purchase_order" delete="false">
+                    <header>
+                        <button name="action_create_invoice" type="object" string="Create Bills"/>
+                    </header>
+                   
+                    <field name="name" string="Reference" readonly="1" decoration-bf="1" decoration-info="state in ('draft','sent')"/>
+                    <field name="date"/>
+                    <field name="partner_id"/>
+                    <field name="venue_address"/>
+                    <field name="meal_type" width="30"/>
+                    <field name="create_bill" invisible="1"/>
+                    <field name="total_qty" sum="total_qty"/>
+                    <field name="state"/>
+                    <field name="invoice_status" widget="badge" decoration-success="invoice_status == 'invoiced'" decoration-info="invoice_status == 'to invoice'" optional="hide"/>
+                    <field name="amount_total"  sum="amount_total"/>
+                </tree>
+            </field>
+        </record>
+    <record id="purchase_order_kpis_tree_custom" model="ir.ui.view">
+        <field name="name">purchase.order.view.form.inherit.custom</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//field[@name='origin']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            
+        </field>
+    </record>
+
+    <record id="inherit_account_payment" model="ir.ui.view">
+        <field name="name">account.payment.view.form.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id'][1]" position="attributes">
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id'][2]" position="attributes">
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='journal_id']" position="attributes">
+                <attribute name="options">{'no_quick_create':true}</attribute>
+            </xpath>
+            <xpath expr="//group/group/field[@name='is_internal_transfer']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group/group/field[@name='payment_type']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group/group/field[@name='ref']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_open_journal_entry']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr='//form' position='attributes'>
+                <attribute name="delete">false</attribute>
+            </xpath>
+            <xpath expr="//group/field[@name='date']" position="after">
+                <field name="remarks"/>
+              </xpath>
+              <xpath expr="//group/field[@name='partner_id'][2]" position="after">
+                <field name="phone"/>
+              </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_payment_tree_inherit" model="ir.ui.view">
+        <field name="name">account.supplier.inherit.tree</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr='//tree' position='attributes'>
+                <attribute name="delete">0</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_supplier_payment_tree_inherit" model="ir.ui.view">
+        <field name="name">account.supplier.inherit.tree</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_supplier_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr='//tree' position='attributes'>
+                <attribute name="delete">0</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_tree_custom" model="ir.ui.view">
+        <field name="name">purchase.order.view.form.inherit.custom</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//field[@name='origin']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_approve']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="po_type"/>
+                <field name="date" />
+                <field name="delivery_date" />
+              </xpath>
+        </field>
+    </record>
+
+    
+
+    <record id="purchase.action_purchase_batch_bills" model="ir.actions.server">
+        <field name="name">Create Vendor Bills</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref=""/>
+        <field name='groups_id' eval="[(4, ref('account.group_account_invoice'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_create_invoice()
+        </field>
+    </record>
+
+    <record id="purchase.action_purchase_send_reminder" model="ir.actions.server">
+        <field name="name">Send Reminder</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref=""/>
+        <field name='groups_id' eval="[(4, ref('purchase.group_send_reminder'))]"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records._send_reminder_mail(send_single=True)
+        </field>
+    </record>
+
+    <record id="purchase.model_purchase_order_action_share" model="ir.actions.server">
+        <field name="name">Share</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_share()</field>
+    </record>
+
+
+    <record id="action_all_order_cancel" model="ir.actions.server">
+        <field name="name">Cancel</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name='groups_id' eval="[(4, ref('account.group_account_invoice'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_all_order_cancel()
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="hop_purchase_po_print">
+        <field name="name">Po Print</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_print()
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="hop_purchase_po_whatapp">
+        <field name="name">Send</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.send_by_whatsapp()
+        </field>
+    </record>
+
+    <!-- <record id="action_all_order_confirm" model="ir.actions.server">
+        <field name="name">Confirm</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name='groups_id' eval="[(4, ref('account.group_account_invoice'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_all_order_confirm()
+        </field>
+    </record> -->
+
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_rfq">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_form_action">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+
+    <record model="ir.ui.menu" id="account.menu_action_account_invoice_report_all">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>  
+
+
+    <record model="ir.ui.menu" id="account.menu_finance">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record id="purchase.purchase_order_view_search" model="ir.ui.view">
+        <field name="name">purchase.order.select</field>
+        <field name="model">purchase.order</field>
+        <field name="arch" type="xml">
+            <search string="Search Purchase Order">
+                <field name="name" string="Order"
+                    filter_domain="['|', '|', ('name', 'ilike', self), ('partner_ref', 'ilike', self), ('partner_id', 'child_of', self)]"/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="user_id"/>
+                <field name="product_id"/>
+                <filter name="my_Orders" string="My Orders" domain="[('user_id', '=', uid)]"/>
+                <filter string="Starred" name="starred" domain="[('priority', '=', '1')]"/>
+                <separator/>
+                <filter name="unconfirmed" string="Not Acknowledged" domain="[('mail_reception_confirmed', '=', False), ('state', '=', 'purchase')]"/>
+                <filter name="not_invoiced" string="Waiting Bills" domain="[('invoice_status', '=', 'to invoice')]" help="Purchase orders that include lines not invoiced."/>
+                <filter name="invoiced" string="Bills Received" domain="[('invoice_status', '=', 'invoiced')]" help="Purchase orders that have been invoiced."/>
+                <separator/>
+                <filter name="order_date" string="Order Date" date="date"/>
+                <separator/>
+                <filter invisible="1" string="Late Activities" name="activities_overdue"
+                    domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                    help="Show all records which has next action date is before today"/>
+                <filter invisible="1" string="Today Activities" name="activities_today"
+                    domain="[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                    domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter string="Warnings" name="activities_exception"
+                    domain="[('activity_exception_decoration', '!=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Vendor" name="vendor" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Purchase Representative" name="representative" domain="[]" context="{'group_by': 'user_id'}"/>
+                    <filter string="Order Date" name="date" domain="[]" context="{'group_by': 'date'}"/>
+                    <filter string="Po Type" name="po_type" domain="[]" context="{'group_by': 'po_type'}"/>
+                    <filter string="Function Date" name="date" domain="[]" context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="purchase.view_purchase_order_filter" model="ir.ui.view">
+        <field name="name">request.quotation.select</field>
+        <field name="model">purchase.order</field>
+        <field name="arch" type="xml">
+            <search string="Search Purchase Order">
+                <field name="name" string="Order"
+                    filter_domain="['|', '|', ('name', 'ilike', self), ('partner_ref', 'ilike', self), ('partner_id', 'child_of', self)]"/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="user_id"/>
+                <field name="product_id"/>
+                <filter name="my_purchases" string="My Purchases" domain="[('user_id', '=', uid)]"/>
+                <filter string="Starred" name="starred" domain="[('priority', '=', '1')]"/>
+                <separator/>
+                <filter name="draft" string="RFQs" domain="[('state', 'in', ('draft', 'sent', 'to approve'))]"/>
+                <separator/>
+                <filter name="approved" string="Purchase Orders" domain="[('state', 'in', ('purchase', 'done'))]"/>
+                <filter name="to_approve" string="To Approve" domain="[('state', '=', 'to approve')]"/>
+                <separator/>
+                <filter name="order_date" string="Order Date" date="date"/>
+                <filter name="draft_rfqs" string="Draft RFQs" domain="[('state', '=', 'draft')]"/>
+                <filter name="waiting_rfqs" string="Waiting RFQs" domain="[('state', '=', 'sent'), ('date', '&gt;=', datetime.datetime.now())]"/>
+                <filter name="late_rfqs" string="Late RFQs" domain="[('state', 'in', ['draft', 'sent', 'to approve']),('date', '&lt;', datetime.datetime.now())]"/>
+                <separator/>
+                <filter invisible="1" string="Late Activities" name="activities_overdue"
+                    domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                    help="Show all records which has next action date is before today"/>
+                <filter invisible="1" string="Today Activities" name="activities_today"
+                    domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                    domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter string="Warnings" name="activities_exception"
+                    domain="[('activity_exception_decoration', '!=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Vendor" name="vendor" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Purchase Representative" name="representative" domain="[]" context="{'group_by': 'user_id'}"/>
+                    <filter string="Order Date" name="order_date" domain="[]" context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

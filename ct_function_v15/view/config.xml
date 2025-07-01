@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="res_config_settings_view_form_custom" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.custom</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="0"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='invite_users']" position="after">
+                    <div id="invite_users">
+                        <h2>Users Limitation</h2>
+                        <div class="row mt16 o_settings_container" >
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane" id="inc_ex_gst">
+                                    <div class="content-group"><label for="total_number_of_users"/></div>
+                                    
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="total_number_of_users" class="o_light_label"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_setting_right_pane" id="inc_ex_gst">
+                                    <div class="content-group"><label for="font_family"/></div>
+                                    
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="font_family" class="o_light_label"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_setting_right_pane" id="inc_ex_gst">
+                                    <div class="content-group"><label for="inhouse_outsource_po_master_rate"/></div>
+                                    
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="inhouse_outsource_po_master_rate" class="o_light_label"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+</odoo>

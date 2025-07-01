@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- <record id="rpt_action_dashboard" model="ir.actions.client">
+        <field name="name">Dashboard</field>
+        <field name="tag">rpt_dashboard</field>
+    </record> -->
+
+    <menuitem 
+        id="hop_report_main_menu"
+        name="Report"
+        sequence="7"
+        action="rpt_action_dashboard"
+        groups="ct_report_v15.group_report"
+        web_icon="ct_report_v15,static/img/icon 17 report.png"
+        />
+    
+<!-- Manager report -->
+    <menuitem 
+        id="hop_maneger_report_main_menu"  
+        name="Manager"
+        sequence="1"
+        parent="hop_report_main_menu"/>
+ 
+    <menuitem 
+        id="hop_utensils_report_main_menu"
+        name="Utensils Report"
+        sequence="1"
+        parent="hop_maneger_report_main_menu"
+        action="action_hop_utensils_report_wizard"/>
+
+    <!-- <menuitem 
+        id="ct_report_v15.menu_report"
+        name="Confirm Menu Report"
+        sequence="2"
+        action="action_menu_report_wizard"
+        parent="hop_maneger_report_main_menu"/> -->
+        
+    <menuitem 
+        id="ct_report_v15.function_print_report_menu"
+        name="Name Tag Report"
+        sequence="3"
+        action="action_hop_name_get_report_wizard"
+        parent="hop_maneger_report_main_menu"/>
+
+    <menuitem 
+        id="ct_report_v15.action_vender_confirmation_from_menu"
+        name="Vendor Confirmation Form Report"
+        sequence="4"
+        action="action_vender_confirmation_from_wizard"
+        parent="hop_maneger_report_main_menu"/>
+
+     <menuitem 
+        id="ct_report_v15.all_maneger_report"
+        name="All Manager Report"
+        sequence="6"
+        action="action_hop_all_manager_report_wizard"
+        parent="hop_maneger_report_main_menu"/>
+    
+<!-- Production -->
+    <menuitem 
+        id="hop_production_report_main_menu"
+        name="Production"
+        sequence="2"
+        parent="hop_report_main_menu"/>
+
+    <menuitem 
+        id="ct_report_v15.action_hop_confirm_in_house_service_report_menu"
+        name="Same As Manager Combine Menu Report"
+        sequence="1"
+        action="action_hop_confirm_in_house_service_report_wizard"
+        parent="hop_production_report_main_menu"/>
+
+    <menuitem 
+        id="ct_report_v15.in_house_vender"
+        name="In-House Vendor Basket Report"
+        sequence="4"
+        action="action_in_house_vender_report_wizard"
+        parent="hop_production_report_main_menu"/>
+
+    <menuitem 
+        id="ct_report_v15.function_wise_recipes_menu"
+        name="Function Wise Recipes Report"
+        sequence="5"
+        action="action_function_wise_recipes_report_wizard"
+        parent="hop_production_report_main_menu"/>
+
+    <menuitem 
+        id="ct_report_v15.ingredient_report"
+        name="Total Raw-Material Report"
+        sequence="2"
+        action="action_ingredients_summary_report_wizard"
+        parent="hop_production_report_main_menu"/>
+
+        <menuitem 
+        id="ct_report_v15.ingredient_raw_material_report"
+        name="Aggregate Total Raw material"
+        sequence="3"
+        action="action_ingredients_summary_report_wizard_details"
+        parent="hop_production_report_main_menu"/>
+
+    <menuitem 
+        id="ct_report_v15.all_production_report"
+        name="All Production Report"
+        sequence="6"
+        action="action_all_production_report_wizard"
+        parent="hop_production_report_main_menu"/>
+
+<!-- Summary -->
+    <menuitem 
+        id="hop_summary_report_main_menu"
+        name="Summary Report"
+        sequence="3"
+        parent="hop_report_main_menu"/>
+
+<menuitem 
+        id="ct_report_v15.hop_party_wise_report_menu"
+        name="Party Wise Report"
+        sequence="13"
+        action="action_party_wise_report_wizard"
+        parent="hop_summary_report_main_menu"/>
+
+    <menuitem 
+        id="ct_report_v15.hop_item_wise_report_menu"
+        name="Item Wise Report"
+        sequence="14"
+        action="action_item_wise_report_wizard"
+        parent="hop_summary_report_main_menu"/>
+
+     <menuitem 
+        id="ct_report_v15.action_rm_with_category_report_menu"
+        name="Raw-Material With Category Report"
+        sequence="15"
+        action="action_rm_with_category_report_wizard"
+        parent="hop_summary_report_main_menu"/>
+
+    <menuitem 
+        id="ct_report_v15.hop_order_report_menu"
+        name="Order Report"
+        sequence="16"
+        action="action_order_report_wizard"
+        parent="hop_summary_report_main_menu"/>
+
+    <menuitem 
+        id="ct_report_v15.hop_vender_report_menu"
+        name="Vendor Report"
+        sequence="17"
+        action="action_vender_report_wizard"
+        parent="hop_summary_report_main_menu"/>
+
+<!-- Account -->
+    <menuitem 
+        id="hop_account_report_main_menu"
+        name="Account"
+        sequence="4"
+        parent="hop_report_main_menu"/>
+
+    <menuitem 
+        id="hop_ledger_report"
+        name="Ledger"
+        sequence="5"
+        action="action_ledger_form"
+        parent="hop_account_report_main_menu"/>
+
+    <menuitem 
+        id="hop_customer_outstanding_report"
+        name="Customer Outstanding"
+        sequence="6"
+        action="action_customer_outstanding_form"
+        parent="hop_account_report_main_menu"/>
+
+    <menuitem 
+        id="hop_vendor_outstanding_report"
+        name="Vendor Outstanding"
+        sequence="7"
+        action="action_vendor_outstanding_form"
+        parent="hop_account_report_main_menu"/>
+        
+    <menuitem 
+        id="feed_back_report_menu"
+        name="Feed Back Report"
+        sequence="5"
+        action="action_feedback_report_wizard"
+        parent="hop_maneger_report_main_menu"/>
+
+    <menuitem 
+        id="hop_costing_report"
+        name="Costing Report"
+        sequence="8"
+        action="action_function_costing_report_wizard"
+        parent="hop_account_report_main_menu"/>
+
+    <menuitem 
+        id="hop_cancel_report"
+        name="Cancel Report"
+        sequence="9"
+        action="action_hop_cancel_report_wizard"
+        parent="hop_account_report_main_menu"/>
+
+</odoo>

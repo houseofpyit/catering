@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="all_po_prints">
+            <t t-call="web.basic_layout">
+                <style>
+                    <!-- td,th {
+                    border: 1px solid black;
+                    } -->
+
+                    table {
+                    <!-- border: 1px solid black; -->
+                    border-collapse: collapse;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                <t t-foreach="o.report_vals()" t-as="line">
+                    <t t-if="line.get('po_type') == 'row_material'">
+                        <div class="page">
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h1>
+                                                        <b>RAW MATERIAL</b>
+                                                    </h1>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="line.get('name')" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h4>
+                                                        <span t-esc="line.get('partner_id')" /> (<span
+                                                            t-esc="line.get('phone')" />) </h4>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="line.get('company_id')">
+                                        
+
+                                        <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>
+                                    </t>
+                                </td>
+                            </table>
+
+                            
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b>
+                                            <span>Venue Address</span> : </b>
+                                        <span t-esc="line.get('venue_address')" />
+                                    </td>
+                                    <td style="width:50%;text-align:right;">
+                                        <b><span>Manager Name</span> : </b>
+                                        <span t-esc="line.get('maneger')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="">
+                                        <b><span>Date</span> : </b>
+                                        <span t-esc="line.get('delivery_date')"/>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <b>
+                                            <span>Manager Mobile</span> : </b>
+                                        <span t-esc="line.get('maneger_phone')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="">
+                                        <b><span> Delivery Time</span> : </b>
+                                        <span t-esc="line.get('delivery_time')"/>
+                                        <span t-esc="line.get('delivery_am_pm')" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <hr style="border: 1px solid black;" />
+                            <table style="width:100%;border: 1px solid black;">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Date</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Time</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        AM-PM</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Quantity</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        UOM</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Remark</th>
+                                </tr>
+                                <t t-foreach="line.get('product_list')" t-as="item">
+                                    <tr>
+                                        <td
+                                            style="text-align:center;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('product_id')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:center;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('date')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:center;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('time')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:center;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('am_pm')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="'%.2f'%(item.get('product_qty'))"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('product_uom')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('remarks')"></span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                             <t t-if="line.get('notes')">
+                                <br/>  
+                                <b><span>Notes:</span></b><span t-esc="line.get('notes')" />
+                            </t>
+                        </div>
+                    </t>
+                    <t t-elif="line.get('po_type') == 'out_source'">
+                        <div class="page">
+                            <div class="oe_structure" />
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h1>
+                                                        <b>OUT-SOURSE</b>
+                                                    </h1>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="line.get('name')" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="line.get('company_id')">
+                                        <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>
+                                    </t>
+                                </td>
+                            </table>
+                            
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <h4>
+                                                <span t-esc="line.get('partner_id')" /> (<span
+                                                    t-esc="line.get('phone')" />) </h4>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b><span>Venue</span> : </b>
+                                        <span t-esc="line.get('venue_address')"></span>
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b>
+                                            <span>Manager Name</span> : </b>
+                                        <span t-esc="line.get('maneger')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                     
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="line.get('delivery_date')"/>
+                                       
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b>
+                                            <span>Contact</span> : </b>
+                                        <span t-esc="line.get('maneger_phone')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                       
+                                            <b><span>Delivery Time</span> : </b>
+                                            <span t-esc="line.get('delivery_time')"/>
+                                            <span t-esc="line.get('delivery_am_pm')" />
+                                  
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b><span>Meal Type</span> :</b>
+                                        <span t-esc="line.get('meal_type')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="color:red;width:50%;">
+                                        <b><span>Remark</span> :</b>
+                                        <span t-esc="line.get('remarks')" />
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <hr style="border: 1px solid black;" />
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Category</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Helper</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Chief</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">No
+                                        Of Pax</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">UOM
+                                        </th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">Total
+                                        Qty</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Instruction</th>
+                                </tr>
+                                <t t-foreach="line.get('product_list')" t-as="item">
+                                    <tr>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('category_id')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('product_id')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('helper')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('chief')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('no_of_pax')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                           <t t-if="item.get('qty_cal_type') == 'total_qty'">
+                                                    <span t-esc="item.get('uom')"></span>
+                                                 </t>
+                                                
+                                                 <t t-else="">
+                                                 <span>-</span>
+                                                 </t>
+
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('order_qty')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('instruction')"></span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                             <t t-if="line.get('notes')">
+                                <br/>  
+                                <b><span>Notes:</span></b><span t-esc="line.get('notes')" />
+                            </t>
+                        </div>
+                    </t>
+                    <t t-elif="line.get('po_type') == 'in_house'">
+                        <div class="page">
+                            <!-- <div class="oe_structure"/> -->
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h1>
+                                                        <b>IN-HOUSE</b>
+                                                    </h1>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="line.get('name')"/>
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="line.get('company_id')">
+                                        <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>
+                                    </t>
+                                </td>
+                            </table>
+                          
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <h4>
+                                                <span t-esc="line.get('partner_id')" /> (<span
+                                                    t-esc="line.get('phone')" />) </h4>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b>
+                                            <span>Venue Address</span> :</b>
+                                        <span t-esc="line.get('venue_address')" />
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b>
+                                            <span>Manager Name</span> :</b>
+                                        <span t-esc="line.get('maneger')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                  
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="line.get('delivery_date')" />
+                                    
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b><span>Manager Mobile</span> :</b>
+                                        <span t-esc="line.get('maneger_phone')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                            
+                                            <b><span>Delivery Time</span> : </b>
+                                            <span t-esc="line.get('delivery_time')"/>
+                                            <span t-esc="line.get('delivery_am_pm')" />
+                                        
+                                    </td>
+                                </tr>
+                                <td style="width:50%;">
+                                    <b><span>Meal Type</span> :</b>
+                                    <span t-esc="line.get('meal_type')" />
+                                </td>
+                                <tr>
+                                    <td style="color:red;width:50%;">
+                                        <b><span>Remark</span> :</b>
+                                        <span t-esc="line.get('remarks')" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <hr style="border: 1px solid black;" />
+                            <br />
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Category</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Helper</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Chief</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">No
+                                        Of Pax</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">Total
+                                        Qty</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Instruction</th>
+                                </tr>
+                                <t t-foreach="line.get('product_list')" t-as="item">
+                                    <tr>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('category_id')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('product_id')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('helper')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('chief')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('no_of_pax')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="'%.2f'%(item.get('order_qty'))"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('instruction')"></span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                             <t t-if="line.get('notes')">
+                                <br/>  
+                                <b><span>Notes:</span></b><span t-esc="line.get('notes')" />
+                            </t>
+                        </div>
+
+                    </t>
+
+                    <t t-elif="line.get('po_type') == 'service'">
+                        <div class="page">
+                            <!-- <div class="oe_structure"/> -->
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h1>
+                                                        <b>LABOUR PO</b>
+                                                    </h1>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="line.get('name')" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="line.get('company_id')">
+                                        <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>
+                                    </t>
+                                </td>
+                            </table>
+                            
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <h4>
+                                                <span t-esc="line.get('partner_id')" /> (<span
+                                                    t-esc="line.get('phone')" />) </h4>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:50%">
+                                        <b><span>Address</span> : </b>
+                                        <span t-esc="line.get('venue_address')" />
+                                    </td>
+                                    <td style="text-align:right;width:50%">
+                                        <b><span>Manager Name</span> : </b>
+                                        <span t-esc="line.get('maneger')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="line.get('delivery_date')"/>
+                                        
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b>
+                                            <span>Manager Mobile</span> :</b>
+                                        <span t-esc="line.get('maneger_phone')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                    
+                                            <b><span>Delivery Time</span> : </b>
+                                            <span t-esc="line.get('delivery_time')"/>
+                                            <span t-esc="line.get('delivery_am_pm')" />
+                                    
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <hr style="border: 1px solid black;" />
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Quantity</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        UOM</th>
+                                    <!-- <th style="background-color:grey">Received</th>
+                                    <th style="background-color:grey">Billed</th> -->
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Hospitality</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">Shift
+                                        Date</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">Shift
+                                        Delivery Time</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">Shift
+                                        Remark</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Location</th>
+                                </tr>
+                                <t t-set="qty" t-value="0" />
+                                <t t-foreach="line.get('product_list')" t-as="item">
+                                    <t t-set="qty" t-value="qty + item.get('product_qty')" />
+                                    <tr>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('product_id')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="'%.2f'%(item.get('product_qty'))"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('product_uom')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('hospitality_ids')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('shift_date')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('shift_time')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('remarks')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('location')"></span>
+                                        </td>
+  
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td
+                                        style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                        <b><span >Total</span></b>
+                                    </td>
+                                    <td
+                                        style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                        <span t-esc="'%.2f'%(qty)"></span>
+                                    </td>
+                                    <td
+                                        style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                       
+                                    </td>
+                                    <td
+                                        style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                        
+                                    </td>
+                                    <td
+                                        style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                       
+                                    </td>
+                                    <td
+                                        style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                        
+                                    </td>
+                                    <td
+                                        style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                        
+                                    </td>
+                                    <td
+                                        style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                        
+                                    </td>
+
+                                </tr>
+
+                            </table>
+                             <t t-if="line.get('notes')">
+                                <br/>  
+                                <b><span>Notes:</span></b><span t-esc="line.get('notes')" />
+                            </t>
+                        </div>
+                    </t>
+
+                    <t t-if="line.get('po_type') == 'addons'">
+                        <div class="page">
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h1>
+                                                        <b>ADD-ON PO</b>
+                                                    </h1>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="line.get('name')" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="line.get('company_id')">
+                                        <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>
+                                    </t>
+                                </td>
+                            </table>
+                          
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <h4>
+                                                <span t-esc="line.get('partner_id')" /> (<span
+                                                    t-esc="line.get('phone')" />) </h4>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:50%">
+                                        <b><span>Address</span> :</b>
+                                        <span t-esc="line.get('venue_address')" />
+                                    </td>
+                                    <td style="text-align:right;width:50%">
+                                        <b><span>Manager Name</span> :</b>
+                                        <span t-esc="line.get('maneger')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                     
+                                
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="line.get('delivery_date')"/>
+                                        
+                                    </td>
+                                    <td style="text-align:right;width:50%;">
+                                        <b><span>Manager Mobile</span> :</b>
+                                        <span t-esc="line.get('maneger_phone')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                               
+                                            <b><span>Delivery Time</span> : </b>
+                                            <span t-esc="line.get('delivery_time')"/>
+                                            <span t-esc="line.get('delivery_am_pm')" />
+                                   
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <hr style="border: 1px solid black;" />
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Date</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Delivery Time</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        AM-PM</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Quantity</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        UOM</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Instruction</th>
+                                </tr>
+                                <t t-foreach="line.get('product_list')" t-as="item">
+                                    <tr>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('product_id')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('date')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('time')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('am_pm')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                            <span t-esc="'%.2f'%(item.get('product_qty'))"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('product_uom')"></span>
+                                        </td>
+                                        <td
+                                            style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                            <span t-esc="item.get('instruction')"></span>
+                                        </td>
+                                    </tr>
+                                </t>
+
+                            </table>
+
+                             <t t-if="line.get('notes')">
+                                <br/>  
+                                <b><span>Notes:</span></b><span t-esc="line.get('notes')" />
+                            </t>
+                        </div>
+                    </t>
+
+                    <t t-if="line.get('po_type') == 'normal'">
+                        <div class="page">
+                            <!-- <div class="oe_structure"/> -->
+                            <table width="100%" style="border:none;">
+                                <td width="10%" style="border:none;padding-right:200px;">
+                                </td>
+                                <td width="80%" style="border:none;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h5>
+                                                        <b>
+                                                            <span t-esc="line.get('name')" />
+                                                        </b>
+                                                    </h5>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <h4>
+                                                        <span t-esc="line.get('partner_id')" /> (<span
+                                                            t-esc="line.get('phone')" />) </h4>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="10%" style="border:none;">
+                                    <t t-if="line.get('company_id')">
+                                        <img t-att-src="'data:image/png;base64,' + str(line.get('company_id'), 'utf-8')" width="150" height="100"/>
+                                    </t>
+                                </td>
+                            </table>
+                            
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width:50%;">
+                                        <b><span>Address</span> :</b>
+                                        <span t-esc="line.get('venue_address')" />
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <t t-if="line.get('maneger')">
+                                            <b><span>Manager Name</span> :</b>
+                                        <span t-esc="line.get('maneger')" />
+                                        </t>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                      
+                                   
+                                            <b><span>Date</span> : </b>
+                                            <span t-esc="line.get('delivery_date')"/>
+                                       
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <t t-if="line.get('maneger_phone')">
+                                            <b><span>Manager Mobile</span> :</b>
+                                            <span t-esc="line.get('maneger_phone')" />
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                     <t t-if="line.get('delivery_time')">
+                                        <b><span>Delivery Time</span> : </b>
+                                        <span t-esc="line.get('delivery_time')"/>
+                                        <span t-esc="line.get('delivery_am_pm')" />
+                                     </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;">
+                                        <t t-if="line.get('meal_type')">
+                                            <b><span>Meal Type</span> :</b>
+                                            <span t-esc="line.get('meal_type')" />
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="color:red;width:50%;">
+                                        <b><span>Remark</span> :</b>
+                                        <span t-esc="line.get('remarks')" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <hr style="border: 1px solid black;" />
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Product</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        UOM</th>
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Quantity</th>
+                                    <!-- <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Subtotal</th> -->
+                                    <th
+                                        style="background-color:grey;border: 1px solid black;text-align:center;">
+                                        Remark</th>  
+                                </tr>
+                                <t t-set = "total_qty" t-value = "0"></t>
+                                    <t t-foreach="line.get('product_list')" t-as="item">
+                                        <t t-set = "total_qty" t-value = "total_qty + item.get('product_qty')"/> 
+                                        <tr>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.get('product_id')"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.get('product_uom')"></span>
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="'%.2f'%item.get('product_qty')"></span>
+                                            </td>
+                                            <!-- <td
+                                                style="text-align:right;padding-right:10px;border: 1px solid black;">
+                                                <span t-esc="'%.1f'%item.get('price_subtotal')"></span>
+                                            </td> -->
+                                            <td
+                                                style="text-align:left;padding-left:10px;border: 1px solid black;">
+                                                <span t-esc="item.get('name')"></span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td style="border: 1px solid black;"><center><b>Total</b></center></td>
+                                        <td style="border: 1px solid black;"></td>
+                                        <td style="text-align:right;padding-right:10px;border: 1px solid black;"><b><span t-esc="'%.2f'%(total_qty)" /></b></td>
+                                        <td style="border: 1px solid black;"></td>
+                                    </tr>
+                            </table>
+                             <t t-if="line.get('notes')">
+                                <br/>  
+                                <b><span>Notes:</span></b><span t-esc="line.get('notes')" />
+                            </t>
+                        </div>
+                    </t>
+                    <p style="page-break-before:always;" />
+                </t>
+            </t>
+            </t>
+        </template>
+    </data>
+</odoo>

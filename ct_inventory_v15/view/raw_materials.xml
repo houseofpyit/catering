@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- Utensils -->
+        <record id="hop_product_raw_materials_view_filter" model="ir.ui.view">
+            <field name="name">product.template.raw.materials.select</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                <field name="name" string="Search name" filter_domain="[
+                    ('name', 'ilike', self)]"/>
+                <field name="name" string="Search Category" filter_domain="[
+                    ('categ_id.name', 'ilike', self)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Product Category" name="categ_id" context="{'group_by':'categ_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    <record id="hop_product_raw_materials_action" model="ir.actions.act_window">
+        <field name="name">Raw Materials</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('utility_type', '=','raw_materials')]</field>
+        <field name="context">{'default_utility_type': 'raw_materials','default_detailed_type': 'product','default_standard_price':1}</field>
+        <!-- <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('hop_product_raw_materials_view_tree')})]"/> -->
+        <field name="search_view_id" ref="hop_product_raw_materials_view_filter"/>
+    </record>
+    
+
+    <record id="hop_utensils_view_filter" model="ir.ui.view">
+        <field name="name">product.template.utensils.select</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="name" string="Search name" filter_domain="[
+                    ('name', 'ilike', self)]"/>
+                <field name="name" string="Search Category" filter_domain="[
+                    ('utensils_type', 'ilike', self)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Utensils Type" name="group_by_utensils_type"  context="{'group_by': 'utensils_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hop_product_utensisl_action" model="ir.actions.act_window">
+        <field name="name">Utensils</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('utility_type', '=','utensils')]</field>
+        <field name="context">{'default_utility_type': 'utensils','default_detailed_type': 'consu'}</field>
+        <!-- <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('hop_product_raw_materials_view_tree')})]"/> -->
+        <field name="search_view_id" ref="hop_utensils_view_filter"/>
+    </record>
+
+    <record id="hop_product_labour_action" model="ir.actions.act_window">
+        <field name="name">Labour</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('utility_type', '=','service')]</field>
+        <field name="context">{'default_utility_type': 'service','default_detailed_type': 'consu'}</field>
+        <!-- <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('hop_product_raw_materials_view_tree')})]"/> -->
+    </record>
+
+    <record id="hop_product_service_action" model="ir.actions.act_window">
+        <field name="name">Service</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('utility_type', '=','service')]</field>
+        <field name="context">{'default_detailed_type': 'consu','default_utility_type': 'service'}</field>
+        <!-- <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('hop_product_raw_materials_view_tree')})]"/> -->
+    </record>
+
+    <record id="hop_product_recipes_action" model="ir.actions.act_window">
+        <field name="name">Product Recipes</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('is_recipe', '=',True)]</field>
+        <field name="context">{'default_detailed_type': 'consu'}</field>
+        <!-- <field name="view_ids" eval="[(5, 0, 0,0),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('hop_product_raw_materials_view_tree')})]"/> -->
+    </record>
+
+
+    <record id="prodyct_category_view_form" model="ir.ui.view">
+        <field name="name">product.category.view.form</field>
+        <field name="model">product.category</field>
+        <field name="arch" type="xml">
+            <form string="Product Category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="convert_name" />
+                            <field name="gujarati" force_save="1"/>
+                            <field name="hindi" force_save="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_category_view_tree" model="ir.ui.view">
+        <field name="name">product.category.view.tree</field>
+        <field name="model">product.category</field>
+        <field name="arch" type="xml">
+            <tree string="Product ategory">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_category_action" model="ir.actions.act_window">
+        <field name="name">Product Category</field>
+        <field name="res_model">product.category</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('product_category_view_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('prodyct_category_view_form')})]"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

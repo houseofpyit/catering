@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="service_view">
+            <t t-call="web.html_container">    
+                    <t t-foreach="docs" t-as="o">
+                        <!-- <div class="header">
+                            <header>
+                                <img src="/ct_function_v15/static/img/shreeji_header.png" style="width:100%;"/>
+                            </header>
+                        </div> -->
+                        <!-- <div class="footer">
+                            <footer>
+                                <img src="/ct_function_v15/static/img/shreeji_border.png" style="width:100%;"/>
+                            </footer>
+                        </div> -->
+                        <div class="page">
+                            <!-- <div class="oe_structure"/> -->
+
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <center>
+                                        <h2>
+                                            <span t-esc="o.partner_id.name"/> (<span t-esc="o.partner_id.phone"/>)
+                                        </h2>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+                        <table style="width:100%">
+                            <tr>
+                                <td>
+                                    <b><span>Address</span> : </b><span t-esc="o.venue_address"/>
+                                </td>
+                                <td style="text-align:left;padding-left:350px;">
+                                    <b><span>Manager Name</span> : </b><span t-esc="o.manager_name_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b><span>Date</span> : </b><span t-esc="o.date"/>
+                                </td>
+                                <td style="text-align:left;padding-left:350px;">
+                                   <b> <span>Manager Mobile</span> :</b> <span t-esc="o.manager_name_id.phone"/>
+                                  </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                   <b> <span>Functio Time</span> :</b> <span t-field="o.time" t-options="{'widget': 'float_time'}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                   <b> <span>Meal Type</span> : </b><span t-esc="o.meal_type"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b><span>Remark</span> :</b> <span t-esc="o.remarks"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table>
+                            <tr>
+                                <td>
+                                    <h1>
+                                        <b><span t-esc="o.name"/></b>
+                                    </h1>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr color="black" size="2"/>
+                        <br/>
+                        <table style="width:100%" border="1">
+                            <tr>
+                                <th style="background-color:grey">Product</th>
+                                <th style="background-color:grey">Quantity</th>
+                                <th style="background-color:grey">UOM</th>
+                                <!-- <th style="background-color:grey">Received</th>
+                                <th style="background-color:grey">Billed</th> -->
+                                <th style="background-color:grey">Hospitality</th>
+                                <th style="background-color:grey">Shift Date</th>
+                                <th style="background-color:grey">Shift Time</th>
+                                <th style="background-color:grey">Shift Remark</th>
+                                <th style="background-color:grey">Location</th>
+                                <!-- <th style="background-color:grey">Unit Price</th> -->
+                                <th style="background-color:grey">Remark</th>
+                            </tr>
+                            <!-- <t t-set="counter" t-value="0" /> -->
+                            <t t-foreach="o.order_line" t-as="item">
+                                <!-- <t t-set="counter" t-value="counter + 1" /> -->
+                                <tr>
+                                    <td style="text-align:left;padding-left:10px;">
+                                        <span t-esc="item.product_id.name"></span>
+                                    </td>
+                                    <td style="text-align:left;padding-left:10px;">
+                                        <span t-esc="item.product_qty"></span>
+                                    </td>
+                                    <td style="text-align:left;padding-left:10px;">
+                                        <span t-esc="item.product_uom.name"></span>
+                                    </td>
+                                    <!-- <td>
+                                        <span t-esc="item.qty_received"></span>
+                                    </td>
+                                    <td>
+                                        <span t-esc="item.qty_invoiced"></span>
+                                    </td> -->
+                                    <td style="text-align:left;padding-left:10px;">
+                                        <span t-esc="item.hospitality_ids.id"></span>
+                                    </td>
+                                    <td style="text-align:left;padding-left:10px;">
+                                        <span t-esc="item.shift_date"></span>
+                                    </td>
+                                    <td style="text-align:left;padding-left:10px;">
+                                        <span t-esc="item.shift_time"></span>
+                                    </td>
+                                    <td style="text-align:left;padding-left:10px;">
+                                        <span t-esc="item.remarks"></span>
+                                    </td>
+                                    <td style="text-align:left;padding-left:10px;">
+                                        <span t-esc="item.location"></span>
+                                    </td>
+                                    <!-- <td>
+                                        <span t-esc="item.price_unit"></span>
+                                    </td> -->
+                                    <td style="text-align:left;padding-left:10px;">
+                                        <span t-esc="item.name"></span>
+                                    </td>
+                                </tr>
+                            </t>
+                            <!-- <t t-foreach="range(15-counter)" t-as="p">
+                                <tr>
+                                    <td style="border-top:none;border-bottom:none"><br/></td>
+                                    <td style="border-top:none;border-bottom:none"><br/></td>
+                                    <td style="border-top:none;border-bottom:none"><br/></td>
+                                    <td style="border-top:none;border-bottom:none"><br/></td>
+                                </tr>  
+                            </t> -->
+                        </table>
+                            <!-- <div id="total" class="row justify-content-end">
+                                <div class="col-4">
+                                    <table class="table table-sm">
+                                        <t t-set="tax_totals" t-value="json.loads(o.tax_totals_json)"/>
+                                        <t t-call="account.document_tax_totals"/>
+                                    </table>
+                                </div>
+                            </div>
+                        <div class="oe_structure"/> -->
+                        
+                        </div>
+                    </t>
+                </t>
+        </template>
+    </data>
+</odoo>

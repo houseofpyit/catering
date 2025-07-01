@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="out_source_view">
+            <t t-call="web.html_container">
+            
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <div class="oe_structure"/>
+
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <center>
+                                        <h2>
+                                            <span t-esc="o.partner_id.name"/>  (<span t-esc="o.partner_id.phone"/>)
+                                        </h2>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="width:100%">
+                               
+                                <tr>
+                                    <td>
+                                        <b><span>Venue</span> : </b><span t-esc="o.partner_id.name"></span>
+                                    </td>
+                                    <td style="text-align:left;padding-left:500px;">
+                                        <b> <span>Manager Name</span> : </b><span t-esc="o.manager_name_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b><span>Date</span> : </b><span t-esc="o.date"></span>
+                                    </td>
+                                    <td style="text-align:left;padding-left:500px;">
+                                        <b> <span>Contact</span> : </b><span t-esc="o.manager_name_id.phone"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b><span>Function Time</span> : </b><span t-field="o.time" t-options="{'widget': 'float_time'}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b><span>Meal Type</span> : </b>
+                                        <span t-esc="o.meal_type"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>  <span>Remark</span> : </b><span t-esc="o.remarks"></span>
+                                    </td>
+                                </tr>
+                                    
+                            </table>
+                      
+                            <h1 ><span t-esc="o.name"></span></h1>
+                            <hr size="2" color="black"/>
+                            <table style="width:100%" border="1">
+                                <tr>
+                                    <th style="background-color:grey">Product</th>
+                                    <th style="background-color:grey">Quantity</th>
+                                    <th style="background-color:grey">UOM</th>
+                                    <th style="background-color:grey">Remark</th>
+                                  
+                                </tr>
+                                <t t-foreach="o.order_line" t-as="item" >
+                                    <tr >
+                                        <td style="text-align:left;padding-left:10px;">
+                                            <span  t-esc="item.product_id.name" ></span>
+                                        </td>
+                                        <td style="text-align:left;padding-left:10px;">
+                                            <span t-esc="item.product_qty"></span>
+                                        </td>
+                                        <td style="text-align:left;padding-left:10px;">
+                                            <span t-esc="item.product_uom.name"></span>
+                                        </td>
+                                        <td style="text-align:left;padding-left:10px;">
+                                            <span t-esc="item.name"></span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        
+                        </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

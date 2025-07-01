@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ct_hospitality_shift_view_form" model="ir.ui.view">
+        <field name="name">ct.hospitality.shift.view.form</field>
+        <field name="model">ct.hospitality.shift</field>
+        <field name="arch" type="xml">
+            <form string="Hospitality Shift">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="ct_hospitality_shift_view_tree" model="ir.ui.view">
+        <field name="name">ct.hospitality.shift.view.tree</field>
+        <field name="model">ct.hospitality.shift</field>
+        <field name="arch" type="xml">
+            <tree string="Hospitality Shift">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="ct_hospitality_shift_action" model="ir.actions.act_window">
+        <field name="name">Hospitality Shift</field>
+        <field name="res_model">ct.hospitality.shift</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- <menuitem
+        id="hospitality_shift_menu"
+        name="Hospitality Shift"
+        action="ct_hospitality_shift_action"
+        parent="function_main_menu"
+        sequence="3"/> -->
+   
+</odoo>

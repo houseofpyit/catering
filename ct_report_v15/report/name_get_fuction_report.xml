@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="name_get_fuction_report">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                <!-- <t t-foreach="data" t-as="line"> -->
+                    <!-- <span t-esc="data"/> -->
+                    <style>
+                        .gfg {
+                            margin: 3%;
+                            position: relative;
+                        }
+                        .image {
+                            width: 100%;
+                            height: 100%;
+                            opacity: 1;
+                        }
+    
+                        .text-container {
+                            position: absolute;
+                            color: rgb(255, 255, 255);
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding-top:12%;
+                        }
+                        <!-- .td{
+
+                            width: 249.93pt;
+                            height: 95.39pt;
+                            font-size: 40px;
+                            font-weight:bold;
+                            text-align:center;
+                        } -->
+                        .td1{
+                            width: 249.93pt;height: 95.39pt;padding-top:3%;font-size: 40px;font-weight:bold;text-align:center;
+                        }
+
+                        .td2{
+                            width: 249.93pt;height: 95.39pt;padding-top:3%;font-size: 30px;font-weight:bold;text-align:center;
+                        }
+                        .custom-table{
+                            display : flex;
+                            align-item : center;
+                            justify-content : center;
+                        }
+                    </style>
+
+                    <div class="custom-table" >
+                    <table  width="100%" height="100%"  style=  "margin-top: auto;margin-bottom: auto;">
+                        
+                        <t t-foreach="o.create_name_tags_vals().get('list')" t-as="product">
+                            <tr>
+                                 <t t-if="o.create_name_tags_vals().get('image')">
+                                        <td class="td2" t-attf-style="font-family: #{o.front_sty()};" width="50%">
+                                            <center style="padding-top:27px">
+                                                <b>
+                                                    <center><span t-esc="product['1']"/></center>
+                                                </b>
+                                            </center>
+                                        
+                                    </td>
+                                    <td class="td2" t-attf-style="font-family: #{o.front_sty()};" width="50%">
+                                        <center style="padding-top:27px">
+                                            <b>
+                                                <center><span t-esc="product['2']"/></center>
+                                            </b>
+                                        </center>
+                                    </td>
+                                </t> 
+                                <t t-else=""> 
+                                    <td class="td1"  t-attf-style="font-family: #{o.front_sty()};" width="50%">
+                                        <center>
+                                            <b>
+                                                <center><span  t-esc="product['1']"/></center>
+                                            </b>
+                                        </center>
+                                    </td>
+                                    <td class="td1"   t-attf-style="font-family: #{o.front_sty()};" width="50%">
+                                        <center>
+                                            <b>
+                                                <center><span t-esc="product['2']"/></center>
+                                            </b>
+                                        </center>
+                                    </td>
+                                </t>
+                               
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+                <!-- </t> -->
+            </t>
+            </t>
+        </template>
+    </data>
+</odoo>

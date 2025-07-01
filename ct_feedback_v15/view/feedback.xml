@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ct_feedback_view_form" model="ir.ui.view">
+        <field name="name">ct.feedback.view.form</field>
+        <field name="model">ct.feedback</field>
+        <field name="arch" type="xml">
+            <form string="Feedback">
+                <sheet>
+                    <div class="oe_title">
+                    <span class="o_form_label">Function</span>
+                    <h1>
+                        <field name="function_id" required="True" options="{'no_quick_create':true}"/>
+                    </h1>
+                </div>
+                    <group>
+                 
+                     
+                        <group>
+                            <field name="date" />
+                            <field name="party_name_id" />
+                            <field name="time" />
+                            <field name="am_pm" />
+                            <field name="emergency_contact" />
+                            <field name="manager_name_id" />
+                        </group>
+                        <group>
+                            <field name="venue_address" />
+                            <field name="mobile_num" />
+                            <field name="meal_type" />
+                            <field name="no_of_pax" />
+                            <field name="remarks" />
+                            <field name="phone" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                        <field name="food_quality" widget="priority" />
+                        <field name="hospitality" widget="priority" />
+                        <field name="cleanliness_and_hygine" widget="priority" />
+                        <field name="staff_friendliness" widget="priority" />
+                        <field name="overall_satisfaction" widget="priority" />
+                        <field name="overall_decoration" widget="priority" />
+                            <field name="guest_suggest" />
+                            <field name="extra_item" />
+                            <field name="note" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ct_feedback_view_tree" model="ir.ui.view">
+        <field name="name">ct.feedback.view.tree</field>
+        <field name="model">ct.feedback</field>
+        <field name="arch" type="xml">
+            <tree string="Feedback">
+                <field name="party_name_id" />
+                <field name="function_id" />
+                <field name="date" />
+                <field name="mobile_num" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="ct_feedback_action" model="ir.actions.act_window">
+        <field name="name">Feedback</field>
+        <field name="res_model">ct.feedback</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+   
+</odoo>

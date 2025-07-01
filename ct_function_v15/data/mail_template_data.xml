@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mail_template_custom_sale" model="mail.template">
+        <field name="name">Sale: Email</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="email_from"></field>
+        <field name="partner_to">{{object.partner_id.id}}</field>
+        <field name="subject">For : Sale Order Detail </field>
+        <!-- <field name="partner_to">jdunagan@leclub.example.com</field> -->
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                    Thank you for your order! We will process it as soon as possible. If you have any questions or concerns, please don't hesitate to contact us at <strong t-out="object.company_id.phone"/> or <strong t-out="object.company_id.name"/>.
+                    <br/>
+                    Greetings <strong t-out="object.partner_id.name"/>,
+                </p>
+            </div>
+        </field>
+        <!--  <field name="report_template" ref="action_report_bill_of_lading"/>  -->
+        <!--  <field name="report_name">${(object.name or '').replace('/ref','job_id.carrier_booking')}</field>
+                    <field name="lang">${object.job_id.booking_id.partner_id.lang}</field>  -->
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+</odoo>

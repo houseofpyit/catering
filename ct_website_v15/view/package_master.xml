@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="packagemaster_form" model="ir.ui.view">
+        <field name="name">Package Master</field>
+        <field name="model">hop.package.master</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Package">
+                            <field name="package_line_ids">
+                                <tree editable="bottom">
+                                    <field name="category_id" options="{'no_quick_create':true}" required="1"/>
+                                    <field name="item" />
+                                    <field name="qty" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="packagemaster_tree" model="ir.ui.view">
+        <field name="name">Package Master</field>
+        <field name="model">hop.package.master</field>
+        <field name="arch" type="xml">
+
+            <tree>
+                <field name="name"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="action_package" model="ir.actions.act_window">
+        <field name="name">Package Master</field>
+        <field name="res_model">hop.package.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

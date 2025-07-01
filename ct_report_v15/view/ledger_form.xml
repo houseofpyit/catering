@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_ledger_view_form" model="ir.ui.view">
+        <field name="name">hop.ledger.view.form</field>
+        <field name="model">hop.ledger</field>
+        <field name="arch" type="xml">
+            <form string="Ledger">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="from_date" />
+                            <field name="party_ids" widget="many2many_tags"
+                                options="{'no_quick_create':true}" />
+                        </group>
+                        <group>
+                            <field name="to_date" />
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                   
+                </sheet>
+                <footer>
+                    <button name="generate_ledger" string="Generate" type="object"
+                                class="oe_highlight" />
+                    <button name="generate_ledger_pdf" string="Generate Pdf" type="object"
+                    class="oe_highlight" />
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ledger_form" model="ir.actions.act_window">
+        <field name="name">Ledger</field>
+        <field name="res_model">hop.ledger</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+
+    </record>
+
+    <record id="hop_ledger_line_treeview_custom" model="ir.ui.view">
+        <field name="name">hop.ledger.line.view.tree.custom</field>
+        <field name="model">hop.ledger.line</field>
+        <field name="arch" type="xml">
+            <tree string="" export_xlsx="false" expand="1" decoration-info="des == 'Total'" decoration-bf="des == 'Total'" create="0" edit="0" delete="0">
+                <field name="party_id" />
+                <field name="date"/>
+                <field name="doc" />
+                <field name="des" invisible="1"/>
+                <field name="credit" width="20"/>
+                <field name="debit" width="20" />
+                <field name="balance" width="20"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hop_ledger_line_action" model="ir.actions.act_window">
+        <field name="name">Ledger</field>
+        <field name="res_model">hop.ledger.line</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

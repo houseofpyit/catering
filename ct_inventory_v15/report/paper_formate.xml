@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paper_format_form_item" model="report.paperformat">
+        <field name="name">Recipes</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_recipes_print_format" model="ir.actions.report">
+        <field name="name">Recipes Print</field>
+        <field name="model">hop.recipes</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_inventory_v15.recipes_prints</field>
+        <field name="report_file">ct_inventory_v15.recipes_prints</field>
+        <field name="print_report_name">'recipes - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="ct_inventory_v15.model_hop_recipes"/>
+        <field name="paperformat_id" ref="ct_inventory_v15.paper_format_form_item" />
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

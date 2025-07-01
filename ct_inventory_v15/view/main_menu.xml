@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem 
+        id="stock.menu_stock_root"
+        name="Inventory"
+        sequence="140"
+        parent="ct_contact_v15.function_utility_main_menu"
+        groups="base.group_no_one"
+        />
+        <!-- web_icon="ct_inventory_v15,static/img/icon_Inventory.png" -->
+    
+    <menuitem 
+        id="ct_inventory_v15.menu_raw_materials"
+        name="Raw Materials"
+        sequence="7"
+        action="hop_product_raw_materials_action"
+        parent="ct_contact_v15.function_master_main_menu"
+        />
+        <!-- web_icon="ct_inventory_v15,static/img/Materials.png" -->
+
+    <menuitem 
+        id="ct_inventory_v15.menu_utensils"
+        name="Utensils Master"
+        sequence="8"
+        action="hop_product_utensisl_action"
+        parent="ct_contact_v15.function_master_main_menu"
+        />
+        <!-- web_icon="ct_inventory_v15,static/img/Utensils.png" -->
+
+    <!-- <menuitem
+        id="hop_utility_main_menu"
+        name="Utility"
+        parent="stock.menu_stock_root"
+        sequence="7"/>
+
+    <menuitem
+        id="hop_utensils_menu"
+        name="Utensils"
+        action="hop_utensils_action"
+        parent="hop_utility_main_menu"
+        sequence="1"/>
+
+    <menuitem
+        id="hop_disposable_menu"
+        name="Disposable"
+        action="hop_disposable_action"
+        parent="hop_utility_main_menu"
+        sequence="2"/> -->
+
+    <!-- <menuitem 
+        id="hop_venue_menu"
+        name="Venue"
+        action="hop_venue_action"
+        parent="stock.menu_stock_root"
+        sequence="6"
+        /> -->
+
+    <record model="ir.ui.menu" id="stock.menu_stock_warehouse_mgmt">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="stock.stock_picking_type_menu">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_warehouse_report">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <!-- <record model="ir.ui.menu" id="stock.menu_stock_config_settings">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record> -->
+
+    <record model="ir.ui.menu" id="stock.menu_stock_inventory_control">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_warehouse_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_attribute_action">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_reordering_rules_config">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+   
+
+    <menuitem 
+        id="hop_recipes_main_menu"
+        name="Item with Recipes"
+        parent="ct_contact_v15.function_master_main_menu"
+        sequence="6"
+        />
+        <!-- web_icon="ct_inventory_v15,static/img/icon_recipe.png" -->
+
+    <menuitem 
+        id="hop_recipes_menu"
+        name="Recipes"
+        action="hop_recipes_action"
+        parent="hop_recipes_main_menu"
+        sequence="1"
+        />
+
+    <menuitem 
+        id="hop_configuration_main_menu"
+        name="Master"
+        parent="hop_recipes_main_menu"
+        sequence="2"
+        />
+
+    <menuitem 
+        id="hop_recipes_category_menu"
+        name="Recipes category"
+        action="hop_recipes_category_action"
+        parent="hop_configuration_main_menu"
+        sequence="1"
+        />
+
+    <!-- <menuitem 
+        id="hop_recipes_category_menu"
+        name="Recipes category"
+        action="hop_recipes_category_action"
+        sequence="2"
+        /> -->
+
+    <!-- <menuitem 
+        id="hop_custom_product_main_menu"
+        name="Custom Product"
+        parent="stock.menu_stock_root"
+        sequence="5"
+        /> -->
+
+    <menuitem
+        id="hop_custom_product_menu"
+        name="Products"
+        parent="stock.menu_stock_root"
+        sequence="5"/>
+    
+    <menuitem 
+        id="hop_raw_materials_menu"
+        name="Raw Materials"
+        action="hop_product_raw_materials_action"
+        parent="hop_custom_product_menu"
+        sequence="1"
+        />
+    
+    <menuitem
+        id="hop_utensils_main_menu"
+        name="Utensils Master"
+        parent="stock.menu_stock_root"
+        sequence="6"/>
+    
+    <menuitem 
+        id="hop_utensils_menu"
+        name="Utensils"
+        action="hop_product_utensisl_action"
+        parent="hop_utensils_main_menu"
+        sequence="1"
+        />
+
+    <menuitem 
+        id="hop_service_menu"
+        name="Service"
+        action="hop_product_service_action"
+        parent="stock.menu_stock_root"
+        sequence="7"
+        />
+
+    <menuitem
+        id="hop_recipes_product_main_menu"
+        name="Product Recipes"
+        parent="stock.menu_stock_root"
+        action="hop_product_recipes_action"
+        groups="base.group_no_one"
+        sequence="7"/>
+
+    <!-- <menuitem 
+        id="hop_raw_materials_menu"
+        name="Raw Materials"
+        action="hop_product_raw_materials_action"
+        sequence="6"
+        /> -->
+
+    <menuitem
+        id="inventory_adj_sub_menu"
+        name="Inventory Adjustments"
+        parent="stock.menu_stock_root"
+        sequence="3"/>
+
+    <menuitem
+        id="inventory_adj_main_sub_menu"
+        name="Inventory Adjustments"
+        action="hop_inventory_adj_action"
+        parent="inventory_adj_sub_menu"
+        sequence="1"/>
+    
+     <menuitem
+        id="inventory_adj_tree_sub_menu"
+        name="Inventory Line"
+        action="hop_inventory_adj_line_action"
+        parent="inventory_adj_sub_menu"
+        groups="base.group_system"
+        sequence="2"/>
+    
+
+</odoo>

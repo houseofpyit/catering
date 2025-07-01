@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="vender_addons_rpt">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <table style="width: 100%;">
+                        <t t-foreach="docs" t-as="o">
+                            <t t-foreach="o.create_pdf_vals()" t-as="pro">
+                            <table width="100%" style="border:none;">
+                                <td width="30%" style="border:none;">
+                                </td>
+                                <td width="30%" style="border:none;">
+                                </td>
+                                <td width="30%" style="border:none;">
+                                    <t t-if="pro.get('company_id')">
+                                        <img t-att-src="'data:image/png;base64,' + str(pro.get('company_id'), 'utf-8')" width="150" height="100"/>                                                                    </t>
+                                    
+                                </td>
+                            </table>
+                            <h3>
+                                <center>
+                                    <t t-esc="pro.get('from_date')" /> To <t t-esc="pro.get('to_date')" />
+                                </center>
+                            </h3>
+                                 <table border="1" style="width: 100%; border: 1px solid black;background-color: black; color: white;">
+                                <tr>
+                                    <th style="width: 30px; padding-left: 10px;text-align: center;">
+                                        <t t-esc="pro.get('vender_name')" />
+                                    </th>
+                                </tr>
+                            </table>
+                            <t t-foreach="pro.get('data')" t-as="l">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th style="width: 2%; padding-left: 10px; border: none;"></th>
+                                        <th style="width: 98%; padding-left: 10px; border: 1px solid black; font-weight: bold;background-color: #D3D3D3; color: black;">
+                                            <t t-esc="l.get('date')" />
+                                        </th>
+                                    </tr>
+                                </table>
+                                
+                                <t t-foreach="l.get('date_wish_data')" t-as="x">
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <th style="width: 5%; padding-left: 10px; border: none;"></th>
+                                            <th style="width: 95%; padding-left: 10px; border: 1px solid black; font-weight: bold;background-color: #D3D3D3; color: black;">
+                                                <t t-esc="x.get('address')" />
+                                            </th>
+                                        </tr>
+                                    </table>
+                                    
+                                    <table style="width: 100%;">
+                                        <tr >
+                                            <th style="width: 8%; padding-left: 10px; border: none;"></th>
+                                            <th style="text-align: center; border: 1px solid black; font-weight: bold;background-color: #D3D3D3;">Category</th>
+                                            <th style="text-align: center; border: 1px solid black; font-weight: bold;background-color: #D3D3D3;">Date</th>
+                                            <th style="text-align: center; border: 1px solid black; font-weight: bold;background-color: #D3D3D3;">Time</th>
+                                            <th style="text-align: center; border: 1px solid black; font-weight: bold;background-color: #D3D3D3;">Quantity</th>
+                                            <th style="text-align: center; border: 1px solid black; font-weight: bold;background-color: #D3D3D3;">Instruction</th>       
+                                        </tr>
+                                        <t t-foreach="x.get('vender_data')" t-as="line">
+                                            <tr>
+                                                <td style="width: 8%; padding-left: 10px; border: none;"></td>
+                                                <td style="font-weight: bold; text-align: left; padding-left: 10px; border: 1px solid black;">
+                                                    <t t-esc="line.get('service')" />
+                                                </td>
+                                                <td style="font-weight: bold; text-align: left; padding-left: 10px; border: 1px solid black;">
+                                                    <t t-esc="line.get('date')" />
+                                                </td>
+                                                <td style="font-weight: bold; text-align: right; padding-right: 10px; border: 1px solid black;">
+                                                    <t t-esc="line.get('time')" t-options="{'widget': 'float_time'}" /><t t-esc="line.get('am_pm')" />
+                                                </td>
+                                                <td style="font-weight: bold; text-align: right; padding-right: 10px; border: 1px solid black;">
+                                                    <t t-esc="(line.get('qty_ids')" />
+                                                </td>
+                                                <td style="font-weight: bold; text-align: left; padding-left: 10px; border: 1px solid black;">
+                                                    <t t-esc="line.get('instruction')" />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </table>
+                                </t>
+                            </t>
+                            <p style="page-break-before:always;"/>
+                           
+                        </t>
+                    </t>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

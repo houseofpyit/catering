@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="inherit_res_partner_view" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//field[@name='name']" position="after">
+                <group>
+                    <div name="options" >
+                        <span class="d-inline-block">
+                            <field name="is_vender"/>
+                            <label for="is_vender"/>
+                        </span>
+                        <span class="d-inline-block">
+                            <field name="is_customer"/>
+                            <label for="is_customer"/>
+                        </span>
+                    </div>
+                </group>
+            </xpath> -->
+            
+            <xpath expr="//div[@class='oe_title mb24']" position="after">
+            <group>
+                <group>
+                    <field name="convert_name" />
+                    <field name="gujarati" force_save="1"/>
+                    <field name="hindi" force_save="1"/>
+                </group>
+                <group></group>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="replace">
+                <field name="vat" string="GST Tax" required="0"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="is_vender"/>
+                <field name="is_customer"/>
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="replace">
+                <field name="phone" required="True" placeholder="Phone"/>
+            </xpath>
+            <xpath expr="//field[@name='email']" position="replace">
+                <field name="email" placeholder="Email"/>
+            </xpath> 
+            
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <field name="category_id" string="Tag"/>
+            </xpath>
+            <xpath expr="//field[@name='bank_ids']" position="attributes">
+                <attribute name="options">{'no_quick_create': True}</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='bank_id']" position="attributes">
+                <attribute name="options">{'no_quick_create': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="ct_category_id" options="{'no_quick_create': True}" attrs="{'invisible': [('is_vender','!=',True)],'required': [('is_vender','=',True)]}"/>
+                <field name="date_of_birth"/>
+                <field name="date_of_marriage"/>  
+                <field name="cost" />
+            </xpath>
+           <!-- <xpath expr="//field[@name='ct_category_id']" position="attributes">
+                <attribute name="attrs"></attribute>                
+            </xpath> -->
+            
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_type']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='type']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='function']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='title']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='website']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='contact_addresses']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='sales_purchases']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath> 
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="string">Reference</attribute>
+            </xpath>
+            <xpath expr="//span[@class='o_form_label o_td_label']" position="replace">
+                <span class="o_form_label o_td_label" name="address_name">
+                    <field name="type" attrs="{'invisible': [('is_company','=', True)], 'required': [('is_company','!=', True)], 'readonly': [('user_ids', '!=', [])]}" class="font-weight-bold"/>
+                    <b attrs="{'invisible': [('is_company', '=', False)]}">Address-1</b>
+                </span>
+            </xpath> 
+            <xpath expr="//div[@class='o_address_format']" position="replace">
+                <div class="o_address_format">
+                    <field name="street" placeholder="Street..." class="o_address_street" />
+                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                    <field name="city" placeholder="City" class="o_address_city" />
+                    <field name="state_id" class="o_address_state" placeholder="State" />
+                    <field name="zip" placeholder="ZIP" class="o_address_zip" />
+                    <field name="country_id" placeholder="Country" class="o_address_country" />
+                </div>
+                <span class="o_form_label o_td_label" name="c_address_name">
+                    <field name="type" attrs="{'invisible': [('is_company','=', True)], 'required': [('is_company','!=', True)], 'readonly': [('user_ids', '!=', [])]}" class="font-weight-bold"/>
+                    <b attrs="{'invisible': [('is_company', '=', False)]}">Address-2</b>
+                </span>
+                <div class="o_address_format">
+                    <field name="c_street" placeholder="Street..." class="o_address_street" />
+                    <field name="c_street2" placeholder="Street 2..." class="o_address_street"/>
+                    <field name="c_city" placeholder="City" class="o_address_city" />
+                    <field name="c_state_id" class="o_address_state" placeholder="State" />
+                    <field name="c_zip" placeholder="ZIP" class="o_address_zip" />
+                    <field name="c_country_id" placeholder="Country" class="o_address_country" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="base.view_res_partner_filter" model="ir.ui.view">
+        <field name="name">res.partner.select</field>
+        <field name="model">res.partner</field>
+        <!-- <field name="inherit_id" ref="base.view_res_partner_filter" /> -->
+        <field name="arch" type="xml">
+            <search string="Search Partner">
+                <field name="name"
+                    filter_domain="['|','|','|','|','|', ('display_name', 'ilike', self), 
+                    ('ref', '=', self), ('email', 'ilike', self), ('ct_category_id', 'ilike', self),('phone', 'ilike', self),('mobile', 'ilike', self)]"/>
+                <field name="parent_id" domain="[('is_company', '=', True)]" operator="child_of" invisible="1"/>
+                <field name="email" filter_domain="[('email', 'ilike', self)]" invisible="1"/>
+                <field name="phone" filter_domain="['|', ('phone', 'ilike', self), ('mobile', 'ilike', self)]" invisible="1"/>
+                <field name="category_id" string="Tag" filter_domain="[('category_id', 'child_of', self)]" invisible="1"/>
+                <field name="user_id" invisible="1"/>
+                <field name="ct_category_id" filter_domain="[('ct_category_id', 'ilike', self)]"/>
+                <separator/>
+                <filter string="Individuals" name="type_person" domain="[('is_company', '=', False)]" invisible="1"/>
+                <filter string="Companies" name="type_company" domain="[('is_company', '=', True)]" invisible="1"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]" invisible="1"/>
+                <separator/>
+                <group expand="0" name="group_by" string="Group By">
+                    <filter name="salesperson" string="Salesperson" domain="[]" context="{'group_by' : 'user_id'}" invisible="1"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'parent_id'}" invisible="1"/>
+                    <filter name="group_country" string="Country" context="{'group_by': 'country_id'}" invisible="1"/>
+                    <filter name="group_ct_category_id" string="Category" context="{'group_by': 'ct_category_id'}"/>
+                    <filter name="name" string="Name" context="{'group_by': 'name'}"/>
+                    <filter name="phone" string="phone" context="{'group_by': 'phone'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- <record id="inherit_res_partner_geolocation_view" model="ir.ui.view">
+        <field name="name">res.partner.geolocation.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_geolocalize.view_crm_partner_geo_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='geo_location']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+        </field>
+    </record> -->
+
+<!-- no yet data button-->
+
+    <record id="res_partner_purchase_stock_inherit" model="ir.ui.view">
+        <field name="name">res.partner.purchase.stock.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="purchase_stock.res_partner_view_purchase_buttons_inherit"/>
+        <field name="arch" type="xml">
+
+          <xpath expr="//button[@name='%(purchase_stock.action_purchase_vendor_delay_report)d']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+           
+        </field>
+    </record>
+
+<!-- sales button-->
+
+    <record id="res_partner_view_buttons_inherit" model="ir.ui.view">
+        <field name="name">res.partner.view.buttons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sale.res_partner_view_buttons"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_sale_order']" position="attributes">
+                <attribute name="attrs">{'invisible': "[('is_vender','=',True),('is_customer','!=',True)]"}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+<!-- Purchase button-->
+
+    <!-- <record id="inherit_res_partner_purchase_buttons_view" model="ir.ui.view">
+        <field name="name">res.partner.view.purchase.buttons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="purchase.res_partner_view_purchase_buttons"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='379']" position="attributes">
+                <attribute name="attrs">{'invisible': "[('is_customer','=',True),('is_vender','!=',True)]"}</attribute>
+            </xpath>
+        </field>    
+    </record> -->
+    
+<!-- vendor bill button-->
+
+    <!-- <record id="inherit_res_partner_purchase_account_view" model="ir.ui.view">
+        <field name="name">res.partner.view.purchase.account.buttons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="purchase.res_partner_view_purchase_account_buttons"/>
+        <field name="arch" type="xml">
+            <xpath expr="// button[@name='380']" position="attributes">
+                <attribute name="attrs">{'invisible': "[('is_customer','=',True),('is_vender','!=',True)]"}</attribute>
+            </xpath>
+        </field>    
+    </record> -->
+
+<!-- invoiced button-->
+
+    <record id="inherit_partner_view_buttons" model="ir.ui.view">
+        <field name="name">partner.view.buttons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.partner_view_buttons"/>
+        <field name="arch" type="xml">
+            <xpath expr="// button[@name='action_view_partner_invoices']" position="attributes">
+                <attribute name="attrs">{'invisible': "[('is_vender','=',True),('is_customer','!=',True)]"}</attribute>
+            </xpath>
+        </field>    
+    </record>
+
+    <record id="action_vender" model="ir.actions.act_window">
+        <field name="name">Vender</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('is_vender', '=', True)]</field>
+        <field name="context">{'default_is_vender': True,'default_is_company': True}</field>
+    </record>
+
+    <record id="contacts.action_contacts" model="ir.actions.act_window">
+        <field name="name">Customer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="context">{'default_is_company': True,'default_is_customer': True,'default_l10n_in_gst_treatment': 'consumer'}</field>
+        <field name="domain">[('is_customer', '=', True)]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a Contact in your address book
+          </p><p>
+            Odoo helps you track all activities related to your contacts.
+          </p>
+        </field>
+    </record>
+
+
+    <record id="sms.res_partner_act_window_sms_composer_multi" model="ir.actions.act_window">
+        <field name="name">Send SMS Text Message</field>
+        <field name="res_model">sms.composer</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{
+            'default_composition_mode': 'mass',
+            'default_mass_keep_log': True,
+            'default_res_ids': active_ids
+        }</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_view_types">list</field>
+    </record>
+    <record id="sms.res_partner_act_window_sms_composer_single" model="ir.actions.act_window">
+        <field name="name">Send SMS Text Message</field>
+        <field name="res_model">sms.composer</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{
+            'default_composition_mode': 'comment',
+            'default_res_id': active_id,
+        }</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_view_types">form</field>
+    </record>
+
+    <record id="portal.partner_wizard_action_create_and_open" model="ir.actions.server">
+        <field name="name">Grant portal access</field>
+        <field name="model_id" ref="portal.model_portal_wizard"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_wizard()</field>
+    </record>
+
+    <record id="mail.action_partner_mass_mail" model="ir.actions.act_window">
+        <field name="name">Send email</field>
+        <field name="res_model">mail.compose.message</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context" eval="{
+            'default_composition_mode': 'mass_mail',
+            'default_partner_to': '{{ object.id or \'\' }}',
+            'default_use_template': False,
+            'default_reply_to_force_new': True,
+        }"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+
+    <record id="base.action_partner_merge" model="ir.actions.act_window">
+        <field name="name">Merge</field>
+        <field name="res_model">base.partner.merge.automatic.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>
+                         

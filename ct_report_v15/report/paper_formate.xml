@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- For Job Detail Print -->
+    <record id="paper_format_invoice_from" model="report.paperformat">
+        <field name="name">Invoice</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">1</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="paper_format_nameget_from" model="report.paperformat">
+        <field name="name">NAME</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">12</field>
+        <field name="margin_bottom">1</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="paper_all_manager_report_from" model="report.paperformat">
+        <field name="name">Manager</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">4</field>
+        <field name="margin_bottom">6</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- <report 
+        string="Menu Report"
+        id="action_manu" 
+        model="hop.menu.report.wizard" 
+        report_type="qweb-pdf" 
+        name="ct_report_v15.confirm_menu_reports" 
+        file="ct_report_v15.report_menu" />
+
+    <record id="ct_report_v15.action_manu" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from" />
+    </record> -->
+        <record id="action_manu" model="ir.actions.report">
+            <field name="name">Menu Report</field>
+            <field name="model">hop.menu.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_report_v15.confirm_menu_reports</field>
+            <field name="report_file">ct_report_v15.report_menu</field>
+            <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+            <field name="binding_model_id" ref="model_hop_menu_report_wizard"/>
+            <field name="print_report_name">'Menu Report'</field>
+            <field name="binding_type">report</field>
+        </record>
+
+    
+    <!-- <report 
+        string="Utensils Report"
+        id="action_utensils_report" 
+        model="hop.utensils.report.wizard" 
+        report_type="qweb-pdf" 
+        name="ct_report_v15.report_utensils_stock" 
+        file="ct_report_v15.utensils_report" />
+
+    <record id="ct_report_v15.action_utensils_report" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from" />
+    </record> -->
+
+     <record id="action_utensils_report" model="ir.actions.report">
+            <field name="name">Utensils Report</field>
+            <field name="model">hop.utensils.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_report_v15.report_utensils_stock</field>
+            <field name="report_file">ct_report_v15.utensils_report</field>
+            <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+            <field name="binding_model_id" ref="model_hop_utensils_report_wizard"/>
+            <field name="print_report_name">'Utensils Report'</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_all_manager_report" model="ir.actions.report">
+            <field name="name">All Manager Report</field>
+            <field name="model">hop.all.manager.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_report_v15.report_all_manager</field>
+            <field name="report_file">ct_report_v15.manager_report</field>
+            <field name="paperformat_id" ref="ct_report_v15.paper_all_manager_report_from"/>
+            <field name="binding_model_id" ref="model_hop_all_manager_report_wizard"/>
+            <field name="print_report_name">'All Manager Report'</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_all_production_report" model="ir.actions.report">
+            <field name="name">All Production Report</field>
+            <field name="model">hop.all.production.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_report_v15.report_all_production</field>
+            <field name="report_file">ct_report_v15.production_report</field>
+            <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+            <field name="binding_model_id" ref="model_hop_all_production_report_wizard"/>
+            <field name="print_report_name">'All Manager Report'</field>
+            <field name="binding_type">report</field>
+        </record>
+
+     <!-- <report 
+        string="Ingredients Report"
+        id="action_ingredients_report" 
+        model="hop.ingredients.report.wizard" 
+        report_type="qweb-pdf" 
+        name="ct_report_v15.ingredients_report" 
+        file="ct_report_v15.ingredients_report" />
+
+    <record id="ct_report_v15.action_ingredients_report" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from" />
+        
+    </record> -->
+
+    <record id="action_ingredients_report" model="ir.actions.report">
+            <field name="name">Ingredients Report</field>
+            <field name="model">hop.ingredients.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_report_v15.ingredients_report</field>
+            <field name="report_file">ct_report_v15.ingredients_report</field>
+            <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+            <field name="binding_model_id" ref="model_hop_ingredients_report_wizard"/>
+            <field name="print_report_name">'Total Raw-Material Report'</field>
+            <field name="binding_type">report</field>
+        </record>
+
+    <record id="action_ingredients_report_details" model="ir.actions.report">
+        <field name="name">Ingredients Report</field>
+        <field name="model">hop.ingredients.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.ingredients_report_details</field>
+        <field name="report_file">ct_report_v15.ingredients_report_details</field>
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+        <field name="binding_model_id" ref="model_hop_ingredients_report_wizard"/>
+        <field name="print_report_name">'Item wise raw material report'</field>
+        <field name="binding_type">report</field>
+    </record>
+
+<!-- 
+    <report 
+        string="In-House Vendor Report"
+        id="action_in_house_vender_report" 
+        model="hop.ingredients.report.wizard" 
+        report_type="qweb-pdf" 
+        name="ct_report_v15.in_house_vender_report" 
+        file="ct_report_v15.in_house_vender_report" />
+
+    <record id="ct_report_v15.action_in_house_vender_report" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from" />
+        
+    </record> -->
+
+    <record id="action_in_house_vender_report" model="ir.actions.report">
+            <field name="name">In-House Vendor Report</field>
+            <field name="model">hop.in.house.vender.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_report_v15.in_house_vender_report</field>
+            <field name="report_file">ct_report_v15.in_house_vender_report</field>
+            <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+            <field name="binding_model_id" ref="model_hop_ingredients_report_wizard"/>
+            <field name="print_report_name">'In-House Vender Basket Report'</field>
+            <field name="binding_type">report</field>
+        </record>
+
+    <!-- <report
+        string="Function Wise Recipes Report"
+        id="action_function_wise_recipes_report" 
+        model="hop.function.wise.recipes.report.wizard" 
+        report_type="qweb-pdf" 
+        name="ct_report_v15.function_wise_recipy" 
+        file="ct_report_v15.function_wise_recipes" />
+
+    <record id="ct_report_v15.action_function_wise_recipes_report" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from" />
+        
+    </record> -->
+
+    <record id="action_function_wise_recipes_report" model="ir.actions.report">
+            <field name="name">Function Wise Recipes Report</field>
+            <field name="model">hop.function.wise.recipes.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_report_v15.function_wise_recipy</field>
+            <field name="report_file">ct_report_v15.function_wise_recipes</field>
+            <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+            <field name="binding_model_id" ref="model_hop_function_wise_recipes_report_wizard"/>
+            <field name="print_report_name">'Function Wise Recipes Report'</field>
+            <field name="binding_type">report</field>
+        </record>
+
+    <!-- <report 
+        string="Name Get fuction Report"
+        id="action_name_get_fuction_report" 
+        model="hop.name.get.report.wizard" 
+        report_type="qweb-pdf" 
+        name="ct_report_v15.name_get_fuction_report" 
+        file="ct_report_v15.name_get_fuction_report" />
+
+    <record id="ct_report_v15.action_name_get_fuction_report" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from" />
+    </record> -->
+
+     <record id="action_name_get_fuction_report" model="ir.actions.report">
+            <field name="name">Name Get function Report</field>
+            <field name="model">hop.name.get.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_report_v15.name_get_fuction_report</field>
+            <field name="report_file">ct_report_v15.name_get_fuction_report</field>
+            <field name="paperformat_id" ref="ct_report_v15.paper_format_nameget_from"/>
+            <field name="binding_model_id" ref="model_hop_name_get_report_wizard"/>
+            <field name="print_report_name">'Name Get function Report'</field>
+            <field name="binding_type">report</field>
+            <field name="pdf_watermark_expression">docs[:1].company_id.watermark_image_name_tag</field>
+        </record>
+
+    <!-- <report 
+        string="Vendor confirmation From Report"
+        id="action_vendor_confirmation_report" 
+        model="hop.vender.confirmation.from.wizard" 
+        report_type="qweb-pdf" 
+        name="ct_report_v15.vendor_confirmation" 
+        file="ct_report_v15.vendor_confirmation_from" />
+
+    <record id="ct_report_v15.action_vendor_confirmation_report" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from" />
+    </record> -->
+
+    <record id="action_vendor_confirmation_report" model="ir.actions.report">
+            <field name="name">Vendor confirmation Report</field>
+            <field name="model">hop.vender.confirmation.from.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_report_v15.vendor_confirmation</field>
+            <field name="report_file">ct_report_v15.vendor_confirmation_from</field>
+            <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+            <field name="binding_model_id" ref="model_hop_vender_confirmation_from_wizard"/>
+            <field name="print_report_name">'Vendor confirmation From Report'</field>
+            <field name="binding_type">report</field>
+    </record>
+
+
+     <!-- <report 
+        string="Confirm In-House Menu And Service Report"
+        id="action_confirm_in_house_menu_and_service" 
+        model="hop.confirm.in.house.service.report.wizard" 
+        report_type="qweb-pdf" 
+        name="ct_report_v15.confirm_in_house_menu_and_service_report" 
+        file="ct_report_v15.con_in_house_and_service_report" />
+
+    <record id="ct_report_v15.action_confirm_in_house_menu_and_service" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from" />
+    </record> -->
+
+    <record id="action_confirm_in_house_menu_and_service" model="ir.actions.report">
+            <field name="name">Confirm In-House Menu And Service Report</field>
+            <field name="model">hop.confirm.in.house.service.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_report_v15.confirm_in_house_menu_and_service_report</field>
+            <field name="report_file">ct_report_v15.con_in_house_and_service_report</field>
+            <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+            <field name="binding_model_id" ref="model_hop_confirm_in_house_service_report_wizard"/>
+            <field name="print_report_name">'Same As Manager Combine Menu Report'</field>
+            <field name="binding_type">report</field>
+
+    </record>
+
+     <!-- <report 
+        string="Feed Back Form Report"
+        id="action_feed_back_report" 
+        model="feedback.report.wizard" 
+        report_type="qweb-pdf" 
+        name="ct_report_v15.feed_back_report" 
+        file="ct_report_v15.feedback_report" />
+
+    <record id="ct_report_v15.action_feed_back_report" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from" />
+
+    </record> -->
+    <record id="action_feed_back_report" model="ir.actions.report">
+        <field name="name">Feed Back Form Report</field>
+        <field name="model">feedback.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.feed_back_report</field>
+        <field name="report_file">ct_report_v15.feedback_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+        <field name="binding_model_id" ref="model_feedback_report_wizard"/>
+        <field name="print_report_name">'Feed Back Form Report'</field>
+        <field name="binding_type">report</field>
+
+</record>
+     
+    <record id="paper_format_lead_form" model="report.paperformat">
+        <field name="name">Lead</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">8</field>
+        <field name="margin_bottom">8</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- <report 
+        string="Menu"
+        id="action_lead_funtion_report" 
+        model="hop.lead" 
+        report_type="qweb-pdf" 
+        name="ct_report_v15.lead_funtion_reports" 
+        file="ct_report_v15.lead_funtion_report" />
+
+    <record id="ct_report_v15.action_lead_funtion_report" model="ir.actions.report">
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_lead_form" />
+
+    </record> -->
+
+    <record id="action_lead_funtion_report" model="ir.actions.report">
+        <field name="name">Menu</field>
+        <field name="model">hop.lead</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.lead_funtion_reports</field>
+        <field name="report_file">ct_report_v15.lead_funtion_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_lead_form"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="print_report_name">'Menu'</field>
+        <field name="binding_type">report</field>
+        <field name="pdf_watermark_expression">docs[:1].company_id.watermark_image</field>
+        <!-- <field name="menu" eval="False"/> -->
+    </record>
+
+    <record id="paper_format_sale_lead_form" model="report.paperformat">
+        <field name="name">Sale Lead</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_print_report" model="ir.actions.report">
+        <field name="name">Quotation</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.print_report</field>
+        <field name="report_file">ct_report_v15.print_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_sale_lead_form"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="print_report_name">'Quotation'</field>
+        <field name="binding_type">report</field>
+        <!-- <field name="menu" eval="False"/> -->
+    </record>
+
+    <record id="action_quotation_print_report" model="ir.actions.report">
+        <field name="name">Quotation</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.quotation_print_report</field>
+        <field name="report_file">ct_report_v15.quotation_print_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_sale_lead_form"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="print_report_name">'Quotation'</field>
+        <field name="binding_type">report</field>
+        <!-- <field name="menu" eval="False"/> -->
+    </record>
+
+    <record id="ledger_paper_format" model="report.paperformat">
+        <field name="name">ledger</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+    <record id="action_ledger_report" model="ir.actions.report">
+        <field name="name">Ledger</field>
+        <field name="model">hop.ledger</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.ledger_report</field>
+        <field name="report_file">ct_report_v15.ledger_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.ledger_paper_format"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="print_report_name">'ledger'</field>
+        <field name="binding_type">report</field>
+        <!-- <field name="menu" eval="False"/> -->
+    </record>
+
+    <record id="action_costing_report" model="ir.actions.report">
+        <field name="name">Costing</field>
+        <field name="model">function.costing.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.costing_report</field>
+        <field name="report_file">ct_report_v15.costing_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.ledger_paper_format"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="print_report_name">'CostingReport'</field>
+        <field name="binding_type">report</field>
+        <!-- <field name="menu" eval="False"/> -->
+    </record>
+
+    <record id="action_cancel_report" model="ir.actions.report">
+        <field name="name">Cancel Report</field>
+        <field name="model">hop.cancel.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.cancel_report</field>
+        <field name="report_file">ct_report_v15.cancel_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.ledger_paper_format"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="print_report_name">'CancelReport'</field>
+        <field name="binding_type">report</field>
+        <!-- <field name="menu" eval="False"/> -->
+    </record>
+
+    <record id="action_outstanding_report" model="ir.actions.report">
+        <field name="name">Outstanding</field>
+        <field name="model">hop.outstanding</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.outstanding_rpt</field>
+        <field name="report_file">ct_report_v15.outstanding_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.ledger_paper_format"/>
+        <field name="binding_model_id" ref=""/>
+        <field name="print_report_name">'Outstanding'</field>
+        <field name="binding_type">report</field>
+        <!-- <field name="menu" eval="False"/> -->
+    </record>
+
+    <record id="action_vendor_service_report" model="ir.actions.report">
+        <field name="name">Vendor Service Report</field>
+        <field name="model">hop.vender.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.vender_service_rpt</field>
+        <field name="report_file">ct_report_v15.vender_service_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+        <field name="binding_model_id" ref="model_hop_vender_report_wizard"/>
+        <field name="print_report_name">'Vendor Service Report'</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_vendor_addons_report" model="ir.actions.report">
+        <field name="name">Vendor Add-ons Report</field>
+        <field name="model">hop.vender.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.vender_addons_rpt</field>
+        <field name="report_file">ct_report_v15.vender_addons_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+        <field name="binding_model_id" ref="model_hop_vender_report_wizard"/>
+        <field name="print_report_name">'Vendor Add-ons Report'</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_vendor_in_house_out_source_report" model="ir.actions.report">
+        <field name="name">Vendor In-house Out-source Report</field>
+        <field name="model">hop.vender.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ct_report_v15.vender_in_house_out_source_rpt</field>
+        <field name="report_file">ct_report_v15.vender_in_house_out_source_report</field>
+        <field name="paperformat_id" ref="ct_report_v15.paper_format_invoice_from"/>
+        <field name="binding_model_id" ref="model_hop_vender_report_wizard"/>
+        <field name="print_report_name">'Vendor In-house Out-source Report'</field>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

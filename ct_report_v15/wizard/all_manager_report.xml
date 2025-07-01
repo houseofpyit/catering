@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hop_all_manager_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">hop.all.manager.report.wizard.view.form</field>
+        <field name="model">hop.all.manager.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="All Manager Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date" />
+                            <field name="is_utensil"/>
+                            <field name="is_blank_utensils"/>
+                            <field name="is_vendor"/>
+                            <field name="is_feedback"/>
+                            <field name="is_menu"/>
+                        </group>
+                        <group>
+                            <field name="fuction_ids" options="{'no_quick_create':true}"  widget="many2many_tags" required="1"/>
+                            <field name="language" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print" string="Generate" type="object" class="oe_highlight" />                   
+                    <button string="Cancel" class="oe_link oe_highlight" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hop_all_manager_report_wizard" model="ir.actions.act_window">
+        <field name="name">All Manager Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hop.all.manager.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
