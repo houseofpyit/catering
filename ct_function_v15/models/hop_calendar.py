@@ -212,6 +212,9 @@ class hop_calendar(models.Model):
                     }
 
                     time, am_pm = time_mapping.get(res.meal_type, ('', ''))
+                    if res.meal_type == 'parcel':
+                        time = res.time
+                        am_pm = res.am_pm
                     res.lead_id = self.env['hop.lead'].create({
                         'party_name_id' : partner.id,
                         'mobile_num' : partner.phone,
@@ -279,6 +282,9 @@ class hop_calendar(models.Model):
                             }
 
                             time, am_pm = time_mapping.get(res.meal_type, ('', ''))
+                            if res.meal_type == 'parcel':
+                                time = res.time
+                                am_pm = res.am_pm
                             res.lead_id = self.env['hop.lead'].create({
                                 'name':last_record.seq_name,
                                 'party_name_id' : partner.id,
