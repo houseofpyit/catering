@@ -39,3 +39,15 @@ class HopFunctionMst(models.Model):
             })
         res.product_id = product_rec.id
         return res
+    
+    def create_product(self):
+        product_rec =  self.env['product.product'].search([('name','=',self.name),
+                                                      ('detailed_type','=','service'),
+                                                      ('is_funcion','=',True)])
+        if not product_rec:
+            product_rec = self.env['product.product'].create({
+                'name':self.name,
+                'detailed_type':'service',
+                'is_funcion':True,
+                })
+    

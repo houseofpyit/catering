@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <form string="Function Master">
                 <sheet>
+                     <!-- <button name="create_product" string="ok" type="object" /> -->
                     <group>
                         <group>
                             <field name="name" />

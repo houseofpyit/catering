@@ -224,7 +224,8 @@ class VenderReportWizard(models.TransientModel):
                 'lunch': 'Lunch',
                 'hi-tea': 'HI-TEA',
                 'dinner': 'Dinner',
-                'late_night_snacks': 'Late Night Snacks'
+                'late_night_snacks': 'Late Night Snacks',
+                'parcel':'Parcel'
             }
         if self.type == 'inhouse' or self.type == 'outsource':
             self.in_house_out_source_report_create() 

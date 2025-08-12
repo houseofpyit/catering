@@ -54,6 +54,9 @@
         <record model="product.product" id="meal_8">
             <field name="name">Mini Meals</field>
         </record>
+        <record model="product.product" id="meal_9">
+            <field name="name">Parcel</field>
+        </record>
         <record id="hr_discount_journal" model="account.journal">
             <field name="name">Discount</field>
             <field name="code">DISC</field>

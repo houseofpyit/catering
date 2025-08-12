@@ -196,6 +196,8 @@ class hoplead(models.Model):
             product = self.env.ref('ct_function_v15.meal_7')
         elif self.meal_type == 'mini_meals':
             product = self.env.ref('ct_function_v15.meal_8')
+        elif self.meal_type == 'parcel':
+            product = self.env.ref('ct_function_v15.meal_9')
 
         if record:
             
