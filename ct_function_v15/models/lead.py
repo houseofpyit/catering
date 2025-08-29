@@ -20,7 +20,7 @@ class hoplead(models.Model):
     fuction_name_id = fields.Many2one('hop.function.mst',string="Function Name",tracking=True,readonly=True,stage={'production': [('readonly', False)]})
     date = fields.Date(string="Function Date",default=fields.Date.context_today,tracking=True,readonly=True,stage={'production': [('readonly', False)]})
     emergency_contact = fields.Text(string="Emergency Contact",tracking=True,readonly=True,stage={'production': [('readonly', False)]})
-    remarks = fields.Text(string="Remarks",tracking=True,readonly=True,stage={'production': [('readonly', False)]})
+    remarks = fields.Text(string="Remarks",tracking=True)
     meal_type = fields.Selection([('early_morning_tea','Early Morning Tea'),('breakfast','Breakfast'),('brunch','Brunch'),('mini_meals','Mini Meals'),('lunch','Lunch'),('hi-tea','HI-TEA'),('dinner','Dinner'),('late_night_snacks','Late Night Snacks'),('parcel','Parcel')],string="Meal Type",tracking=True)
     no_of_pax = fields.Integer(string="No Of Pax",tracking=True,readonly=True,stage={'production': [('readonly', False)]})
     time = fields.Float(string="Time",tracking=True,readonly=True,stage={'production': [('readonly', False)]})

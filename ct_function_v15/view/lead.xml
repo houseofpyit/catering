@@ -57,7 +57,7 @@
                                 <field name="am_pm" class="o_address_city" style="width:20%;" required="True" attrs="{'readonly': [('order_count','>',0)] }"/>
                             </div>
                             <field name="emergency_contact" attrs="{'readonly': [('order_count','>',0)] }"/>
-                            <field name="remarks" attrs="{'readonly': [('order_count','>',0)] }"/>
+                            <field name="remarks" />
                             <field name="hop_funtion_id" invisible="1" />
                         </group>
                     </group>
